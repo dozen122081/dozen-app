@@ -14,10 +14,14 @@ const ExBoard = () => {
     return (
         <div className="max-h-screen h-full">
             <Excalidraw>
-                <div>
-                    <MainMenu>
-                    </MainMenu>
-                </div>
+                <MainMenu>
+                    <MainMenu.ItemLink href="https://google.com">
+                        Google
+                    </MainMenu.ItemLink>
+                    <MainMenu.ItemLink href="https://excalidraw.com">
+                        Excalidraw
+                    </MainMenu.ItemLink>
+                </MainMenu>
             </Excalidraw>
             {/* board comming soon.... */}
             {/* <Excalidraw>
