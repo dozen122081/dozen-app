@@ -16,12 +16,6 @@ const ExBoard = () => {
             <Excalidraw>
                 <div>
                     <MainMenu>
-                        <MainMenu.Item onSelect={() => {}}>
-                            Item1
-                        </MainMenu.Item>
-                        <MainMenu.Item onSelect={() => {}}>
-                            Item 2
-                        </MainMenu.Item>
                     </MainMenu>
                 </div>
             </Excalidraw>
