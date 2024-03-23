@@ -19,32 +19,17 @@ const ExBoard = () => {
                 >
                     
                 </div>
+                <div 
+                    className="flex justify-center items-center h-10 w-10 z-[9999] absolute right-2.5 bottom-[2.59%]  bg-neutral-50 "
+                >
+                    
+                </div>
+                <div 
+                    className="flex justify-center items-center h-10 w-[7rem] z-[9999] absolute right-2.5 top-[2.10%]  bg-neutral-50 "
+                >
+                    
+                </div>
             </Excalidraw>
-            {/* board comming soon.... */}
-            {/* <Excalidraw>
-                <WelcomeScreen>
-                    <WelcomeScreen.Center>
-                        <WelcomeScreen.Center.Logo >DoZen</WelcomeScreen.Center.Logo>
-                        <WelcomeScreen.Center.Heading>
-                            Tap to start Drawing
-                        </WelcomeScreen.Center.Heading>
-                        <WelcomeScreen.Center.Menu>
-                            <WelcomeScreen.Center.MenuItemLink href="https://github.com/excalidraw/excalidraw">
-                                DoZen Board Powered By Excalidraw
-                            </WelcomeScreen.Center.MenuItemLink>
-                            {/* <WelcomeScreen.Center.MenuItemHelp /> 
-                        </WelcomeScreen.Center.Menu>
-                    </WelcomeScreen.Center>
-                </WelcomeScreen>
-                <MainMenu>
-                    <MainMenu.Item onSelect={() => window.alert("Item1")}>
-                        Item1
-                    </MainMenu.Item>
-                    <MainMenu.Item onSelect={() => window.alert("Item2")}>
-                        Item 2
-                    </MainMenu.Item>
-                </MainMenu>
-            </Excalidraw> */}
         </div>
     )
 }
