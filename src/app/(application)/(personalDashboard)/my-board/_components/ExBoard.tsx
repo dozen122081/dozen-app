@@ -14,7 +14,14 @@ const ExBoard = () => {
     return (
         <div className="max-h-screen h-full">
             <Excalidraw>
-
+            <MainMenu>
+                    <MainMenu.Item onSelect={() => window.alert("Item1")}>
+                        Item1
+                    </MainMenu.Item>
+                    <MainMenu.Item onSelect={() => window.alert("Item2")}>
+                        Item 2
+                    </MainMenu.Item>
+                </MainMenu>
             </Excalidraw>
             {/* board comming soon.... */}
             {/* <Excalidraw>
