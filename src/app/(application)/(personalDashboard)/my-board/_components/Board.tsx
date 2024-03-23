@@ -6,7 +6,7 @@ import ExBoard from "./ExBoard";
 const Board: React.FC = () => {
   return (
     <div className="h-[90vh] w-full">
-      <ExBoard />
+      {/* <ExBoard /> */}
     </div>
   );
 };
