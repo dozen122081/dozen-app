@@ -15,12 +15,12 @@ const ExBoard = () => {
         <div className="max-h-screen h-full relative">
             <Excalidraw>
                 <div 
-                    className="flex justify-center items-center h-10 w-10 z-[9999] relative left-3.5 top-2.5  bg-background"
+                    className="flex justify-center items-center h-10 w-10 z-[9999] relative left-3.5 top-[2%]  bg-background"
                 >
                     
                 </div>
                 <div 
-                    className="flex justify-center items-center h-10 w-10 z-[9999] absolute right-2.5 bottom-[2.59%]  bg-background "
+                    className="flex justify-center items-center h-[4rem] w-[4rem] z-[9999] absolute right-2.5 bottom-[1.9%]  bg-background "
                 >
                     
                 </div>
