@@ -12,18 +12,13 @@ const Excalidraw = dynamic(
 );
 const ExBoard = () => {
     return (
-        <div className="max-h-screen h-full">
+        <div className="max-h-screen h-full relative">
             <Excalidraw>
-                <MainMenu>
-                    <MainMenu.ItemCustom>
-                        <button
-                            style={{ height: "2rem" }}
-                            onClick={() => window.alert("custom menu item")}
-                        >
-                            custom item
-                        </button>
-                    </MainMenu.ItemCustom>
-                </MainMenu>
+                <div 
+                    className="flex justify-center items-center h-10 w-10 z-[9999] relative left-3.5 top-2.5  bg-neutral-50 "
+                >
+                    
+                </div>
             </Excalidraw>
             {/* board comming soon.... */}
             {/* <Excalidraw>
