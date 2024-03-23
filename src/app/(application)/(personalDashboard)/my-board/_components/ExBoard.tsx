@@ -15,12 +15,14 @@ const ExBoard = () => {
         <div className="max-h-screen h-full">
             <Excalidraw>
                 <MainMenu>
-                    <MainMenu.ItemLink href="https://google.com">
-                        Google
-                    </MainMenu.ItemLink>
-                    <MainMenu.ItemLink href="https://excalidraw.com">
-                        Excalidraw
-                    </MainMenu.ItemLink>
+                    <MainMenu.ItemCustom>
+                        <button
+                            style={{ height: "2rem" }}
+                            onClick={() => window.alert("custom menu item")}
+                        >
+                            custom item
+                        </button>
+                    </MainMenu.ItemCustom>
                 </MainMenu>
             </Excalidraw>
             {/* board comming soon.... */}
