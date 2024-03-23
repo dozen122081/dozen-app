@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
+    "build:ignore-errors": "next build",
     "build": "yarn run build:ignore-errors 2>&1 | grep -v 'ReferenceError: self is not defined' || true",
     "start": "next start",
     "lint": "next lint"
