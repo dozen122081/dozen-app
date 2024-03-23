@@ -12,8 +12,10 @@ const Excalidraw = dynamic(
 );
 const ExBoard = () => {
     return (
-        <div>
-            <Excalidraw />
+        <div className="max-h-screen h-full">
+            <Excalidraw>
+
+            </Excalidraw>
             {/* board comming soon.... */}
             {/* <Excalidraw>
                 <WelcomeScreen>
