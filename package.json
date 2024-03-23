@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build 2>/dev/null || true",
+    "build": "NODE_OPTIONS='--unhandled-rejections=strict' next build",
     "start": "next start",
     "lint": "next lint"
   },
