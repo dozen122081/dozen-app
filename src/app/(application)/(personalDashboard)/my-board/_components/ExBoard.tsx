@@ -25,7 +25,7 @@ const ExBoard = () => {
                     
                 </div>
                 <div 
-                    className="flex justify-center items-center h-10 w-[7rem] z-[9999] absolute right-2.5 top-[2.10%]  bg-background "
+                    className="flex justify-center items-center h-[4.5rem] w-[7rem] z-[9999] absolute right-2.5 top-[1.9%]  bg-background "
                 >
                     
                 </div>
