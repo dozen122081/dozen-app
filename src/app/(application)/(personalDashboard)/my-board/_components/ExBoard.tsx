@@ -16,10 +16,10 @@ const ExBoard = () => {
             <Excalidraw>
                 <div>
                     <MainMenu>
-                        <MainMenu.Item onSelect={() => window.alert("Item1")}>
+                        <MainMenu.Item onSelect={() => {}}>
                             Item1
                         </MainMenu.Item>
-                        <MainMenu.Item onSelect={() => window.alert("Item2")}>
+                        <MainMenu.Item onSelect={() => {}}>
                             Item 2
                         </MainMenu.Item>
                     </MainMenu>
