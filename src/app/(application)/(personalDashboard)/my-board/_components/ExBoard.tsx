@@ -14,20 +14,9 @@ const ExBoard = () => {
     return (
         <div className="max-h-screen h-full">
             <Excalidraw>
-                <WelcomeScreen>
-                    <WelcomeScreen.Center>
-                        <WelcomeScreen.Center.Logo >DoZen</WelcomeScreen.Center.Logo>
-                        <WelcomeScreen.Center.Heading>
-                            Tap to start Drawing
-                        </WelcomeScreen.Center.Heading>
-                        <WelcomeScreen.Center.Menu>
-                            <WelcomeScreen.Center.MenuItemLink href="https://github.com/excalidraw/excalidraw">
-                                DoZen Board Powered By Excalidraw
-                            </WelcomeScreen.Center.MenuItemLink>
-                            <WelcomeScreen.Center.MenuItemHelp />
-                        </WelcomeScreen.Center.Menu>
-                    </WelcomeScreen.Center>
-                </WelcomeScreen>
+                <div>
+                   sdfsdf
+                </div>
             </Excalidraw>
             {/* board comming soon.... */}
             {/* <Excalidraw>
