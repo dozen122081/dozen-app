@@ -13,7 +13,9 @@ const Excalidraw = dynamic(
 const ExBoard = () => {
     return (
         <div>
-            <Excalidraw>
+            <Excalidraw />
+            {/* board comming soon.... */}
+            {/* <Excalidraw>
                 <WelcomeScreen>
                     <WelcomeScreen.Center>
                         <WelcomeScreen.Center.Logo >DoZen</WelcomeScreen.Center.Logo>
@@ -24,7 +26,7 @@ const ExBoard = () => {
                             <WelcomeScreen.Center.MenuItemLink href="https://github.com/excalidraw/excalidraw">
                                 DoZen Board Powered By Excalidraw
                             </WelcomeScreen.Center.MenuItemLink>
-                            {/* <WelcomeScreen.Center.MenuItemHelp /> */}
+                            {/* <WelcomeScreen.Center.MenuItemHelp /> 
                         </WelcomeScreen.Center.Menu>
                     </WelcomeScreen.Center>
                 </WelcomeScreen>
@@ -36,7 +38,7 @@ const ExBoard = () => {
                         Item 2
                     </MainMenu.Item>
                 </MainMenu>
-            </Excalidraw>
+            </Excalidraw> */}
         </div>
     )
 }
