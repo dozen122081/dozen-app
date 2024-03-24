@@ -32,11 +32,19 @@ export const BurnBarrel = ({
         const cardId = e.dataTransfer.getData("cardId");
 
         setCards((pv) => pv.filter((c) => c.id !== cardId));
-        await deletePersonalTodo({
-            id: cardId,
-            path: pathname,
-            author,
-        })
+        const response = await fetch('/api/todo', {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ id: cardId, path: pathname, author: author })
+        });
+
+        // await deletePersonalTodo({
+        //     id: cardId,
+        //     path: pathname,
+        //     author,
+        // })
 
         setActive(false);
     };
@@ -47,8 +55,8 @@ export const BurnBarrel = ({
             onDragOver={handleDragOver}
             onDragLeave={handleDragLeave}
             className={`h-40 w-full flex items-center justify-center rounded border text-3xl ${active
-                    ? "border-red-800 bg-red-800/20 text-red-500"
-                    : "border-neutral-500 bg-neutral-500/20 text-neutral-500"
+                ? "border-red-800 bg-red-800/20 text-red-500"
+                : "border-neutral-500 bg-neutral-500/20 text-neutral-500"
                 }`}
         >
             {active ? <FaFire className="animate-bounce" /> : <FiTrash />}

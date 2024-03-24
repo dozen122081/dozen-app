@@ -67,14 +67,30 @@ const Card = ({
         setAppend(true)
         console.log("onSubmit fired");
         try {
-            await updatePersonalTodo({
-                id,
-                title: values.title,
-                author: author,
-                description: values.description,
-                path: pathname,
-                category: category,
+            // await updatePersonalTodo({
+            //     id,
+            //     title: values.title,
+            //     author: author,
+            //     description: values.description,
+            //     path: pathname,
+            //     category: category,
+            // });
+            const response = await fetch('/api/todo', {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    id: id,
+                    title: values.title,
+                    author: author,
+                    description: values.description,
+                    path: pathname,
+                })
             });
+            if (!response.ok) {
+                throw new Error('Failed to update personal todo');
+            }
             form.reset(); // Reset the form after successful submission
             console.log("getting new todos")
 
@@ -103,7 +119,7 @@ const Card = ({
                                         Make changes to your todos here. Click update when you're done.
                                     </SheetDescription>
                                 </SheetHeader>
-                                <Separator className="my-4"/>
+                                <Separator className="my-4" />
                                 <div className="flex flex-col gap-3">
                                     <div className="flex flex-col gap1">
                                         <h2 className='font-medium text-lg'>Title</h2>
@@ -123,7 +139,7 @@ const Card = ({
                                         </div>
                                     </div>
                                 </div>
-                                <Separator className="my-4"/>
+                                <Separator className="my-4" />
                                 <h2 className="text-md font-bold">New Values</h2>
                                 <Form {...form}>
                                     <motion.form

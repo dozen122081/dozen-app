@@ -134,18 +134,18 @@ const AsideBar = ({
         )}
       >
         {/* Aside Controls  */}
-        <div
+        <span
           onMouseDown={handleMouseDown}
           onClick={resetWidth}
           className='opacity-0 group-hover/aside:opacity-60 h-full w-2 bg-secondary absolute top-0 right-0 transition-all duration-1 cursor-ew-resize'
         />
-        <div
+        <span
           role={"button"}
           onClick={collapse}
           className='absolute top-1 right-4 h-7 w-7 flex items-center justify-center hover:cursor-pointer'
         >
           <ChevronsLeft className='h-4 w-4' />
-        </div>
+        </span>
 
         {
           !isCollapsed && (
@@ -173,7 +173,7 @@ const AsideBar = ({
               <Accordion type="single" collapsible>
                 <AccordionItem value="item-1">
                   <AccordionTrigger>
-                    <div className="font-medium text-xs flex justify-between w-full items-center mb-1 px-4">
+                    <section className="font-medium text-xs flex justify-between w-full items-center mb-1 px-4">
                       <span className='font-semibold text-md'>My Groups</span>
                       <Button
                         asChild
@@ -188,22 +188,22 @@ const AsideBar = ({
                           />
                         </Link>
                       </Button>
-                    </div>
+                    </section>
                   </AccordionTrigger>
                   <AccordionContent>
                     {
                       !isLoadedOrg || !isLoadedOrgList || userMemberships.isLoading
                         ? (
                           <>
-                            <div className="flex items-center justify-between mb-2">
+                            <section className="flex items-center justify-between mb-2">
                               <Skeleton className="h-10 w-[50%]" />
                               <Skeleton className="h-10 w-10" />
-                            </div>
-                            <div className="space-y-2">
+                            </section>
+                            <section className="space-y-2">
                               <NavItem.Skeleton />
                               <NavItem.Skeleton />
                               <NavItem.Skeleton />
-                            </div>
+                            </section>
                           </>
                         ) : (
                           <Accordion

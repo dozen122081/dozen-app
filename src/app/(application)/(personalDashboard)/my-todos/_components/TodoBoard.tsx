@@ -7,7 +7,6 @@ import {
 import { ScrollArea } from "@/components/ui/scroll-area";
 import Column from "./todoComponents/Column";
 import { BurnBarrel } from "./todoComponents/TrashBin";
-import { fetchTodos } from "@/lib/backend-actions/personaltodo.actions";
 
 export type TUserTodo = {
     id: string;
@@ -36,20 +35,39 @@ export const TodoBoard = ({
     const [append, setAppend] = useState(false);
     console.log(append)
     const getTodos = async () => {
-        const todos = await fetchTodos(userId);
+        const response = await fetch('/api/todo');
+        if (!response.ok) {
+            throw new Error('Failed to fetch data');
+        }
+        const data = await response.json();
 
-        setCards(todos.map((todo) => ({
-            id: todo.id.toString(), // Assuming _id is an ObjectId and converted to string
+        setCards(data.map((todo: TUserTodo) => ({
+            id: todo.id.toString(),
             author: todo.author.toString(),
             title: todo.title,
             description: todo.description,
-            category: todo.category as "backlog" | "todo" | "doing" | "done" | string, // Adjust as needed
+            category: todo.category as "backlog" | "todo" | "doing" | "done" | string,
         })))
     }
     useEffect(() => {
-        getTodos()
-        // Polling interval (fetch new data every 5 seconds)
-    }, [append, setCards])
+        // Fetch todos on component mount
+        getTodos();
+
+        // Add event listener for page reload or tab close
+        window.addEventListener('beforeunload', getTodos);
+
+        return () => {
+            // Clean up event listener on component unmount
+            window.removeEventListener('beforeunload', getTodos);
+        };
+    }, []); // Empty dependency array ensures this effect runs only on mount and unmount
+
+    useEffect(() => {
+        // Fetch todos when append state changes
+        if (append) {
+            getTodos();
+        }
+    }, [append]); // Dependency array with append state
 
     return (
         <div className="h-full w-full flex-1 flex flex-col">

@@ -8,8 +8,9 @@ const PersonalTodoSchema = new mongoose.Schema({
         type: String,
     },
     author: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "User",
+        // type: mongoose.Schema.Types.ObjectId,
+        // ref: "User",
+        type: String,
         required: true,
     },
     createdAt: {

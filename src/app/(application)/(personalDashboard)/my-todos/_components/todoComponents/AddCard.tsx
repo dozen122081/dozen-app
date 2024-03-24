@@ -52,12 +52,23 @@ const AddCard = ({ column, userId, setAppend }: AddCardProps) => {
         setAppend(true)
         console.log("onSubmit fired");
         try {
-            await createPersonalTodo({
-                title: values.title,
-                author: userId,
-                description: values.description,
-                category: column,
-                path: pathname,
+            // await createPersonalTodo({
+            //     title: values.title,
+            //     author: userId,
+            //     description: values.description,
+            //     category: column,
+            //     path: pathname,
+            // });
+            const response = await fetch(('/api/todo'), {
+                method: "POST",
+                body: JSON.stringify({
+                    title: values.title,
+                    author: userId,
+                    description: values.description,
+                    category: column,
+                    path: pathname,
+                }),
+                headers: { "Content-Type": 'application/json' }
             });
             router.push("/my-todos")
             form.reset(); // Reset the form after successful submission
@@ -88,7 +99,7 @@ const AddCard = ({ column, userId, setAppend }: AddCardProps) => {
                             control={form.control}
                             name='title'
                             render={({ field }) => (
-                                <FormItem className='flex w-full flex-col gap-1'>
+                                <FormItem className='flex w-full flex-col gap-1 '>
                                     <FormLabel className='font-medium text-lg'>
                                         Todo
                                     </FormLabel>
@@ -97,7 +108,7 @@ const AddCard = ({ column, userId, setAppend }: AddCardProps) => {
                                             placeholder="Add new task..."
                                             {...field}
                                             autoFocus
-                                            className="w-full rounded border border-violet-400 bg-violet-400/20 p-3 text-sm text-neutral-800 placeholder-violet-300 focus:outline-0"
+                                            className="w-full rounded border border-violet-400 bg-violet-400/20 p-3 text-sm text-neutral-800 placeholder-violet-300 focus:outline-0 focus:border-transparent"
                                         />
                                     </FormControl>
                                     <FormMessage />
@@ -118,7 +129,7 @@ const AddCard = ({ column, userId, setAppend }: AddCardProps) => {
                                             rows={5}
                                             {...field}
                                             autoFocus
-                                            className="w-full rounded border border-violet-400 bg-violet-400/20 p-3 text-sm text-neutral-800 placeholder-violet-300 focus:outline-0"
+                                            className="w-full rounded border border-violet-400 bg-violet-400/20 p-3 text-sm text-neutral-800 placeholder-violet-300 focus:outline-0 focus:border-transparent"
                                         />
                                     </FormControl>
                                     <FormMessage />

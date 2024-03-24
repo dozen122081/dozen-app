@@ -3670,6 +3670,14 @@ swr@2.2.0:
   dependencies:
     use-sync-external-store "^1.2.0"
 
+swr@^2.2.5:
+  version "2.2.5"
+  resolved "https://registry.yarnpkg.com/swr/-/swr-2.2.5.tgz#063eea0e9939f947227d5ca760cc53696f46446b"
+  integrity sha512-QtxqyclFeAsxEUeZIYmsaQ0UjimSq1RZ9Un7I68/0ClKK/U3LoyQunwkQfJZr2fc22DfIXLNDc2wFyTEikCUpg==
+  dependencies:
+    client-only "^0.0.1"
+    use-sync-external-store "^1.2.0"
+
 tabbable@^6.0.1:
   version "6.2.0"
   resolved "https://registry.yarnpkg.com/tabbable/-/tabbable-6.2.0.tgz#732fb62bc0175cfcec257330be187dcfba1f3b97"

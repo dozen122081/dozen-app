@@ -118,20 +118,20 @@ const StickyNotes = ({
         setAppend(false)
     }
     return (
-        <section className='flex flex-col items-start h-full max-h-screen  w-screen-xl'>
-            <div className='w-full my-10'>
+        <section className='flex flex-col items-start h-[130vh] max-h-[200vh]  w-screen-xl'>
+            <div className='w-full my-10 flex items-center justify-center md:justify-start'>
                 <Drawer>
                     <DrawerTrigger>
                         <div
                             className='h-56 w-56 border border-dashed rounded-xl flex justify-center items-center border-slate-800'
                         >
-                            <div className='flex flex-col items-center text-slate-600 gap-2'>
+                            <div className='flex flex-col md:items-center text-slate-600 gap-2'>
                                 <Pen />
                                 <span>Add Note</span>
                             </div>
                         </div>
                     </DrawerTrigger>
-                    <DrawerContent className='px-10'>
+                    <DrawerContent className='px-10 h-[50vh] md:h-[60vh]'>
                         <Form {...form}>
                             <motion.form
                                 layout
@@ -153,7 +153,7 @@ const StickyNotes = ({
                                                         placeholder="Add new task..."
                                                         {...field}
                                                         autoFocus
-                                                        className={cn("md:w-full md:rounded md:border md:border-violet-400 md:bg-violet-400/20 md:p-3 md:text-2xl md:text-neutral-800 md:placeholder-violet-300 md:focus:outline-0", mynerve.className)}
+                                                        className={cn("md:w-full md:rounded md:border md:border-violet-400 md:bg-violet-400/20 md:p-3 md:text-2xl md:text-neutral-800 md:placeholder-violet-300 md:focus:outline-0 focus:border-transparent", mynerve.className)}
                                                     />
                                                 </FormControl>
                                                 <FormMessage />
@@ -170,7 +170,7 @@ const StickyNotes = ({
                                                 </FormLabel>
                                                 <FormControl>
                                                     <Select onValueChange={field.onChange} defaultValue={field.value}>
-                                                        <SelectTrigger className="w-[180px] rounded border border-violet-400 bg-violet-400/20 p-3 text-2xl text-neutral-800 placeholder-violet-300 focus:outline-0">
+                                                        <SelectTrigger className="w-[180px] rounded border border-violet-400 bg-violet-400/20 p-3 text-2xl text-neutral-800 placeholder-violet-300 focus:outline-0 focus:border-transparent">
                                                             <SelectValue placeholder="Theme" />
                                                         </SelectTrigger>
                                                         <SelectContent>
@@ -208,7 +208,7 @@ const StickyNotes = ({
                                                     placeholder="Maybe some description..."
                                                     rows={5}
                                                     {...field}
-                                                    className="w-full rounded border border-violet-400 bg-violet-400/20 p-3 text-sm text-neutral-800 placeholder-violet-300 focus:outline-0"
+                                                    className="w-full rounded border border-violet-400 bg-violet-400/20 p-3 text-sm text-neutral-800 placeholder-violet-300 focus:outline-0 focus:border-transparent"
                                                 />
                                             </FormControl>
                                             <FormMessage />
@@ -230,8 +230,8 @@ const StickyNotes = ({
                     </DrawerContent>
                 </Drawer>
             </div>
-            <ScrollArea className="h-96 w-full rounded-md">
-                <div className='flex gap-10 flex-wrap'>
+            <ScrollArea className="h-[90vh] w-full rounded-md">
+                <div className='flex gap-10 flex-wrap justify-center md:justify-start'>
                     {
                         notes.map((note) => (
                             <Drawer>

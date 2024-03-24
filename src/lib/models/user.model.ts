@@ -41,7 +41,6 @@ const userSchema = new mongoose.Schema({
         }
     ],
     streak: {
-
         type: Number,
     },
     organizations: [

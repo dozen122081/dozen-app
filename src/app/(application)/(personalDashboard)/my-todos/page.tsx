@@ -5,6 +5,7 @@ import { redirect } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import RequestCategoryAdd from './_components/RequestCategoryAdd';
 import { TodoBoard } from './_components/TodoBoard';
+import useSWR from 'swr'
 
 type UserData = {
   id: string;
@@ -15,26 +16,33 @@ type UserData = {
   email: string,
 }
 const Page = () => {
-  const {user} = useUser();
+  const { user } = useUser();
   const [userData, setUserData] = useState<UserData | null>(null); // Explicitly define the type of state
-
+  const { data: userDataFromAPI, error, isLoading } = useSWR('/api/user', fetch)
   useEffect(() => {
+
+
     const fetchData = async () => {
       if (!user) return null;
-
-      const userInfo = await fetchUserData(user.id);
-      if (!userInfo?.onboarded) {
+      const response = await fetch('/api/user');
+      if (!response.ok) {
+        throw new Error('Failed to fetch user data');
+      }
+      const data = await response.json();
+      console.log(data)
+      const userInfo = await fetchUserData(data.id);
+      if (!data?.onboarded) {
         redirect("/onboarding");
         return;
       }
 
       const userMail = (user?.emailAddresses[0]).toString();
       setUserData({
-        id: user.id,
-        objectId: userInfo._id || "",
-        username: userInfo.username || user.username || "",
-        name: userInfo.name || user.firstName || "",
-        image: userInfo.image || user.imageUrl,
+        id: data.id,
+        objectId: data._id || "",
+        username: data.username || user.username || "",
+        name: data.name || user.firstName || "",
+        image: data.image || user.imageUrl,
         email: userMail || "",
       });
     };
@@ -53,7 +61,7 @@ const Page = () => {
         </div>
       </div>
       <div className='w-full lg:max-w-[90vw]'>
-        <TodoBoard userId={userData.objectId.toString()} />
+        <TodoBoard userId={userData.id.toString()} />
       </div>
     </div>
   );

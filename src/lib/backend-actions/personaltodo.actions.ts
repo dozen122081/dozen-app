@@ -17,7 +17,7 @@ export async function fetchTodos(userId: string) {
             description: todo.description,
             category: todo.category as "backlog" | "todo" | "doing" | "done" | string,
         }));
-        
+
         return todoData;
     } catch (error) {
         console.error("Error fetching todos:", error);
@@ -61,7 +61,7 @@ export async function createPersonalTodo({
     }
 }
 
-interface UpdatePersonalTodoProps{
+interface UpdatePersonalTodoProps {
     id: string,
     title: string,
     description: string,
@@ -111,7 +111,7 @@ interface updatePersonalTodoCatProps {
         title: string,
         category: string,
     }[]
-    
+
     author: string;
     // path: string;
 }
@@ -141,7 +141,7 @@ export async function updatePersonalTodoCat({
     }
 }
 
-interface deletePersonalTodoProps{
+interface deletePersonalTodoProps {
     id: string;
     path: string;
     author: string;
@@ -152,18 +152,18 @@ export async function deletePersonalTodo({
     author,
 }: deletePersonalTodoProps): Promise<void> {
     try {
-      connectToDatabase();
-  
-      // Find the thread to be deleted (the main thread)
-      const threadIdToRemove = await PersonalTodo.findByIdAndDelete({_id: id});
-  
-      // Update User model
-      await User.updateOne(
-        { _id: author },
-        { $pull: { todos: id } }
-      );
-      revalidatePath(path);
+        connectToDatabase();
+
+        // Find the thread to be deleted (the main thread)
+        const threadIdToRemove = await PersonalTodo.findByIdAndDelete({ _id: id });
+
+        // Update User model
+        await User.updateOne(
+            { _id: author },
+            { $pull: { todos: id } }
+        );
+        revalidatePath(path);
     } catch (error: any) {
-      throw new Error(`Failed to delete thread: ${error.message}`);
+        throw new Error(`Failed to delete thread: ${error.message}`);
     }
-  }
+}
