@@ -1,8 +1,4 @@
 "use client";
-import {
-    MainMenu,
-    WelcomeScreen
-} from "@excalidraw/excalidraw";
 import dynamic from "next/dynamic";
 const Excalidraw = dynamic(
     async () => (await import("@excalidraw/excalidraw")).Excalidraw,
@@ -10,10 +6,20 @@ const Excalidraw = dynamic(
         ssr: false,
     },
 );
+
+const UIOptions = {
+    canvasActions: {
+      changeViewBackgroundColor: true,
+      saveAsImage: true,
+    },
+  };
 const ExBoard = () => {
     return (
-        <div className="max-h-screen h-full relative">
-            <Excalidraw>
+        <div className="max-h-screen h-full relative ">
+            <Excalidraw UIOptions={UIOptions}>
+                <div className="dark:bg-black bg-white  dark:bg-grid-white/[0.2] bg-grid-black/[0.2]">
+
+                </div>
                 <div 
                     className="flex justify-center items-center h-10 w-10 z-[9999] absolute md:left-3.5 md:top-[2%] left-4 bottom-5  bg-background"
                 >

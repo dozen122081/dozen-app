@@ -157,7 +157,7 @@ const StickyNotes = ({
                             </div>
                         </div>
                     </DrawerTrigger>
-                    <DrawerContent className='px-10 h-[50vh] md:h-[60vh]'>
+                    <DrawerContent className='px-10 h-[80vh] md:h-[85vh] lg:h-[70vh] '>
                         <Form {...form}>
                             <motion.form
                                 layout

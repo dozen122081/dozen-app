@@ -87,8 +87,8 @@ const RequestCategoryAdd = () => {
                             </DialogTitle>
                             <DialogDescription>
                                 <div className='py-4'>
-                                    <p className="py-1">The feature you are trying to access is currently unavailable</p>
-                                    <p className="py-1">If you want this feture to be added soon, you can request early development.</p>
+                                    <p className="py-1">The feature you are trying to access is currently unavailable.</p>
+                                    <p className="py-1">If you want this feature to be added soon, you can request early development.</p>
                                 </div>
                             </DialogDescription>
                         </DialogHeader>
