@@ -77,7 +77,7 @@ const RequestCategoryAdd = () => {
         <div>
             <Dialog>
                 <DialogTrigger asChild>
-                    <Button variant="outline">Add Catogory</Button>
+                    <Button variant="outline">Add Category</Button>
                 </DialogTrigger>
                 <DialogContent className="sm:max-w-[425px]">
                     <div className="modal-box w-11/12 max-w-5xl">
