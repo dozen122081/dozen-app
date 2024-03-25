@@ -87,7 +87,7 @@ const PomodoroTimer: React.FC = () => {
     };
 
     return (
-        <div className='w-full flex flex-col md:flex justify-between gap-20 px-5 py-10'>
+        <div className='w-full flex flex-col md:flex-row justify-between gap-20 px-5 py-10'>
             {/* Pomodoro Timer */}
             <div className='w-full rounded-2xl border flex flex-col gap-10 items-center p-10 justify-center'>
                 <div className='flex flex-col w-full items-center gap-10'>
