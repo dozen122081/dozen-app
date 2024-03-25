@@ -60,14 +60,20 @@ const StickyNotes = ({
     const [notes, setNotes] = useState<TStickyNotes[]>([]);
     const [append, setAppend] = useState(false);
     const getTodos = async () => {
-        const todos = await fetchPersonalStickyNotes(userId);
-        setNotes(todos.map((todo) => ({
+        // const todos = await fetchPersonalStickyNotes(userId);
+        const response = await fetch('/api/stickynote');
+        if (!response.ok) {
+            throw new Error('Failed to fetch data');
+        }
+        const data = await response.json();
+        setNotes(data.map((todo: any) => ({
             id: todo.id.toString(), // Assuming _id is an ObjectId and converted to string
             author: todo.author.toString(),
             title: todo.title,
             description: todo.description,
             backgroundColor: todo.backgroundColor,
         })))
+        console.log(notes)
     }
     useEffect(() => {
         getTodos()
@@ -88,12 +94,23 @@ const StickyNotes = ({
         setAppend(true)
         console.log("onSubmit fired");
         try {
-            await createPersonalStickyNotes({
-                title: values.title,
-                author: userId,
-                description: values.description,
-                path: pathname,
-                background: values.background
+            // await createPersonalStickyNotes({
+            //     title: values.title,
+            //     author: userId,
+            //     description: values.description,
+            //     path: pathname,
+            //     background: values.background
+            // });
+            const response = await fetch(('/api/stickynote'), {
+                method: "POST",
+                body: JSON.stringify({
+                    title: values.title,
+                    author: userId,
+                    description: values.description,
+                    path: pathname,
+                    background: values.background
+                }),
+                headers: { "Content-Type": 'application/json' }
             });
             router.push("/my-sticky-notes")
             form.reset(); // Reset the form after successful submission
@@ -107,11 +124,18 @@ const StickyNotes = ({
     const deletePersonalStickyNotes = async (noteId: string) => {
         setAppend(true)
         try {
-            await deleteStickyNotes({
-                id: noteId,
-                path: pathname,
-                author: userId,
-            })
+            const response = await fetch('/api/stickynote', {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ id: noteId, path: pathname, author: userId })
+            });
+            // await deleteStickyNotes({
+            //     id: noteId,
+            //     path: pathname,
+            //     author: userId,
+            // })
         } catch (err) {
             console.log(err)
         }
@@ -233,8 +257,8 @@ const StickyNotes = ({
             <ScrollArea className="h-[90vh] w-full rounded-md">
                 <div className='flex gap-10 flex-wrap justify-center md:justify-start'>
                     {
-                        notes.map((note) => (
-                            <Drawer>
+                        notes.map((note, index) => (
+                            <Drawer key={index}>
                                 <DrawerTrigger>
                                     <ScrollArea
                                         style={{

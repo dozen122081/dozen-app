@@ -128,7 +128,6 @@ const AddCard = ({ column, userId, setAppend }: AddCardProps) => {
                                             placeholder="Maybe some description..."
                                             rows={5}
                                             {...field}
-                                            autoFocus
                                             className="w-full rounded border border-violet-400 bg-violet-400/20 p-3 text-sm text-neutral-800 placeholder-violet-300 focus:outline-0 focus:border-transparent"
                                         />
                                     </FormControl>

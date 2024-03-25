@@ -8,7 +8,7 @@ const PersonalStickyNotesSchema = new mongoose.Schema({
         type: String,
     },
     author: {
-        type: mongoose.Schema.Types.ObjectId,
+        type: String,
         ref: "User",
         required: true,
     },

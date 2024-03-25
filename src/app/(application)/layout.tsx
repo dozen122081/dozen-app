@@ -1,4 +1,3 @@
-import { ClerkProvider } from '@clerk/nextjs';
 import "../globals.css"
 import { Toaster } from 'sonner';
 const ApplicationLayout = ({

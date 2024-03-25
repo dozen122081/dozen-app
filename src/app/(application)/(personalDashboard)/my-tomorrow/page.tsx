@@ -61,18 +61,35 @@ const Page = () => {
   });
   useEffect(() => {
     const fetchData = async () => {
-      if (user) {
-        try {
-          const userInfo = await fetchUserData(user.id);
-          if (userInfo && userInfo._id) {
-            setUserId(userInfo._id.toString());
-          } else {
-            throw new Error("User data not found");
-          }
-        } catch (error) {
-          console.error("Error fetching user data:", error);
-          // Handle error
-        }
+      // if (user) {
+      //   try {
+      //     // const userInfo = await fetchUserData(user.id);
+      //     const response = await fetch('/api/user');
+      //     if (!response.ok) {
+      //       throw new Error('Failed to fetch user data');
+      //     }
+      //     const data = await response.json();
+      //     if (data && data.id) {
+      //       setUserId(data.id.toString());
+      //       console.log(userId)
+      //     } else {
+      //       throw new Error("User data not found");
+      //     }
+      //   } catch (error) {
+      //     console.error("Error fetching user data:", error);
+      //     // Handle error
+      //   }
+      // }
+      const response = await fetch('/api/user');
+      if (!response.ok) {
+        throw new Error('Failed to fetch user data');
+      }
+      const data = await response.json();
+      if (data && data.id) {
+        setUserId(data.id.toString());
+        console.log(userId)
+      } else {
+        throw new Error("User data not found");
       }
     };
 
@@ -85,10 +102,15 @@ const Page = () => {
     const getPersonalTomorrowData = async () => {
       try {
         if (userId) {
-          const personalTomorrow = await fetchPersonalTomorrow({
-            author: userId
-          });
-          setPersonalTomorrows(personalTomorrow);
+          // const personalTomorrow = await fetchPersonalTomorrow({
+          //   author: userId
+          // });
+          const response = await fetch('/api/tomorrow');
+          if (!response.ok) {
+            throw new Error('Failed to fetch user data');
+          }
+          const data = await response.json();
+          setPersonalTomorrows(data);
         }
       } catch (error) {
         console.error("Error fetching personal tomorrow data:", error);
@@ -116,9 +138,17 @@ const Page = () => {
     setAdded(true);
     console.log("onSubmit fired");
     try {
-      await createPersonalTomorrow({
-        title: values.title,
-        author: userId,
+      // await createPersonalTomorrow({
+      //   title: values.title,
+      //   author: userId,
+      // });
+      const response = await fetch(('/api/tomorrow'), {
+        method: "POST",
+        body: JSON.stringify({
+          title: values.title,
+          author: userId,
+        }),
+        headers: { "Content-Type": 'application/json' }
       });
       form.reset(); // Reset the form after successful submission
     } catch (error) {
@@ -131,11 +161,21 @@ const Page = () => {
   const updateStatus = async (id: string, title: string, completed: boolean) => {
     setAdded(true);
     try {
-      await updatePersonalTomorrow({
-        author: userId,
-        completed: completed,
-        id: id,
-        title: title,
+      // await updatePersonalTomorrow({
+      //   author: userId,
+      //   completed: completed,
+      //   id: id,
+      //   title: title,
+      // });
+      const response = await fetch(('/api/tomorrow'), {
+        method: "PUT",
+        body: JSON.stringify({
+          author: userId,
+          completed: completed,
+          id: id,
+          title: title,
+        }),
+        headers: { "Content-Type": 'application/json' }
       });
 
       // Update the personalTomorrows state to reflect the completed status change
@@ -154,9 +194,16 @@ const Page = () => {
   const deleteTomorrow = async (id: string) => {
     setAdded(true);
     try {
-      await deletePersonalTomorrow({
-        authorId: userId,
-        tomorrowId: id
+      // await deletePersonalTomorrow({
+      //   authorId: userId,
+      //   tomorrowId: id
+      // });
+      const response = await fetch('/api/tomorrow', {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ authorId: userId, tomorrowId: id })
       });
 
       // Remove the deleted item from the personalTomorrows state
@@ -177,9 +224,16 @@ const Page = () => {
   const deleteAllTomorrow = async (completed: boolean) => {
     setAdded(true);
     try {
-      await deleteAllPersonalTomorrow({
-        authorId: userId,
-        completed
+      // await deleteAllPersonalTomorrow({
+      //   authorId: userId,
+      //   completed
+      // });
+      const response = await fetch('/api/deletetomorrows', {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ authorId: userId, completed: completed })
       });
       // Remove the deleted items from the state based on completion status
       if (completed) {

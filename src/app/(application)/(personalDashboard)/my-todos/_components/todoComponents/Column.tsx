@@ -72,9 +72,17 @@ const Column = ({
                 copy.splice(insertAtIndex, 0, cardToTransfer);
             }
 
-            await updatePersonalTodoCat({
-                newData: copy,
-                author: userId,
+            // await updatePersonalTodoCat({
+            //     newData: copy,
+            //     author: userId,
+            // })
+            const response = await fetch('/api/todocat', {
+                method: 'PUT',
+                body: JSON.stringify({
+                    newData: copy,
+                    author: userId,
+                }),
+                headers: {'Content-Type': 'application/json'}
             })
             setCards(copy);
         }

@@ -41,7 +41,7 @@ export async function POST(req: Request) {
         });
         console.log(createdTodo);
         // Update User model
-        await User.findByIdAndUpdate({ author: data.author }, {
+        await User.findOneAndUpdate({ author: data.author }, {
             $push: { todos: createdTodo._id },
         });
 
@@ -54,8 +54,14 @@ export async function POST(req: Request) {
 export async function PUT(req: Request) {
     const data = await req.json();
     connectToDatabase();
-
+    console.log("todo put func fired")
+    console.log(data)
     try {
+        const todo = await PersonalTodo.findById({_id: data.id})
+        console.log('------------')
+        console.log('found todo')
+        console.log(todo)
+        console.log("------------")
         const createdTodo = await PersonalTodo.findByIdAndUpdate(
             {
                 _id: data.id
@@ -66,8 +72,10 @@ export async function PUT(req: Request) {
             }
         ).exec();
         console.log(createdTodo);
+        console.log("=====")
 
         revalidatePath(data.path);
+        return new NextResponse(JSON.stringify(createdTodo))
     } catch (error: any) {
         throw new Error(`Failed to create thread: ${error.message}`);
     }
@@ -83,10 +91,11 @@ export async function DELETE(req: Request){
 
         // Update User model
         await User.updateOne(
-            { _id: data.author },
+            { id: data.author },
             { $pull: { todos: data.id } }
         );
         revalidatePath(data.path);
+        return new NextResponse(JSON.stringify(threadIdToRemove))
     } catch (error: any) {
         throw new Error(`Failed to delete thread: ${error.message}`);
     }
