@@ -13,7 +13,6 @@ export async function PUT(req: Request) {
             author: data.author
         });
         const createdTodo = await PersonalTodo.insertMany(data.newData.map((item: any )=> ({ ...item, author: data.author }))); // Corrected line
-        console.log(createdTodo);
         // Update User model
         await User.findOneAndUpdate({author: data.author}, {
             $push: { todos: createdTodo.map(todo => todo._id) },

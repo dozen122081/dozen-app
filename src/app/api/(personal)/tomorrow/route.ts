@@ -31,7 +31,6 @@ export async function GET(){
         completed: !!tomorrow.completed, // Ensure completed is a boolean value
       }));
   
-      console.log('Formatted data:', formattedData);
       return new NextResponse(JSON.stringify(formattedData), { headers: { 'Content-Type': 'application/json' } });
     } catch (error) {
       console.error('Error fetching personal tomorrow data:', error);

@@ -39,7 +39,6 @@ export async function POST(req: Request) {
             author: data.author,
             category: data.category
         });
-        console.log(createdTodo);
         // Update User model
         await User.findOneAndUpdate({ author: data.author }, {
             $push: { todos: createdTodo._id },
@@ -57,11 +56,6 @@ export async function PUT(req: Request) {
     console.log("todo put func fired")
     console.log(data)
     try {
-        const todo = await PersonalTodo.findById({_id: data.id})
-        console.log('------------')
-        console.log('found todo')
-        console.log(todo)
-        console.log("------------")
         const createdTodo = await PersonalTodo.findByIdAndUpdate(
             {
                 _id: data.id
@@ -71,9 +65,6 @@ export async function PUT(req: Request) {
                 description: data.description,
             }
         ).exec();
-        console.log(createdTodo);
-        console.log("=====")
-
         revalidatePath(data.path);
         return new NextResponse(JSON.stringify(createdTodo))
     } catch (error: any) {

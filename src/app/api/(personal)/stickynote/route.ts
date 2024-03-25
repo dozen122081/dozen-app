@@ -23,9 +23,6 @@ export async function GET() {
             description: stickynote.description,
             backgroundColor: stickynote.backgroundColor
         }));
-        console.log("get req")
-        console.log(stickyNotes)
-        console.log(stickyNoteData)
         // return stickyNoteData;
         return new NextResponse(JSON.stringify(stickyNoteData), { headers: { 'Content-Type': 'application/json' } });
     } catch (error) {
@@ -37,7 +34,6 @@ export async function GET() {
 export async function POST(req: Request) {
     const data = await req.json()
     console.log("func fired")
-    console.log("cre")
     try {
         connectToDatabase();
         const createdTodo = await PersonalStickyNotes.create({
@@ -46,7 +42,6 @@ export async function POST(req: Request) {
             author: data.author,
             backgroundColor: data.background,
         });
-        console.log(createdTodo);
         // Update User model
         await User.findOneAndUpdate({
             author: data.author
