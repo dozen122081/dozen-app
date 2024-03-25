@@ -1,7 +1,7 @@
 "use client"
 import { Button } from '@/components/ui/button';
 import { sendEmail } from '@/lib/sendmail'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { toast } from 'sonner';
 import {
     Dialog,
@@ -14,24 +14,54 @@ import {
     DialogTrigger,
 } from "@/components/ui/dialog"
 import { Label } from '@/components/ui/label';
-interface RequestCategoryAddProps {
-    user: {
-        id: string,
-        objectId: string,
-        username: string,
-        name: string,
-        image: string,
-        email: string,
-    },
-}
-const RequestCategoryAdd = ({
-    user,
-}: RequestCategoryAddProps) => {
+import { redirect } from 'next/navigation';
+import { useUser } from '@clerk/nextjs';
+
+type UserData = {
+    id: string;
+    objectId: string; // Assuming _id is a string
+    username: string;
+    image: string;
+    name: string;
+    email: string,
+  }
+const RequestCategoryAdd = () => {
+    const [userData, setUserData] = useState<UserData | null>(null); // Explicitly define the type of state
+    const { user } = useUser();
+    useEffect(() => {
+        const fetchData = async () => {
+            if (!user) return null;
+            const response = await fetch('/api/user');
+            if (!response.ok) {
+                throw new Error('Failed to fetch user data');
+            }
+            const data = await response.json();
+            console.log(data)
+            if (!data?.onboarded) {
+                redirect("/onboarding");
+                return;
+            }
+            
+            const userMail = (user?.emailAddresses[0]).toString();
+        
+        setUserData({
+          id: data.id,
+          objectId: data._id || "",
+          username: data.username || user.username || "",
+          name: data.name || user.firstName || "",
+          image: data.image || user.imageUrl,
+          email: userMail || "",
+        });
+      };
+  
+      fetchData();
+    }, [user]);
+    if(!userData) return null;
     // get user data from db 
     const bodyText = `
     <h1>You Received a new mail.</h1>
-    <p>User Name: ${user.name}</p>
-    <p>User email: ${user.email}</p>
+    <p>User Name: ${userData.name}</p>
+    <p>User email: ${userData.email}</p>
     <div>
         <p>Feature reqest: Add New Category</p>
     </div>

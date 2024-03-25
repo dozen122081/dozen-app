@@ -17,48 +17,49 @@ type UserData = {
 }
 const Page = () => {
   const { user } = useUser();
-  const [userData, setUserData] = useState<UserData | null>(null); // Explicitly define the type of state
-  useEffect(() => {
-    const fetchData = async () => {
-      if (!user) return null;
-      const response = await fetch('/api/user');
-      if (!response.ok) {
-        throw new Error('Failed to fetch user data');
-      }
-      const data = await response.json();
-      console.log(data)
-      const userInfo = await fetchUserData(data.id);
-      if (!data?.onboarded) {
-        redirect("/onboarding");
-        return;
-      }
+  // const [userData, setUserData] = useState<UserData | null>(null); // Explicitly define the type of state
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     if (!user) return null;
+  //     const response = await fetch('/api/user');
+  //     if (!response.ok) {
+  //       throw new Error('Failed to fetch user data');
+  //     }
+  //     const data = await response.json();
+  //     console.log(data)
+  //     const userInfo = await fetchUserData(data.id);
+  //     if (!data?.onboarded) {
+  //       redirect("/onboarding");
+  //       return;
+  //     }
 
-      const userMail = (user?.emailAddresses[0]).toString();
-      setUserData({
-        id: data.id,
-        objectId: data._id || "",
-        username: data.username || user.username || "",
-        name: data.name || user.firstName || "",
-        image: data.image || user.imageUrl,
-        email: userMail || "",
-      });
-    };
+  //     const userMail = (user?.emailAddresses[0]).toString();
+  //     setUserData({
+  //       id: data.id,
+  //       objectId: data._id || "",
+  //       username: data.username || user.username || "",
+  //       name: data.name || user.firstName || "",
+  //       image: data.image || user.imageUrl,
+  //       email: userMail || "",
+  //     });
+  //   };
 
-    fetchData();
-  }, [user]);
+  //   fetchData();
+  // }, [user]);
 
-  if (!userData) return null;
+  // if (!userData) return null;
+  if(!user) return null;
 
   return (
     <div className='w-full py-10 px-5 flex flex-col gap-10'>
       <div className='flex justify-between items-center'>
-        <h1 className="text-3xl font-bold">{userData.name}'s Task Status</h1>
+        <h1 className="text-3xl font-bold">{user.firstName}'s Task Status</h1>
         <div>
-          <RequestCategoryAdd user={userData} />
+          <RequestCategoryAdd />
         </div>
       </div>
       <div className='w-full lg:max-w-[90vw]'>
-        <TodoBoard userId={userData.id.toString()} />
+        <TodoBoard userId={user.id.toString()} />
       </div>
     </div>
   );
