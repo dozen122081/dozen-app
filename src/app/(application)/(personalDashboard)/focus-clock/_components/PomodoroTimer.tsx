@@ -1,9 +1,8 @@
-import React, { useState, useEffect } from 'react';
-import { Progress } from '@/components/ui/progress';
 import { Button } from '@/components/ui/button';
+import { Progress } from '@/components/ui/progress';
+import { useDocumentTitle } from '@mantine/hooks';
 import { AnimatePresence, motion } from 'framer-motion';
-import { useDocumentTitle, randomId } from '@mantine/hooks';
-import { useFavicon } from '@mantine/hooks';
+import React, { useEffect, useState } from 'react';
 const PomodoroTimer: React.FC = () => {
     const [title, setTitle] = useState('');
     useDocumentTitle(title);

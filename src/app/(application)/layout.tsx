@@ -1,5 +1,4 @@
-import "../globals.css"
-import { Toaster } from 'sonner';
+import "../globals.css";
 const ApplicationLayout = ({
     children,
 }: {

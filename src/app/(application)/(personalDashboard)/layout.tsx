@@ -1,7 +1,7 @@
 import AsideBar from "@/components/SideBars/AsideBar";
 import NavBar from "@/components/SideBars/NavBar";
 import { personalDashboardLinks } from "@/lib/constants/personalDashboard/personalDashboardLinks";
-import "../../globals.css"
+import "../../globals.css";
 const PersonalDashboardLayout = ({
   children,
 }: {

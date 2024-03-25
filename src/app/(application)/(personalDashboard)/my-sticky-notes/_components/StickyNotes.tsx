@@ -77,6 +77,9 @@ const StickyNotes = ({
     }
     useEffect(() => {
         getTodos()
+    }, [])
+    useEffect(() => {
+        getTodos()
         // Polling interval (fetch new data every 5 seconds)
     }, [append, setNotes])
 

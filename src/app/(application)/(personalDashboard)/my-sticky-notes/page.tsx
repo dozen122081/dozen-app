@@ -12,26 +12,23 @@ const Page = () => {
   const [userInfo, setUserInfo] = useState<UserInfo | null >(null);
   const { user } =  useUser();
 
+  const fetchData = async () => {
+    if (!user) return null;
+
+    const response = await fetch('/api/user');
+    if (!response.ok) {
+      throw new Error('Failed to fetch user data');
+    }
+    const data = await response.json();
+    const userData = await fetchUserData(user.id);
+    if (!data?.onboarded) {
+      redirect("/onboarding");
+    }
+    setUserInfo(data);
+  };
   useEffect(() => {
-    const fetchData = async () => {
-      if (!user) return null;
-
-      const response = await fetch('/api/user');
-      if (!response.ok) {
-        throw new Error('Failed to fetch user data');
-      }
-      const data = await response.json();
-      const userData = await fetchUserData(user.id);
-      if (!data?.onboarded) {
-        redirect("/onboarding");
-        return;
-      }
-
-      setUserInfo(data);
-    };
-
     fetchData();
-  }, []);
+  }, [user]);
 
   if (!userInfo) return null;
 

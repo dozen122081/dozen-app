@@ -18,10 +18,7 @@ type UserData = {
 const Page = () => {
   const { user } = useUser();
   const [userData, setUserData] = useState<UserData | null>(null); // Explicitly define the type of state
-  const { data: userDataFromAPI, error, isLoading } = useSWR('/api/user', fetch)
   useEffect(() => {
-
-
     const fetchData = async () => {
       if (!user) return null;
       const response = await fetch('/api/user');
@@ -48,7 +45,7 @@ const Page = () => {
     };
 
     fetchData();
-  }, []);
+  }, [user]);
 
   if (!userData) return null;
 
