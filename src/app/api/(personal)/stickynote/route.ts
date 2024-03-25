@@ -2,7 +2,6 @@ import PersonalStickyNotes from "@/lib/models/personal.stickynotes.model";
 import User from "@/lib/models/user.model";
 import { connectToDatabase } from "@/lib/mongoose";
 import { currentUser } from "@clerk/nextjs";
-import { revalidatePath } from "next/cache";
 import { NextResponse } from "next/server";
 
 export async function GET() {
@@ -49,7 +48,6 @@ export async function POST(req: Request) {
             $push: { notes: createdTodo._id },
         });
 
-        revalidatePath(data.path);
         return new NextResponse(JSON.stringify(createdTodo))
     } catch (error: any) {
         throw new Error(`Failed to create sticky note: ${error.message}`);
@@ -69,7 +67,6 @@ export async function DELETE(req: Request) {
         { id: data.author },
         { $pull: { notes: data.id } }
       );
-      revalidatePath(data.path);
       return new NextResponse(JSON.stringify(threadIdToRemove))
     } catch (error: any) {
       throw new Error(`Failed to delete notes: ${error.message}`);

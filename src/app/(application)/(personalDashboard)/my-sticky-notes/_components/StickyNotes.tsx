@@ -115,7 +115,6 @@ const StickyNotes = ({
                 }),
                 headers: { "Content-Type": 'application/json' }
             });
-            router.push("/my-sticky-notes")
             form.reset(); // Reset the form after successful submission
         } catch (error) {
             console.error("Error submitting form:", error);

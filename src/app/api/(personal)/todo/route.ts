@@ -2,7 +2,6 @@ import PersonalTodo from "@/lib/models/personaltodo.model";
 import User from "@/lib/models/user.model";
 import { connectToDatabase } from "@/lib/mongoose";
 import { currentUser } from "@clerk/nextjs";
-import { revalidatePath } from "next/cache";
 import { NextResponse } from "next/server";
 
 export async function GET() {
@@ -11,10 +10,7 @@ export async function GET() {
         return new NextResponse("Unauthorized", { status: 401 });
     }
 
-
     connectToDatabase(); // Connect to the database
-
-
     const todos = await PersonalTodo.find({ author: user.id }).lean().exec();
 
     const todoData = todos.map(todo => ({
@@ -44,7 +40,6 @@ export async function POST(req: Request) {
             $push: { todos: createdTodo._id },
         });
 
-        revalidatePath(data.path);
         return new NextResponse(JSON.stringify(createdTodo))
     } catch (error: any) {
         throw new Error(`Failed to create thread: ${error.message}`);
@@ -65,7 +60,6 @@ export async function PUT(req: Request) {
                 description: data.description,
             }
         ).exec();
-        revalidatePath(data.path);
         return new NextResponse(JSON.stringify(createdTodo))
     } catch (error: any) {
         throw new Error(`Failed to create thread: ${error.message}`);
@@ -85,7 +79,6 @@ export async function DELETE(req: Request){
             { id: data.author },
             { $pull: { todos: data.id } }
         );
-        revalidatePath(data.path);
         return new NextResponse(JSON.stringify(threadIdToRemove))
     } catch (error: any) {
         throw new Error(`Failed to delete thread: ${error.message}`);

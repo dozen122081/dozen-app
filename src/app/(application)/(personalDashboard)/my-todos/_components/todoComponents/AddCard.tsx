@@ -70,11 +70,9 @@ const AddCard = ({ column, userId, setAppend }: AddCardProps) => {
                 }),
                 headers: { "Content-Type": 'application/json' }
             });
-            router.push("/my-todos")
             form.reset(); // Reset the form after successful submission
         } catch (error) {
             console.error("Error submitting form:", error);
-            // Handle error or show error message to the user
         }
         setAppend(false)
     };
