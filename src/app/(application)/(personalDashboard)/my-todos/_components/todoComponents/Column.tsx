@@ -76,6 +76,7 @@ const Column = ({
             //     newData: copy,
             //     author: userId,
             // })
+            setCards(copy);
             const response = await fetch('/api/todocat', {
                 method: 'PUT',
                 body: JSON.stringify({
@@ -84,7 +85,6 @@ const Column = ({
                 }),
                 headers: {'Content-Type': 'application/json'}
             })
-            setCards(copy);
         }
     };
 
