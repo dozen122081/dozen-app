@@ -1,20 +1,8 @@
 "use client"
-import { fetchUserData } from '@/lib/backend-actions/user.actions';
 import { useUser } from '@clerk/nextjs';
-import { redirect } from 'next/navigation';
-import { useEffect, useState } from 'react';
 import RequestCategoryAdd from './_components/RequestCategoryAdd';
 import { TodoBoard } from './_components/TodoBoard';
-import useSWR from 'swr'
 
-type UserData = {
-  id: string;
-  objectId: string; // Assuming _id is a string
-  username: string;
-  image: string;
-  name: string;
-  email: string,
-}
 const Page = () => {
   const { user } = useUser();
   // const [userData, setUserData] = useState<UserData | null>(null); // Explicitly define the type of state
@@ -51,9 +39,9 @@ const Page = () => {
   if(!user) return null;
 
   return (
-    <div className='w-full py-10 px-5 flex flex-col gap-10'>
+    <div className='w-full py-10 px-5 flex flex-col gap-10 md:h-[110vh]'>
       <div className='flex justify-between items-center'>
-        <h1 className="text-3xl font-bold">{user.firstName}'s Task Status</h1>
+        <h1 className="md:text-3xl font-bold text-2xl">{user.firstName}'s Task Status</h1>
         <div>
           <RequestCategoryAdd />
         </div>

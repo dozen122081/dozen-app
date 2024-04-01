@@ -36,8 +36,9 @@ type AddCardProps = {
     setCards: Dispatch<SetStateAction<CardType[]>>;
     userId: string;
     setAppend: Dispatch<SetStateAction<boolean>>;
+    workspaceId: string;
 };
-const AddCard = ({ column, userId, setAppend }: AddCardProps) => {
+const WsAddCard = ({ column, userId, setAppend, workspaceId }: AddCardProps) => {
     const router = useRouter()
     const pathname = usePathname();
     const form = useForm<z.infer<typeof PersonalTodoValidation>>({
@@ -52,14 +53,7 @@ const AddCard = ({ column, userId, setAppend }: AddCardProps) => {
         setAppend(true)
         console.log("onSubmit fired");
         try {
-            // await createPersonalTodo({
-            //     title: values.title,
-            //     author: userId,
-            //     description: values.description,
-            //     category: column,
-            //     path: pathname,
-            // });
-            const response = await fetch(('/api/todo'), {
+            const response = await fetch(('/api/workspace/todo'), {
                 method: "POST",
                 body: JSON.stringify({
                     title: values.title,
@@ -67,6 +61,7 @@ const AddCard = ({ column, userId, setAppend }: AddCardProps) => {
                     description: values.description,
                     category: column,
                     path: pathname,
+                    workspaceId: workspaceId,
                 }),
                 headers: { "Content-Type": 'application/json' }
             });
@@ -167,4 +162,4 @@ const AddCard = ({ column, userId, setAppend }: AddCardProps) => {
     );
 };
 
-export default AddCard;
+export default WsAddCard;

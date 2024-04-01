@@ -49,6 +49,12 @@ const userSchema = new mongoose.Schema({
             ref: 'Organization'
         }
     ],
+    workspaces: [
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'Workspaces'
+        }
+    ],
 })
 
 const User = mongoose.models.User || mongoose.model('User', userSchema);

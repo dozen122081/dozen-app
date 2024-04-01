@@ -5,8 +5,8 @@ import {
 } from "react";
 
 import { ScrollArea } from "@/components/ui/scroll-area";
-import Column from "./todoComponents/Column";
-import { BurnBarrel } from "./todoComponents/TrashBin";
+import { WsBurnBarrel } from "./WorkspaceTodoComponents/wsTrashbin";
+import WsColumn from "./WorkspaceTodoComponents/wsColumn";
 
 export type TUserTodo = {
     id: string;
@@ -25,17 +25,20 @@ interface Todo extends Document {
 
 interface TodoBoardProps {
     userId: string;
+    workspaceId: string;
 }
 
-export const TodoBoard = ({
+
+const WorkspaceTodoBoard = ({
     userId,
+    workspaceId
     // userTodos
 }: TodoBoardProps) => {
     const [cards, setCards] = useState<TUserTodo[]>([]);
     const [append, setAppend] = useState(false);
     console.log(append)
     const getTodos = async () => {
-        const response = await fetch('/api/todo');
+        const response = await fetch(`/api/workspace/todo?workspaceId=${workspaceId}`);
         if (!response.ok) {
             throw new Error('Failed to fetch data');
         }
@@ -68,16 +71,15 @@ export const TodoBoard = ({
             getTodos();
         }
     }, [append]); // Dependency array with append state
-
     return (
         <div className="h-full w-full flex-1 flex flex-col">
-            <BurnBarrel
+            <WsBurnBarrel
                 setCards={setCards}
                 author={userId}
             />
             <ScrollArea className="mt-10 md:h-[60vh] w-full">
                 <div className="flex gap-10 w-full mt-10 md:mx-10 md:h-[70vh] justify-center md:justify-start flex-wrap">
-                    <Column
+                    <WsColumn
                         title="Ideas"
                         category="ideas"
                         headingColor="text-neutral-500"
@@ -85,8 +87,9 @@ export const TodoBoard = ({
                         setCards={setCards}
                         userId={userId}
                         setAppend={setAppend}
+                        workspaceId={workspaceId}
                     />
-                    <Column
+                    <WsColumn
                         title="Consider"
                         category="consider"
                         headingColor="text-red-400"
@@ -94,8 +97,9 @@ export const TodoBoard = ({
                         setCards={setCards}
                         userId={userId}
                         setAppend={setAppend}
+                        workspaceId={workspaceId}
                     />
-                    <Column
+                    <WsColumn
                         title="Todo"
                         category="todo"
                         headingColor="text-orange-400"
@@ -103,8 +107,9 @@ export const TodoBoard = ({
                         setCards={setCards}
                         userId={userId}
                         setAppend={setAppend}
+                        workspaceId={workspaceId}
                     />
-                    <Column
+                    <WsColumn
                         title="In progress"
                         category="doing"
                         headingColor="text-blue-400"
@@ -112,8 +117,9 @@ export const TodoBoard = ({
                         setCards={setCards}
                         userId={userId}
                         setAppend={setAppend}
+                        workspaceId={workspaceId}
                     />
-                    <Column
+                    <WsColumn
                         title="Completed"
                         category="done"
                         headingColor="text-emerald-400"
@@ -121,9 +127,12 @@ export const TodoBoard = ({
                         setCards={setCards}
                         userId={userId}
                         setAppend={setAppend}
+                        workspaceId={workspaceId}
                     />
                 </div>
             </ScrollArea>
         </div>
-    );
-};
+    )
+}
+
+export default WorkspaceTodoBoard
