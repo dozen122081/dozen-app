@@ -27,6 +27,7 @@ import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
+import { BiDoorOpen } from 'react-icons/bi';
 import { z } from 'zod';
 export type TUserWorkspace = {
     id: string;
@@ -116,6 +117,17 @@ const page = () => {
     }
     return (
         <div>
+            <div>
+                <Link
+                    href="/personal-dashboard"
+                    className={cn(
+                        "py-3 px-4 font-semibold rounded-md flex gap-1 items-center",
+                    )}
+                >
+                    <BiDoorOpen className='h-4 w-4' />
+                    <span className='text-sm'> Back to home</span>
+                </Link>
+            </div>
             <div className='w-full my-10 flex items-center justify-center md:justify-start'>
                 <Drawer>
                     <DrawerTrigger>

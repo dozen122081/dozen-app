@@ -36,6 +36,15 @@ const WorkspaceSideBar = () => {
           <BiDoorOpen className='h-4 w-4'/>
          <span className='text-sm'> Back to home</span>
         </Link>
+        <Link
+          href="/workspace"
+          className={cn(
+            "py-3 px-4 font-semibold rounded-md flex gap-1 items-center",
+          )}
+        >
+          <BiDoorOpen className='h-4 w-4'/>
+         <span className='text-sm'>My Spaces</span>
+        </Link>
       </div>
       <div>
         <div className='flex flex-col gap-2 text-sm'>
