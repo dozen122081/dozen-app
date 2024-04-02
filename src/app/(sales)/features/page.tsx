@@ -1,19 +1,22 @@
-import Image from 'next/image'
+"use client"
+import { useUser } from '@clerk/nextjs'
 import Link from 'next/link'
 import React from 'react'
+import Navbar from '../_components/Navbar/Navbar'
+import FeatureTodoBoard from './_components/FeatureBoard'
 
 const page = () => {
+  const {user} = useUser()
+
   return (
-    <div className='flex flex-col gap-10 w-full h-screen items-center justify-center'>
-      <Image
-        src="/dev.png"
-        alt="mess"
-        height={768 / 2}
-        width={1024 / 2}
-        className="object-contain"
-      />
-      <h2 className='text-5xl font-bold text-center'>Under Construction</h2>
-      <Link href="/" className='font-semibold text-lg opacity-75 hover:underline'>Return Home</Link>
+    <div className='flex flex-col px-5'>
+      <nav>
+       <Navbar />
+      </nav>
+      <div>
+        <h2 className='font-bold text-xl text-center'>Feature Board For Users</h2>
+      </div>
+      <FeatureTodoBoard userId={user?.id}/>
     </div>
   )
 }

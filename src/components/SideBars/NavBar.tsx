@@ -8,8 +8,11 @@ const NavBar = () => {
             <h2 className='text-2xl font-bold'>Dozen</h2>
         </div>
         <div className='flex items-center gap-7 font-medium text-sm'>
-            <div>
-              <Link href="/workspace">
+            <div className='flex gap-4 items-center'>
+              <Link href="/features" className='hover:underline transition-all duration-300'>
+                Feature Board
+              </Link>
+              <Link href="/workspace" className='hover:underline transition-all duration-300'>
                 My Workspaces
               </Link>
             </div>
