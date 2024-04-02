@@ -56,6 +56,8 @@ export async function POST(req: Request) {
 }
 
 export async function DELETE(req: Request) {
+
+    // fix delete logic as even it's deleted it still remains in db
     const data = await req.json()
     try {
     connectToDatabase();

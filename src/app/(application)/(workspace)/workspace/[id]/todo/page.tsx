@@ -1,12 +1,9 @@
 "use client"
+import { getIdFromUrl } from '@/lib/utils';
 import { useUser } from '@clerk/nextjs';
 import React, { useEffect, useState } from 'react'
 import WorkspaceTodoBoard from './_components/WorkspaceTodoBoard';
-function getIdFromUrl(url: string) {
-  const regex = /\/workspace\/([a-f0-9]+)\/todo/;
-  const match = url.match(regex);
-  return match ? match[1] : null;
-}
+
 const page = () => {
   const [fullUrl, setFullUrl] = useState('');
   const {user} = useUser();
