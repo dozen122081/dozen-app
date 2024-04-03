@@ -37,8 +37,6 @@ import { usePathname, useRouter } from "next/navigation"
 import { useEffect, useState } from 'react'
 import { useForm } from "react-hook-form"
 import * as z from "zod"
-import "@blocknote/core/fonts/inter.css";
-import "@blocknote/react/style.css";
 
 const mynerve = Mynerve({
     subsets: ['latin', 'greek', 'latin-ext', 'vietnamese'],
