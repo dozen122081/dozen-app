@@ -32,7 +32,7 @@ import { PersonalStickyNotesValidation } from '@/lib/validations/personal.sticky
 import { zodResolver } from "@hookform/resolvers/zod"
 import { motion } from "framer-motion"
 import { Pen, Trash } from 'lucide-react'
-import { Mynerve } from 'next/font/google'
+import { Mynerve } from 'next/font'
 import { usePathname, useRouter } from "next/navigation"
 import { useEffect, useState } from 'react'
 import { useForm } from "react-hook-form"
