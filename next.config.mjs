@@ -1,4 +1,9 @@
 /** @type {import('next').NextConfig} */
+import withPWA from "next-pwa";
+const withPWAConfig = withPWA({
+    dest: 'public',
+});
+
 const nextConfig = {
     experimental: {
         serverComponentsExternalPackages: ["mongoose"],
@@ -28,4 +33,4 @@ const nextConfig = {
     },
 }
 
-export default nextConfig;
+export default withPWAConfig(nextConfig);

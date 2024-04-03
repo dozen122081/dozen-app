@@ -1,5 +1,6 @@
 import { UserButton } from '@clerk/nextjs'
 import Link from 'next/link'
+import { IoSettings } from "react-icons/io5";
 
 const NavBar = () => {
   return (
@@ -14,6 +15,9 @@ const NavBar = () => {
               </Link>
               <Link href="/workspace" className='hover:underline transition-all duration-300'>
                 My Workspaces
+              </Link>
+              <Link href="/settings" className='hover:underline transition-all duration-300'>
+                <IoSettings />
               </Link>
             </div>
             <UserButton afterSignOutUrl='/'/>

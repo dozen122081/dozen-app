@@ -18,9 +18,15 @@ import {
 } from "@/components/ui/form"
 import { Input } from '@/components/ui/input'
 import { ScrollArea } from "@/components/ui/scroll-area"
+import {
+    Select,
+    SelectContent,
+    SelectItem,
+    SelectTrigger,
+    SelectValue
+} from "@/components/ui/select"
 import { Separator } from '@/components/ui/separator'
 import { Textarea } from '@/components/ui/textarea'
-import { createPersonalStickyNotes, deleteStickyNotes, fetchPersonalStickyNotes } from '@/lib/backend-actions/personal.stickynotes.actions'
 import { cn } from '@/lib/utils'
 import { PersonalStickyNotesValidation } from '@/lib/validations/personal.stickynotes.validation'
 import { zodResolver } from "@hookform/resolvers/zod"
@@ -31,13 +37,13 @@ import { usePathname, useRouter } from "next/navigation"
 import { useEffect, useState } from 'react'
 import { useForm } from "react-hook-form"
 import * as z from "zod"
+import '@mantine/core/styles.css';
+import { Block, PartialBlock } from "@blocknote/core";
+import "@blocknote/core/fonts/inter.css";
 import {
-    Select,
-    SelectContent,
-    SelectItem,
-    SelectTrigger,
-    SelectValue,
-} from "@/components/ui/select"
+    BlockNoteView, useCreateBlockNote
+} from "@blocknote/react";
+import "@blocknote/react/style.css";
 
 const mynerve = Mynerve({
     subsets: ['latin', 'greek', 'latin-ext', 'vietnamese'],
@@ -59,8 +65,8 @@ const StickyNotes = ({
 }: StickyNotesProps) => {
     const [notes, setNotes] = useState<TStickyNotes[]>([]);
     const [append, setAppend] = useState(false);
+    const editor = useCreateBlockNote();
     const getTodos = async () => {
-        // const todos = await fetchPersonalStickyNotes(userId);
         const response = await fetch('/api/stickynote');
         if (!response.ok) {
             throw new Error('Failed to fetch data');
@@ -83,6 +89,7 @@ const StickyNotes = ({
         // Polling interval (fetch new data every 5 seconds)
     }, [append, setNotes])
 
+
     const router = useRouter()
     const pathname = usePathname();
     const form = useForm<z.infer<typeof PersonalStickyNotesValidation>>({
@@ -97,13 +104,6 @@ const StickyNotes = ({
         setAppend(true)
         console.log("onSubmit fired");
         try {
-            // await createPersonalStickyNotes({
-            //     title: values.title,
-            //     author: userId,
-            //     description: values.description,
-            //     path: pathname,
-            //     background: values.background
-            // });
             const response = await fetch(('/api/stickynote'), {
                 method: "POST",
                 body: JSON.stringify({
@@ -133,11 +133,6 @@ const StickyNotes = ({
                 },
                 body: JSON.stringify({ id: noteId, path: pathname, author: userId })
             });
-            // await deleteStickyNotes({
-            //     id: noteId,
-            //     path: pathname,
-            //     author: userId,
-            // })
         } catch (err) {
             console.log(err)
         }
@@ -208,13 +203,6 @@ const StickyNotes = ({
                                                             <SelectItem value="#a9edf1">Celeste</SelectItem>
                                                         </SelectContent>
                                                     </Select>
-
-                                                    {/* <Input
-                                                    placeholder="Add new task..."
-                                                    {...field}
-                                                    autoFocus
-                                                    className={cn("w-full rounded border border-violet-400 bg-violet-400/20 p-3 text-2xl text-neutral-800 placeholder-violet-300 focus:outline-0", mynerve.className)}
-                                                /> */}
                                                 </FormControl>
                                                 <FormMessage />
                                             </FormItem>
@@ -230,12 +218,20 @@ const StickyNotes = ({
                                                 Content
                                             </FormLabel>
                                             <FormControl>
-                                                <Textarea
+                                                <BlockNoteView
+                                                    editor={editor}
+                                                    onChange={() => {
+                                                        // Serialize editor content to a string format
+                                                        const serializedContent = JSON.stringify(editor.document);
+                                                        field.onChange(serializedContent); // Update form field value
+                                                    }}
+                                                />
+                                                {/* <Textarea
                                                     placeholder="Maybe some description..."
                                                     rows={5}
                                                     {...field}
                                                     className="w-full rounded border border-violet-400 bg-violet-400/20 p-3 text-sm text-neutral-800 placeholder-violet-300 focus:outline-0 focus:border-transparent"
-                                                />
+                                                /> */}
                                             </FormControl>
                                             <FormMessage />
                                         </FormItem>
@@ -259,57 +255,61 @@ const StickyNotes = ({
             <ScrollArea className="h-[90vh] w-full rounded-md">
                 <div className='flex gap-10 flex-wrap justify-center md:justify-start'>
                     {
-                        notes.map((note, index) => (
-                            <Drawer key={index}>
-                                <DrawerTrigger>
-                                    <ScrollArea
-                                        style={{
-                                            backgroundColor: note.backgroundColor
-                                        }}
-                                        key={note.id}
-                                        className={cn("h-72 w-72 rounded-xl pb-4", note.backgroundColor ?  `bg-[${note.backgroundColor}]` : `bg-[${defaultBg}]`)}
-                                    >
-                                        <div className="relative px-4">
-                                            <div 
-                                                style={{
-                                                    backgroundColor: note.backgroundColor
-                                                }}
-                                                className='top-0 left-0 pt-4 mb-2 sticky w-full bg-[#fff385]'
-                                            >
-                                                <h4 className={cn("mb-4 text-2xl font-medium leading-none text-left", mynerve.className)}>{note.title}</h4>
-                                                <Separator className='text-slate-900 bg-slate-700' />
+                        notes.map((note, index) => {
+                            return (
+                                <Drawer key={index}>
+                                    <DrawerTrigger>
+                                        <ScrollArea
+                                            style={{
+                                                backgroundColor: note.backgroundColor
+                                            }}
+                                            key={note.id}
+                                            className={cn("h-72 w-72 rounded-xl pb-4", note.backgroundColor ? `bg-[${note.backgroundColor}]` : `bg-[${defaultBg}]`)}
+                                        >
+                                            <div className="relative px-4">
+                                                <div
+                                                    style={{
+                                                        backgroundColor: note.backgroundColor
+                                                    }}
+                                                    className='top-0 left-0 pt-4 mb-2 sticky w-full bg-[#fff385]'
+                                                >
+                                                    <h4 className={cn("mb-4 text-2xl font-medium leading-none text-left", mynerve.className)}>{note.title}</h4>
+                                                    <Separator className='text-slate-900 bg-slate-700' />
+                                                </div>
+                                                <p className='py-2 text-left text-wrap'>
+                                                    {note.description}
+                                                </p>
                                             </div>
-                                            <p className='py-2 text-left text-wrap'>{note.description}</p>
-                                        </div>
-                                    </ScrollArea>
-                                </DrawerTrigger>
-                                <DrawerContent className='px-10 w-full'>
-                                    <DrawerClose>
-                                        <div className='w-full flex justify-end'>
-                                            <Button
-                                                variant={"ghost"}
-                                                onClick={() => deletePersonalStickyNotes(note.id)}
-                                            >
-                                                <Trash className={"h-7 w-7 text-destructive"} />
-                                            </Button>
-                                        </div>
-                                    </DrawerClose>
-                                    <DrawerHeader>
-                                        <DrawerTitle>
-                                            {/* <h4 className={cn("mb-4 text-2xl font-medium leading-none")}>Title</h4> */}
-                                            <h4 className={cn("mb-4 text-2xl font-medium leading-none", mynerve.className)}>{note.title}</h4>
-                                        </DrawerTitle>
-                                    </DrawerHeader>
-                                    <Separator className='text-slate-900 bg-slate-700' />
-                                    <ScrollArea
-                                        key={note.id}
-                                        className="h-72 w-full rounded-xl"
-                                    >
-                                        <p className='py-4 text-left text-wrap'>{note.description}</p>
-                                    </ScrollArea>
-                                </DrawerContent>
-                            </Drawer>
-                        ))
+                                        </ScrollArea>
+                                    </DrawerTrigger>
+                                    <DrawerContent className='px-10 w-full'>
+                                        <DrawerClose>
+                                            <div className='w-full flex justify-end'>
+                                                <Button
+                                                    variant={"ghost"}
+                                                    onClick={() => deletePersonalStickyNotes(note.id)}
+                                                >
+                                                    <Trash className={"h-7 w-7 text-destructive"} />
+                                                </Button>
+                                            </div>
+                                        </DrawerClose>
+                                        <DrawerHeader>
+                                            <DrawerTitle>
+                                                {/* <h4 className={cn("mb-4 text-2xl font-medium leading-none")}>Title</h4> */}
+                                                <h4 className={cn("mb-4 text-2xl font-medium leading-none", mynerve.className)}>{note.title}</h4>
+                                            </DrawerTitle>
+                                        </DrawerHeader>
+                                        <Separator className='text-slate-900 bg-slate-700' />
+                                        <ScrollArea
+                                            key={note.id}
+                                            className="h-72 w-full rounded-xl"
+                                        >
+                                            <p className='py-4 text-left text-wrap'>{note.description.toString()}</p>
+                                        </ScrollArea>
+                                    </DrawerContent>
+                                </Drawer>
+                            )
+                        })
                     }
                 </div>
             </ScrollArea>
