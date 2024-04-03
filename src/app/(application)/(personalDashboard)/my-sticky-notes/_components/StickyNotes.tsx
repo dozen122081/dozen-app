@@ -37,12 +37,7 @@ import { usePathname, useRouter } from "next/navigation"
 import { useEffect, useState } from 'react'
 import { useForm } from "react-hook-form"
 import * as z from "zod"
-import '@mantine/core/styles.css';
-import { Block, PartialBlock } from "@blocknote/core";
 import "@blocknote/core/fonts/inter.css";
-import {
-    BlockNoteView, useCreateBlockNote
-} from "@blocknote/react";
 import "@blocknote/react/style.css";
 
 const mynerve = Mynerve({
@@ -65,7 +60,6 @@ const StickyNotes = ({
 }: StickyNotesProps) => {
     const [notes, setNotes] = useState<TStickyNotes[]>([]);
     const [append, setAppend] = useState(false);
-    const editor = useCreateBlockNote();
     const getTodos = async () => {
         const response = await fetch('/api/stickynote');
         if (!response.ok) {
@@ -218,20 +212,12 @@ const StickyNotes = ({
                                                 Content
                                             </FormLabel>
                                             <FormControl>
-                                                <BlockNoteView
-                                                    editor={editor}
-                                                    onChange={() => {
-                                                        // Serialize editor content to a string format
-                                                        const serializedContent = JSON.stringify(editor.document);
-                                                        field.onChange(serializedContent); // Update form field value
-                                                    }}
-                                                />
-                                                {/* <Textarea
+                                                <Textarea
                                                     placeholder="Maybe some description..."
                                                     rows={5}
                                                     {...field}
                                                     className="w-full rounded border border-violet-400 bg-violet-400/20 p-3 text-sm text-neutral-800 placeholder-violet-300 focus:outline-0 focus:border-transparent"
-                                                /> */}
+                                                />
                                             </FormControl>
                                             <FormMessage />
                                         </FormItem>
@@ -295,7 +281,6 @@ const StickyNotes = ({
                                         </DrawerClose>
                                         <DrawerHeader>
                                             <DrawerTitle>
-                                                {/* <h4 className={cn("mb-4 text-2xl font-medium leading-none")}>Title</h4> */}
                                                 <h4 className={cn("mb-4 text-2xl font-medium leading-none", mynerve.className)}>{note.title}</h4>
                                             </DrawerTitle>
                                         </DrawerHeader>
@@ -304,7 +289,7 @@ const StickyNotes = ({
                                             key={note.id}
                                             className="h-72 w-full rounded-xl"
                                         >
-                                            <p className='py-4 text-left text-wrap'>{note.description.toString()}</p>
+                                            <p className='py-4 text-left text-wrap'>{note.description}</p>
                                         </ScrollArea>
                                     </DrawerContent>
                                 </Drawer>
