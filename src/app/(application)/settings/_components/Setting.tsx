@@ -1,3 +1,4 @@
+"use client"
 import { cn } from '@/lib/utils'
 import Link from 'next/link'
 import React from 'react'
@@ -7,15 +8,15 @@ const Setting = () => {
   return (
     <div>
       <div>
-      <Link
-                    href="/personal-dashboard"
-                    className={cn(
-                        "py-3 px-4 font-semibold rounded-md flex gap-1 items-center",
-                    )}
-                >
-                    <BiDoorOpen className='h-4 w-4' />
-                    <span className='text-sm'> Back to home</span>
-      </Link>
+        <Link
+          href="/personal-dashboard"
+          className={cn(
+            "py-3 px-4 font-semibold rounded-md flex gap-1 items-center",
+          )}
+        >
+          <BiDoorOpen className='h-4 w-4' />
+          <span className='text-sm'> Back to home</span>
+        </Link>
       </div>
       <div className='text-center '>
         <h3>

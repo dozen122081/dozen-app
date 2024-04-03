@@ -1,3 +1,4 @@
+"use client"
 import React from 'react'
 import Setting from './_components/Setting'
 
