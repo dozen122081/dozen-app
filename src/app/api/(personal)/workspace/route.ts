@@ -1,5 +1,7 @@
 import PersonalStickyNotes from "@/lib/models/personal.stickynotes.model";
 import PersonalWorkspace from "@/lib/models/personal.workspace.model";
+import WorkspaceStickyNotes from "@/lib/models/personalWorkspace/workspace.stickynote";
+import WorkspaceTodo from "@/lib/models/personalWorkspace/workspace.todo";
 import User from "@/lib/models/user.model";
 import { connectToDatabase } from "@/lib/mongoose";
 import { currentUser } from "@clerk/nextjs";
@@ -42,13 +44,13 @@ export async function POST(req: Request) {
             author: data.author,
             backgroundColor: data.background,
         });
+        
         // Update User model
         await User.findOneAndUpdate({
-            author: data.author
+            id: data.author
         }, {
-            $push: { workspace: createdWorkspace._id },
+            $push: { workspaces: createdWorkspace._id },
         });
-
         return new NextResponse(JSON.stringify(createdWorkspace))
     } catch (error: any) {
         throw new Error(`Failed to create sticky note: ${error.message}`);
@@ -56,7 +58,6 @@ export async function POST(req: Request) {
 }
 
 export async function DELETE(req: Request) {
-
     // fix delete logic as even it's deleted it still remains in db
     const data = await req.json()
     try {
@@ -64,11 +65,16 @@ export async function DELETE(req: Request) {
   
       // Find the thread to be deleted (the main thread)
       const workspaceIdToRemove = await PersonalWorkspace.findByIdAndDelete({_id: data.id});
-  
       // Update User model
-      await User.updateOne(
+      const deleteWorkspaceTodos = await WorkspaceTodo.deleteMany({
+        workspaceId: data.id,
+      })
+      const deleteWorkspaceStickyNotes = await WorkspaceStickyNotes.deleteMany({
+        workspaceId: data.id,
+      })
+      await User.findOneAndUpdate(
         { id: data.author },
-        { $pull: { workspace: data.id } }
+        { $pull: { workspaces: data.id } }
       );
       return new NextResponse(JSON.stringify(workspaceIdToRemove))
     } catch (error: any) {

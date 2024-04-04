@@ -1,5 +1,6 @@
 "use client"
 import { cn } from '@/lib/utils';
+import { AlignStartVertical, Blocks, Boxes, StickyNote } from 'lucide-react';
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import React, { useEffect, useState } from 'react'
@@ -33,8 +34,8 @@ const WorkspaceSideBar = () => {
             "py-3 px-4 font-semibold rounded-md flex gap-1 items-center",
           )}
         >
-          <BiDoorOpen className='h-4 w-4'/>
-         <span className='text-sm'> Back to home</span>
+          <BiDoorOpen className='h-4 w-4' />
+          <span className='text-sm'> Back to home</span>
         </Link>
         <Link
           href="/workspace"
@@ -42,8 +43,8 @@ const WorkspaceSideBar = () => {
             "py-3 px-4 font-semibold rounded-md flex gap-1 items-center",
           )}
         >
-          <BiDoorOpen className='h-4 w-4'/>
-         <span className='text-sm'>My Spaces</span>
+          <Boxes className='h-4 w-4' />
+          <span className='text-sm'>My Spaces</span>
         </Link>
       </div>
       <div>
@@ -51,20 +52,24 @@ const WorkspaceSideBar = () => {
           <Link
             href={`/workspace/${workspaceId}/todo`}
             className={cn(
-              "py-3 px-4 font-semibold rounded-md",
+              "py-3 px-4 font-semibold rounded-md flex gap-1 items-center",
               isTodoActive && "bg-secondary text-md"
             )}
           >
-            Todo
+            <AlignStartVertical className='h-4 w-4' />
+
+            <span className='text-sm'>Todo</span>
           </Link>
           <Link
             href={`/workspace/${workspaceId}/stickynotes`}
             className={cn(
-              "py-3 px-4 font-semibold rounded-md",
+              "py-3 px-4 font-semibold rounded-md flex gap-1 items-center",
               isStickyNotesActive && "bg-secondary text-md"
             )}
           >
-            Sticky Notes
+            <StickyNote className='h-4 w-4' />
+            <span className='text-sm'>Sticky Notes</span>
+
           </Link>
         </div>
       </div>

@@ -13,14 +13,14 @@ export async function PUT(req: Request) {
             author: data.author,
             workspaceId: data.workspaceId
         });
-        const createdTodo = await WorkspaceTodo.insertMany(data.newData.map((item: any )=> ({ ...item, author: data.author, workspaceId: data.workspaceId }))); // Corrected line
+        const updatedTodos = await WorkspaceTodo.insertMany(data.newData.map((item: any )=> ({ ...item, author: data.author, workspaceId: data.workspaceId }))); // Corrected line
         // Update User model
         await User.findOneAndUpdate({author: data.author}, {
-            $push: { todos: createdTodo.map(todo => todo._id) },
+            $push: { todos: updatedTodos.map(todo => todo._id) },
         });
 
         // revalidatePath(path);
-        return new NextResponse(JSON.stringify(createdTodo))
+        return new NextResponse(JSON.stringify(updatedTodos))
     } catch (error: any) {
         throw new Error(`Failed to create thread: ${error.message}`);
     }

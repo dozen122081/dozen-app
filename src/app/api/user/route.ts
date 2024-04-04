@@ -42,15 +42,6 @@ export type UserData = {
     }
   }
 
-interface createUpdateUserDataProps{
-    userId: string;
-    name: string;
-    username: string;
-    image: string;
-    onboarded: boolean;
-    path: string;
-}
-
 
 export async function PUT(req: Request){
     connectToDatabase()

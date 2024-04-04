@@ -131,14 +131,14 @@ const StickyNotes = ({
         setAppend(false)
     }
     return (
-        <section className='flex flex-col items-start h-[130vh] max-h-[200vh]  w-screen-xl'>
+        <section className='flex flex-col items-start h-[130vh] max-h-[200vh] w-screen-xl'>
             <div className='w-full my-10 flex items-center justify-center md:justify-start'>
                 <Drawer>
                     <DrawerTrigger>
                         <div
                             className='h-56 w-56 border border-dashed rounded-xl flex justify-center items-center border-slate-800'
                         >
-                            <div className='flex flex-col md:items-center text-slate-600 gap-2'>
+                            <div className='flex  md:flex-col md:items-center text-slate-600 gap-2'>
                                 <Pen />
                                 <span>Add Note</span>
                             </div>
@@ -236,66 +236,64 @@ const StickyNotes = ({
                     </DrawerContent>
                 </Drawer>
             </div>
-            <ScrollArea className="h-[90vh] w-full rounded-md">
-                <div className='flex gap-10 flex-wrap justify-center md:justify-start'>
-                    {
-                        notes.map((note, index) => {
-                            return (
-                                <Drawer key={index}>
-                                    <DrawerTrigger>
-                                        <ScrollArea
-                                            style={{
-                                                backgroundColor: note.backgroundColor
-                                            }}
-                                            key={note.id}
-                                            className={cn("h-72 w-72 rounded-xl pb-4", note.backgroundColor ? `bg-[${note.backgroundColor}]` : `bg-[${defaultBg}]`)}
-                                        >
-                                            <div className="relative px-4">
-                                                <div
-                                                    style={{
-                                                        backgroundColor: note.backgroundColor
-                                                    }}
-                                                    className='top-0 left-0 pt-4 mb-2 sticky w-full bg-[#fff385]'
-                                                >
-                                                    <h4 className={cn("mb-4 text-2xl font-medium leading-none text-left", mynerve.className)}>{note.title}</h4>
-                                                    <Separator className='text-slate-900 bg-slate-700' />
-                                                </div>
-                                                <p className='py-2 text-left text-wrap'>
-                                                    {note.description}
-                                                </p>
+            <div className='flex gap-10 flex-wrap justify-center md:justify-start'>
+                {
+                    notes.map((note, index) => {
+                        return (
+                            <Drawer key={index}>
+                                <DrawerTrigger>
+                                    <ScrollArea
+                                        style={{
+                                            backgroundColor: note.backgroundColor
+                                        }}
+                                        key={note.id}
+                                        className={cn("h-[22rem] w-[22rem] md:h-72 md:w-72 rounded-xl pb-4", note.backgroundColor ? `bg-[${note.backgroundColor}]` : `bg-[${defaultBg}]`)}
+                                    >
+                                        <div className="relative px-4">
+                                            <div
+                                                style={{
+                                                    backgroundColor: note.backgroundColor
+                                                }}
+                                                className='top-0 left-0 pt-4 mb-2 sticky w-full bg-[#fff385]'
+                                            >
+                                                <h4 className={cn("mb-4 text-2xl font-medium leading-none text-left", mynerve.className)}>{note.title}</h4>
+                                                <Separator className='text-slate-900 bg-slate-700' />
                                             </div>
-                                        </ScrollArea>
-                                    </DrawerTrigger>
-                                    <DrawerContent className='px-10 w-full'>
-                                        <DrawerClose>
-                                            <div className='w-full flex justify-end'>
-                                                <Button
-                                                    variant={"ghost"}
-                                                    onClick={() => deletePersonalStickyNotes(note.id)}
-                                                >
-                                                    <Trash className={"h-7 w-7 text-destructive"} />
-                                                </Button>
-                                            </div>
-                                        </DrawerClose>
-                                        <DrawerHeader>
-                                            <DrawerTitle>
-                                                <h4 className={cn("mb-4 text-2xl font-medium leading-none", mynerve.className)}>{note.title}</h4>
-                                            </DrawerTitle>
-                                        </DrawerHeader>
-                                        <Separator className='text-slate-900 bg-slate-700' />
-                                        <ScrollArea
-                                            key={note.id}
-                                            className="h-72 w-full rounded-xl"
-                                        >
-                                            <p className='py-4 text-left text-wrap'>{note.description}</p>
-                                        </ScrollArea>
-                                    </DrawerContent>
-                                </Drawer>
-                            )
-                        })
-                    }
-                </div>
-            </ScrollArea>
+                                            <p className='py-2 text-left text-wrap'>
+                                                {note.description}
+                                            </p>
+                                        </div>
+                                    </ScrollArea>
+                                </DrawerTrigger>
+                                <DrawerContent className='px-10 w-full'>
+                                    <DrawerClose>
+                                        <div className='w-full flex justify-end'>
+                                            <Button
+                                                variant={"ghost"}
+                                                onClick={() => deletePersonalStickyNotes(note.id)}
+                                            >
+                                                <Trash className={"h-7 w-7 text-destructive"} />
+                                            </Button>
+                                        </div>
+                                    </DrawerClose>
+                                    <DrawerHeader>
+                                        <DrawerTitle>
+                                            <h4 className={cn("mb-4 text-2xl font-medium leading-none", mynerve.className)}>{note.title}</h4>
+                                        </DrawerTitle>
+                                    </DrawerHeader>
+                                    <Separator className='text-slate-900 bg-slate-700' />
+                                    <ScrollArea
+                                        key={note.id}
+                                        className="h-72 w-full rounded-xl"
+                                    >
+                                        <p className='py-4 text-left text-wrap'>{note.description}</p>
+                                    </ScrollArea>
+                                </DrawerContent>
+                            </Drawer>
+                        )
+                    })
+                }
+            </div>
         </section >
     )
 }

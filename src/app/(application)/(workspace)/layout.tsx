@@ -1,4 +1,5 @@
 import WorkspaceSideBar from "@/components/SideBars/WorkspaceSideBar/WorkspaceSideBar"
+import WorkspacesSidebar from "@/components/SideBars/WorkspaceSideBar/WorkspacesSidebar"
 import { cn } from "@/lib/utils"
 import { Work_Sans } from "next/font/google"
 
@@ -13,11 +14,9 @@ const WorkspaceLayout = ({
 }) => {
   return (
     <div className={cn("", workSans.className)}>
-      <div className="flex ">
-        <main className="w-full">
-          {children}
-        </main>
-      </div>
+      <main className="w-full">
+        {children}
+      </main>
     </div>
   )
 }

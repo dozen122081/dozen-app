@@ -129,7 +129,7 @@ const AsideBar = ({
       <aside
         ref={asideRef}
         className={cn(
-          "relative group/aside h-full min-h-screen w-[14rem] bg-card rounded-sm",
+          "relative group/aside h-full max-h-screen w-[14rem] bg-card rounded-sm",
           isResetting && "transition-all ease-in-out duration-300"
         )}
       >
@@ -235,7 +235,7 @@ const AsideBar = ({
           <div
             role={"button"}
             onClick={resetWidth}
-            className='mr-2 flex p-1 items-start justify-center hover:cursor-pointer'
+            className='mr-2 flex p-1 items-start md:justify-center hover:cursor-pointer'
           >
             <ChevronsRight className='h-4 w-4' />
           </div>

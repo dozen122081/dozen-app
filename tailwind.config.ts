@@ -99,6 +99,7 @@ const config = {
     require("tailwindcss-animate"),
     require('@headlessui/tailwindcss'), 
     require('@tailwindcss/forms'),
+    require("daisyui"),
     addVariablesForColors,
     function ({ matchUtilities, theme }: any) {
       matchUtilities(
