@@ -10,7 +10,7 @@ const PersonalDashboardLayout = ({
   return (
     <main className="flex flex-col">
       <NavBar />
-      <div className="flex">
+      <div className="flex flex-col md:flex-row">
         <AsideBar navLinksData={personalDashboardLinks}/>
         <div className="w-full">
           {children}

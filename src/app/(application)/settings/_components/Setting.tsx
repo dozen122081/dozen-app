@@ -1,10 +1,20 @@
 "use client"
 import { cn } from '@/lib/utils'
 import Link from 'next/link'
-import React from 'react'
+import React, { useState } from 'react'
 import { BiDoorOpen } from 'react-icons/bi'
+import { Switch } from "@/components/ui/switch"
+
 
 const Setting = () => {
+
+  const [isClicked, setIsClicked] = useState(false);
+
+  const handleClick = () => {
+    setIsClicked(!isClicked);
+    console.log("helloworld");
+  }
+
   return (
     <div>
       <div>
@@ -26,9 +36,19 @@ const Setting = () => {
       <div className='flex justify-center items-center'>
         <div className='w-[80%] h-[50vh] '>
           <ul className='flex items-center p-2 justify-around' >
-            <li>Tomorrow</li>
-            <li>Focus Clock</li>
-            <li>Sticky Notes</li>
+            <li className='flex gap-5'>
+              <label htmlFor="">Tomorrow</label>
+              <Switch onClick={handleClick}/>
+            </li>
+            <li className='flex gap-5'>
+              <label htmlFor="">Focus Clock</label>
+              <Switch />
+            </li>
+            <li className='flex gap-5'>
+              <label htmlFor="">Sticky Notes</label>
+              <Switch />
+            </li>
+            
           </ul>
         </div>
       </div>
