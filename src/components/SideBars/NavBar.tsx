@@ -1,13 +1,18 @@
 "use client"
 import { UserData } from '@/app/api/user/route';
 import { SignOutButton, UserButton, useUser } from '@clerk/nextjs'
-import { Boxes, Group, Hammer, Shrink } from 'lucide-react';
+import { Blocks, Boxes, DraftingCompass, Group, Hammer, Shrink } from 'lucide-react';
 import Link from 'next/link'
 import { useEffect, useState } from 'react';
 import { IoSettings } from "react-icons/io5";
 import { Button } from '../ui/button';
 import { Separator } from '../ui/separator';
-
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip"
 const NavBar = () => {
   const { user } = useUser()
   const [userData, setUserData] = useState<UserData>();
@@ -33,21 +38,48 @@ const NavBar = () => {
   console.log(userData?.image)
   return (
     <>
-      <nav className='hidden border-b-2 md:flex items-center justify-between p-4'>
+      <nav className='hidden border-b-2 md:flex items-center justify-between px-4 py-2'>
         <div>
           <h2 className='text-2xl font-bold'>Dozen</h2>
         </div>
         <div className='flex items-center gap-7 font-medium text-sm'>
           <div className='flex gap-4 items-center'>
-            <Link href="/features" className='hover:underline transition-all duration-300'>
-              Feature Board
-            </Link>
-            <Link href="/workspace" className='hover:underline transition-all duration-300'>
-              My Workspaces
-            </Link>
-            <Link href="/settings" className='hover:underline transition-all duration-300'>
-              <IoSettings />
-            </Link>
+            <TooltipProvider>
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <Link href="/features" className='hover:underline transition-all duration-300'>
+                    <DraftingCompass className='h-5 w-5' />
+                  </Link>
+                </TooltipTrigger>
+                <TooltipContent sideOffset={25}>
+                  <p>Feature Board</p>
+                </TooltipContent>
+              </Tooltip>
+            </TooltipProvider>
+            <TooltipProvider>
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <Link href="/workspace" className='hover:underline transition-all duration-300'>
+                    <Blocks className='h-5 w-5' />
+                  </Link>
+                </TooltipTrigger>
+                <TooltipContent sideOffset={25}>
+                  <p>Workspace</p>
+                </TooltipContent>
+              </Tooltip>
+            </TooltipProvider>
+            <TooltipProvider>
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <Link href="/settings" className='hover:underline transition-all duration-300'>
+                    <IoSettings className='h-5 w-5' />
+                  </Link>
+                </TooltipTrigger>
+                <TooltipContent sideOffset={25}>
+                  <p>Settings</p>
+                </TooltipContent>
+              </Tooltip>
+            </TooltipProvider>
           </div>
           <UserButton afterSignOutUrl='/' />
         </div>
