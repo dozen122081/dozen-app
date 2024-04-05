@@ -76,7 +76,7 @@ export const TodoBoard = ({
                 author={userId}
             />
             <ScrollArea className="mt-10 md:h-[60vh] h-[50vh] max-h-[220vh] w-[100%] md:w-full ">
-                <div className="flex gap-10 w-full mt-10 md:mx-10 justify-start sm:justify-center md:justify-start flex-wrap">
+                <div className="flex gap-10 w-full mt-10 md:mx-10 justify-center md:justify-start flex-wrap">
                     <Column
                         title="Ideas"
                         category="ideas"
