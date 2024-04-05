@@ -66,6 +66,8 @@ const AsideBar = ({
     }));
   };
 
+
+
   // sidebar functionality
   // Refs
   const asideRef = useRef<ElementRef<"aside">>(null);
@@ -129,10 +131,12 @@ const AsideBar = ({
       <aside
         ref={asideRef}
         className={cn(
-          "relative group/aside h-full max-h-screen w-[14rem] bg-card rounded-sm",
+          "absolute z-[9999] md:relative md:z-0 group/aside h-[96vh] max-h-screen w-[14rem] bg-card rounded-sm",
           isResetting && "transition-all ease-in-out duration-300"
+
         )}
       >
+       
         {/* Aside Controls  */}
         <span
           onMouseDown={handleMouseDown}
@@ -149,7 +153,7 @@ const AsideBar = ({
 
         {
           !isCollapsed && (
-            <div className='flex flex-col w-full mt-10 pr-3 gap-2 transition-all duration-300'>
+            <div className='flex flex-col w-full mt-10 p-[2px] rounded-sm gap-2 transition-all duration-300'>
               <div className='flex flex-col gap-2 text-sm'>
                 {
                   navLinksData?.map((navLink) => {
@@ -164,7 +168,7 @@ const AsideBar = ({
                         )}
                       >
                         {navLink.title}
-                      </Link>
+                      </Link> 
                     )
                   })
                 }
@@ -235,9 +239,9 @@ const AsideBar = ({
           <div
             role={"button"}
             onClick={resetWidth}
-            className='mr-2 flex p-1 items-start md:justify-center hover:cursor-pointer'
+            className='absolute z-[9999] top-[70px] md:top-[50px] flex p-1 h-[30px] md:h-full md:w-[50px] w-[23px] items-start md:justify-center hover:cursor-pointer'
           >
-            <ChevronsRight className='h-4 w-4' />
+            <ChevronsRight className='h-5 w-5' />
           </div>
         )
       }

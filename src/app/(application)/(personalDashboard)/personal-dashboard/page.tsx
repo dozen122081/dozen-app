@@ -28,7 +28,7 @@ const page = () => {
     if (!user || !userData) return null;
     if(!userData.onboarded) redirect("/onboarding")
     return (
-        <div>Personal Dashboard 1</div>
+        <div className='mx-0 md:mx-10'>Personal Dashboard 1</div>
     )
 }
 

@@ -131,28 +131,28 @@ const StickyNotes = ({
         setAppend(false)
     }
     return (
-        <section className='flex flex-col items-start h-[130vh] max-h-[200vh] w-screen-xl'>
+        <section className='flex flex-col md:items-start h-[130vh] max-h-[200vh] w-screen-xl'>
             <div className='w-full my-10 flex items-center justify-center md:justify-start'>
                 <Drawer>
                     <DrawerTrigger>
                         <div
                             className='h-56 w-56 border border-dashed rounded-xl flex justify-center items-center border-slate-800'
                         >
-                            <div className='flex  md:flex-col md:items-center text-slate-600 gap-2'>
+                            <div className='flex md:flex-col md:items-center text-slate-600 gap-2'>
                                 <Pen />
                                 <span>Add Note</span>
                             </div>
                         </div>
                     </DrawerTrigger>
-                    <DrawerContent className='px-10 h-[80vh] md:h-[85vh] lg:h-[70vh] '>
+                    <DrawerContent className='z-[999999] px-10 flex justify-center  h-[90vh] md:h-[70vh] md:w-[100%] lg:h-[70vh]'>
                         <Form {...form}>
                             <motion.form
                                 layout
-                                className='mt-4 flex flex-col justify-start gap-10'
+                                className='mt-4 p-4 h-full flex flex-col justify-start gap-10'
                                 onSubmit={form.handleSubmit(onSubmit)}
                             >
 
-                                <div className='flex gap-10'>
+                                <div className='flex gap-10 flex-col md:flex-row'>
                                     <FormField
                                         control={form.control}
                                         name='title'
@@ -166,7 +166,7 @@ const StickyNotes = ({
                                                         placeholder="Add new task..."
                                                         {...field}
                                                         autoFocus
-                                                        className={cn("md:w-full md:rounded md:border md:border-violet-400 md:bg-violet-400/20 md:p-3 md:text-2xl md:text-neutral-800 md:placeholder-violet-300 md:focus:outline-0 focus:border-transparent", mynerve.className)}
+                                                        className={cn("md:w-full  placeholder:text-xl md:rounded md:border md:border-violet-400 md:bg-violet-400/20 md:p-3 md:text-2xl text-xl md:text-neutral-800 md:placeholder-violet-300 md:focus:outline-0 focus:border-transparent", mynerve.className)}
                                                     />
                                                 </FormControl>
                                                 <FormMessage />
@@ -183,7 +183,7 @@ const StickyNotes = ({
                                                 </FormLabel>
                                                 <FormControl>
                                                     <Select onValueChange={field.onChange} defaultValue={field.value}>
-                                                        <SelectTrigger className="w-[180px] rounded border border-violet-400 bg-violet-400/20 p-3 text-2xl text-neutral-800 placeholder-violet-300 focus:outline-0 focus:border-transparent">
+                                                        <SelectTrigger className="w-full md:w-[180px] rounded border border-violet-400 bg-violet-400/20 p-3 text-2xl text-neutral-800 placeholder-violet-300 focus:outline-0 focus:border-transparent">
                                                             <SelectValue placeholder="Theme" />
                                                         </SelectTrigger>
                                                         <SelectContent>

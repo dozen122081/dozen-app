@@ -70,17 +70,17 @@ export const TodoBoard = ({
     }, [append]); // Dependency array with append state
 
     return (
-        <div className="h-full w-full flex-1 flex flex-col">
+        <div className="h-full w-full flex-1 flex flex-col items-center justify-center">
             <BurnBarrel
                 setCards={setCards}
                 author={userId}
             />
-            <ScrollArea className="mt-10 md:h-[60vh] w-full">
-                <div className="flex gap-10 w-full mt-10 md:mx-10 md:h-[70vh] justify-center md:justify-start flex-wrap">
+            <ScrollArea className="mt-10 md:h-[60vh] h-[50vh] max-h-[220vh] w-[100%] md:w-full ">
+                <div className="flex gap-10 w-full mt-10 md:mx-10 justify-start sm:justify-center md:justify-start flex-wrap">
                     <Column
                         title="Ideas"
                         category="ideas"
-                        headingColor="text-neutral-500"
+                        headingColor="text-neutral-500" 
                         cards={cards}
                         setCards={setCards}
                         userId={userId}
@@ -92,7 +92,7 @@ export const TodoBoard = ({
                         headingColor="text-red-400"
                         cards={cards}
                         setCards={setCards}
-                        userId={userId}
+                        userId={userId} 
                         setAppend={setAppend}
                     />
                     <Column

@@ -9,12 +9,12 @@ const PersonalDashboardLayout = ({
   children: React.ReactNode;
 }) => {
   return (
-    <main className="flex flex-col max-h-screen">
+    <main className="flex flex-col h-full max-h-screen border-5">
       <NavBar />
-      <div className="flex flex-col md:flex-row h-full max-h-screen">
+      <div className="flex flex-col md:flex-row md:h-full md:max-h-screen">
         <AsideBar navLinksData={personalDashboardLinks} />
         <div className="w-full">
-          <ScrollArea className="h-full max-h-[89vh] w-full rounded-md">
+          <ScrollArea className="h-[89vh] w-full rounded-md">
             {children}
           </ScrollArea>
         </div>
