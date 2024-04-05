@@ -39,7 +39,7 @@ const Page = () => {
   if(!user) return null;
 
   return (
-    <div className='border-2 w-full py-7 md:py-10 px-5 md:px-14 flex flex-col gap-10 md:h-[110vh]'>
+    <div className='w-full py-7 md:py-10 px-5 md:px-14 flex flex-col gap-10 md:h-[110vh]'>
       <div className='flex justify-between items-center'>
         <h1 className="md:text-3xl font-bold text-2xl">{user.firstName}'s Task Status</h1>
         <div>
