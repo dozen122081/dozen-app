@@ -156,7 +156,7 @@ const Column = ({
     const filteredCards = cards.filter((c) => c.category === category);
 
     return (
-        <div className="w-60 sm:w-[400px] md:w-[41%] shrink-0">
+        <div className="w-60 sm:w-[400px] md:w-56 shrink-0">
             <div className="mb-3 flex items-center justify-between">
                 <h3 className={`font-bold text-xl ${headingColor}`}>{title}</h3>
                 <span className="rounded text-sm text-neutral-400">

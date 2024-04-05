@@ -131,7 +131,7 @@ const AsideBar = ({
       <aside
         ref={asideRef}
         className={cn(
-          "absolute z-[9999] md:relative md:z-0 group/aside h-[96vh] max-h-screen w-[14rem] bg-card rounded-sm",
+          "absolute z-[9999] md:relative md:z-0 group/aside h-full max-h-screen w-[14rem] bg-card rounded-sm",
           isResetting && "transition-all ease-in-out duration-300"
 
         )}

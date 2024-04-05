@@ -70,7 +70,7 @@ export const TodoBoard = ({
     }, [append]); // Dependency array with append state
 
     return (
-        <div className="h-full w-full flex-1 flex flex-col items-center justify-center">
+        <div className=" h-full w-full flex-1 flex flex-col items-center justify-center">
             <BurnBarrel
                 setCards={setCards}
                 author={userId}
