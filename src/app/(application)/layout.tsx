@@ -6,7 +6,7 @@ const ApplicationLayout = ({
 }) => {
     return (
         <main className='w-full h-full min-h-screen'>
-            {children}
+                {children}
         </main>
 
     )

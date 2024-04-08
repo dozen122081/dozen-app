@@ -19,7 +19,8 @@ export type UserData = {
     username: string;
     streak: number,
   }
-  
+
+
   export async function GET() {
     const user = await currentUser();
     if (!user) {

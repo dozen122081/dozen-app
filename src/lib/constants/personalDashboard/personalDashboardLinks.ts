@@ -29,4 +29,9 @@ export const personalDashboardLinks = [
         title: 'Board',
         href: '/my-board',
     },
+    {
+        id: 6,
+        title: 'Notes', 
+        href: '/my-notes',
+    }
 ]

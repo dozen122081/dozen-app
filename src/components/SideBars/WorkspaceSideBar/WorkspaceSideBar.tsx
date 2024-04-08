@@ -1,6 +1,6 @@
 "use client"
 import { cn } from '@/lib/utils';
-import { AlignStartVertical, Blocks, Boxes, StickyNote } from 'lucide-react';
+import { AlignStartVertical, Blocks, Boxes, ClipboardList, Coffee, StickyNote } from 'lucide-react';
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import React, { useEffect, useState } from 'react'
@@ -10,7 +10,32 @@ function getIdFromUrl(url: string): string | null {
   const match = url.match(regex);
   return match ? match[1] : null;
 }
-
+const Personal_Workspace_Sidebar_Links = [
+  {
+    id: 0,
+    title: "Todo",
+    href: "todo",
+    icon: <AlignStartVertical className='h-4 w-4' />,
+  },
+  {
+    id: 1,
+    title: "Today",
+    href: "today",
+    icon: <Coffee className='h-4 w-4' />,
+  },
+  {
+    id: 2,
+    title: "Tomorrow",
+    href: "tomorrow",
+    icon: <ClipboardList className='h-4 w-4' />,
+  },
+  {
+    id: 3,
+    title: "Sticky Notes",
+    href: "stickynotes",
+    icon: <StickyNote className='h-4 w-4' />,
+  },
+]
 const WorkspaceSideBar = () => {
   const pathname = usePathname();
   const [fullUrl, setFullUrl] = useState('');
@@ -23,8 +48,6 @@ const WorkspaceSideBar = () => {
   if (!fullUrl) return null;
   const workspaceId = getIdFromUrl(fullUrl);
   if (!workspaceId) return null;
-  const isTodoActive = (pathname.includes(`/workspace/${workspaceId}/todo`)) || pathname === `/workspace/${workspaceId}/todo`
-  const isStickyNotesActive = (pathname.includes(`/workspace/${workspaceId}/stickynotes`)) || pathname === `/workspace/${workspaceId}/stickynotes`
   return (
     <aside className='w-full max-w-[10rem]'>
       <div>
@@ -35,7 +58,7 @@ const WorkspaceSideBar = () => {
           )}
         >
           <BiDoorOpen className='h-4 w-4' />
-          <span className='text-sm'> Back to home</span>
+          <span className='text-sm'>Back to home</span>
         </Link>
         <Link
           href="/workspace"
@@ -49,28 +72,24 @@ const WorkspaceSideBar = () => {
       </div>
       <div>
         <div className='flex flex-col gap-2 text-sm'>
-          <Link
-            href={`/workspace/${workspaceId}/todo`}
-            className={cn(
-              "py-3 px-4 font-semibold rounded-md flex gap-1 items-center",
-              isTodoActive && "bg-secondary text-md"
-            )}
-          >
-            <AlignStartVertical className='h-4 w-4' />
-
-            <span className='text-sm'>Todo</span>
-          </Link>
-          <Link
-            href={`/workspace/${workspaceId}/stickynotes`}
-            className={cn(
-              "py-3 px-4 font-semibold rounded-md flex gap-1 items-center",
-              isStickyNotesActive && "bg-secondary text-md"
-            )}
-          >
-            <StickyNote className='h-4 w-4' />
-            <span className='text-sm'>Sticky Notes</span>
-
-          </Link>
+          {
+            Personal_Workspace_Sidebar_Links.map((linkItem) => {
+              const isActive = (pathname.includes(`${linkItem.href}`)) || pathname === `/workspace/${workspaceId}/${linkItem.href}`
+              return (
+                <Link
+                  key={linkItem.id}
+                  href={`/workspace/${workspaceId}/${linkItem.href}`}
+                  className={cn(
+                    "py-3 px-4 font-semibold rounded-md flex gap-1 items-center",
+                    isActive && "bg-secondary text-md"
+                  )}
+                >
+                  {linkItem.icon}
+                  <span className='text-sm'>{linkItem.title}</span>
+                </Link>
+              )
+            })
+          }
         </div>
       </div>
     </aside >

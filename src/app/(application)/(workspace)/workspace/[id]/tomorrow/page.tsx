@@ -1,6 +1,5 @@
 "use client"
 import { Button } from '@/components/ui/button'
-import { Checkbox } from '@/components/ui/checkbox'
 import {
   Dialog,
   DialogClose,
@@ -19,19 +18,25 @@ import {
 } from "@/components/ui/form"
 import { Separator } from '@/components/ui/separator'
 import { Textarea } from '@/components/ui/textarea'
-import { createPersonalTomorrow, deleteAllPersonalTomorrow, deletePersonalTomorrow, fetchPersonalTomorrow, updatePersonalTomorrow } from '@/lib/backend-actions/personal.tomorrow.actions'
-import { fetchUserData } from '@/lib/backend-actions/user.actions'
-import { cn } from '@/lib/utils'
+import { cn, getIdFromUrl } from '@/lib/utils'
 import { PersonalTomorrowValidation } from '@/lib/validations/personal.tomorrow.validation'
+import { DayTaskValidation } from '@/lib/validations/workspace/daytask.validation'
 import { useUser } from '@clerk/nextjs'
 import { zodResolver } from "@hookform/resolvers/zod"
 import { motion } from "framer-motion"
-import { Trash } from 'lucide-react'
+import { Forward, LogOut, Trash } from 'lucide-react'
 import { useEffect, useState } from 'react'
 import { useForm } from "react-hook-form"
 import * as z from "zod"
 
 import { Inter } from 'next/font/google'
+import { useRouter } from 'next/navigation'
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip"
 
 const inter = Inter({
   subsets: ['cyrillic', "cyrillic-ext", "greek", "greek-ext", "latin", "latin-ext", "vietnamese"],
@@ -50,36 +55,23 @@ const Page = () => {
   const { user } = useUser();
   const [userId, setUserId] = useState<string | null>(null);
   const [personalTomorrows, setPersonalTomorrows] = useState<TPersonalTomorrow[]>([]);
-  const [completedTomorrows, setCompletedTomorrows] = useState<TPersonalTomorrow[]>([]);
   const [incompleteTomorrows, setIncompleteTomorrows] = useState<TPersonalTomorrow[]>([]);
   const [added, setAdded] = useState(false);
-  const form = useForm<z.infer<typeof PersonalTomorrowValidation>>({
-    resolver: zodResolver(PersonalTomorrowValidation),
+  const [fullUrl, setFullUrl] = useState('');
+  const router = useRouter()
+  const form = useForm<z.infer<typeof DayTaskValidation>>({
+    resolver: zodResolver(DayTaskValidation),
     defaultValues: {
       title: "",
     },
   });
   useEffect(() => {
+    // **Warning:** Using window.location can be a security risk. Consider alternative approaches.
+    const url = window.location.href;
+    setFullUrl(url);
+  }, [])
+  useEffect(() => {
     const fetchData = async () => {
-      // if (user) {
-      //   try {
-      //     // const userInfo = await fetchUserData(user.id);
-      //     const response = await fetch('/api/user');
-      //     if (!response.ok) {
-      //       throw new Error('Failed to fetch user data');
-      //     }
-      //     const data = await response.json();
-      //     if (data && data.id) {
-      //       setUserId(data.id.toString());
-      //       console.log(userId)
-      //     } else {
-      //       throw new Error("User data not found");
-      //     }
-      //   } catch (error) {
-      //     console.error("Error fetching user data:", error);
-      //     // Handle error
-      //   }
-      // }
       const response = await fetch('/api/user');
       if (!response.ok) {
         throw new Error('Failed to fetch user data');
@@ -98,24 +90,21 @@ const Page = () => {
     }
   }, [user, userId, personalTomorrows]);
 
-  useEffect(() => {
-    const getPersonalTomorrowData = async () => {
-      try {
-        if (userId) {
-          // const personalTomorrow = await fetchPersonalTomorrow({
-          //   author: userId
-          // });
-          const response = await fetch('/api/tomorrow');
-          if (!response.ok) {
-            throw new Error('Failed to fetch user data');
-          }
-          const data = await response.json();
-          setPersonalTomorrows(data);
+  const getPersonalTomorrowData = async () => {
+    try {
+      if (userId) {
+        const response = await fetch(`/api/workspace/tomorrow?workspaceId=${workspaceId}`);
+        if (!response.ok) {
+          throw new Error('Failed to fetch user data');
         }
-      } catch (error) {
-        console.error("Error fetching personal tomorrow data:", error);
+        const data = await response.json();
+        setPersonalTomorrows(data);
       }
-    };
+    } catch (error) {
+      console.error("Error fetching personal tomorrow data:", error);
+    }
+  };
+  useEffect(() => {
 
     if (userId) {
       getPersonalTomorrowData();
@@ -124,29 +113,26 @@ const Page = () => {
 
   useEffect(() => {
     if (personalTomorrows.length > 0) {
-      const completed = personalTomorrows.filter(tomorrow => tomorrow.completed);
       const incomplete = personalTomorrows.filter(tomorrow => !tomorrow.completed);
-      setCompletedTomorrows(completed);
       setIncompleteTomorrows(incomplete);
     }
   }, [personalTomorrows, added]);
 
   if (!user || !userId) return null;
-
+  if (!fullUrl) return;
+  const workspaceId = getIdFromUrl(fullUrl);
+  if (!workspaceId) return;
 
   const onSubmit = async (values: z.infer<typeof PersonalTomorrowValidation>) => {
     setAdded(true);
     console.log("onSubmit fired");
     try {
-      // await createPersonalTomorrow({
-      //   title: values.title,
-      //   author: userId,
-      // });
-      const response = await fetch(('/api/tomorrow'), {
+      const response = await fetch(('/api/workspace/tomorrow'), {
         method: "POST",
         body: JSON.stringify({
           title: values.title,
           author: userId,
+          workspaceId: workspaceId,
         }),
         headers: { "Content-Type": 'application/json' }
       });
@@ -158,47 +144,48 @@ const Page = () => {
     setAdded(false);
   };
 
-  const updateStatus = async (id: string, title: string, completed: boolean) => {
+  const sendToToday = async () => {
     setAdded(true);
     try {
-      // await updatePersonalTomorrow({
-      //   author: userId,
-      //   completed: completed,
-      //   id: id,
-      //   title: title,
-      // });
-      const response = await fetch(('/api/tomorrow'), {
+      const response = await fetch(('/api/workspace/sendtotoday'), {
         method: "PUT",
         body: JSON.stringify({
           author: userId,
-          completed: completed,
-          id: id,
-          title: title,
+          workspaceId: workspaceId,
         }),
         headers: { "Content-Type": 'application/json' }
       });
-
-      // Update the personalTomorrows state to reflect the completed status change
-      setPersonalTomorrows(prevState =>
-        prevState.map(tomorrow =>
-          tomorrow.id === id ? { ...tomorrow, completed: completed } : tomorrow
-        )
-      );
+      // getPersonalTomorrowData(); // Refetch data after successful update
+      router.push(`/workspace/${workspaceId}/today`)
     } catch (err) {
       console.error("Error updating status:", err);
-      // Handle error
+    }
+    setAdded(false);
+  };
+  const sendTaskToToday = async (taskId: string) => {
+    setAdded(true);
+    try {
+      const response = await fetch(('/api/workspace/sendtotoday'), {
+        method: "PUT",
+        body: JSON.stringify({
+          taskId: taskId,
+          author: userId,
+          workspaceId: workspaceId,
+        }),
+        headers: { "Content-Type": 'application/json' }
+      });
+      getPersonalTomorrowData(); // Refetch data after successful update
+    } catch (err) {
+      console.error("Error updating status:", err);
     }
     setAdded(false);
   };
 
+
   const deleteTomorrow = async (id: string) => {
     setAdded(true);
     try {
-      // await deletePersonalTomorrow({
-      //   authorId: userId,
-      //   tomorrowId: id
-      // });
-      const response = await fetch('/api/tomorrow', {
+      const response = await fetch('/api/workspace/tomorrow', {
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json'
@@ -208,9 +195,6 @@ const Page = () => {
 
       // Remove the deleted item from the personalTomorrows state
       setPersonalTomorrows(prevState =>
-        prevState.filter(tomorrow => tomorrow.id !== id)
-      );
-      setCompletedTomorrows(prevState =>
         prevState.filter(tomorrow => tomorrow.id !== id)
       );
       setIncompleteTomorrows(prevState =>
@@ -224,25 +208,14 @@ const Page = () => {
   const deleteAllTomorrow = async (completed: boolean) => {
     setAdded(true);
     try {
-      // await deleteAllPersonalTomorrow({
-      //   authorId: userId,
-      //   completed
-      // });
-      const response = await fetch('/api/deletetomorrows', {
+      const response = await fetch('/api/workspace/deletetomorrows', {
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json'
         },
         body: JSON.stringify({ authorId: userId, completed: completed })
       });
-      // Remove the deleted items from the state based on completion status
-      if (completed) {
-        // Remove from completedTomorrows state
-        setCompletedTomorrows([]);
-      } else {
-        // Remove from incompleteTomorrows state
-        setIncompleteTomorrows([]);
-      }
+      setIncompleteTomorrows([]);
 
       // Also, remove from personalTomorrows state
       setPersonalTomorrows(prevState =>
@@ -256,7 +229,12 @@ const Page = () => {
 
   return (
     <main className={cn('flex flex-col px-5 py-5 gap-5', inter.className)}>
-      <div className='flex flex-col md:flex-row gap-10'>
+      <div className='flex flex-col gap-10'>
+        <div className='flex flex-col gap-2'>
+          <h2 className='text-3xl'>Plan your tasks for tomorrow</h2>
+          <p>Plan your tasks for tomorrow and then send it to today when you feel like it.</p>
+        </div>
+        <Separator />
         <div className='border p-10 rounded-xl w-full flex flex-col gap-4'>
           <div className='flex w-full justify-between itmes-center py-2 '>
             <h2 className='font-bold text-lg text-indigo-500'>Plans</h2>
@@ -277,23 +255,31 @@ const Page = () => {
                 className="flex gap-2 items-center py-0.5 px-3 w-full justify-between border rounded-lg"
               >
                 <div className='flex items-center gap-2'>
-                  <Checkbox
-                    checked={tomorrow.completed}
-                    onCheckedChange={() => {
-                      updateStatus(tomorrow.id, tomorrow.title, true)
-                    }}
-                  />
                   <span>
                     {tomorrow.title}
                   </span>
                 </div>
-                <Button variant={"ghost"} onClick={() => deleteTomorrow(tomorrow.id)}>
-                  <Trash className='h-4 w-4 text-destructive' />
-                </Button>
+                <div>
+                  <Button variant={"ghost"} onClick={() => deleteTomorrow(tomorrow.id)}>
+                    <Trash className='h-4 w-4 text-destructive' />
+                  </Button>
+                  <TooltipProvider>
+                    <Tooltip>
+                      <TooltipTrigger>
+                        <Button variant={"ghost"} onClick={() => sendTaskToToday(tomorrow.id)}>
+                          <LogOut className='h-4 w-4 text-primary' />
+                        </Button>
+                      </TooltipTrigger>
+                      <TooltipContent sideOffset={30}>
+                        <p>Send to Today</p>
+                      </TooltipContent>
+                    </Tooltip>
+                  </TooltipProvider>
+                </div>
               </motion.div>
             ))}
           </div>
-          <div>
+          <div className='flex justify-between'>
             <Dialog>
               <DialogTrigger>
                 <Button>
@@ -336,7 +322,7 @@ const Page = () => {
                           type="submit"
                           className="flex items-center gap-1.5 rounded bg-slate-800 px-3 py-1.5 text-lg font-bold text-neutral-50 transition-colors hover:bg-neutral-300 hover:text-slate-900"
                         >
-                          <span>Add Note</span>
+                          <span>Add Task</span>
                         </Button>
                       </DialogClose>
                     </div>
@@ -344,47 +330,11 @@ const Page = () => {
                 </Form>
               </DialogContent>
             </Dialog>
-
-          </div>
-        </div>
-        <div className='border p-10 rounded-xl w-full flex flex-col gap-4'>
-          <div className='flex w-full justify-between itmes-center py-2 '>
-            <h2 className='font-bold text-lg text-indigo-500'>Completed</h2>
             <Button
-              variant={"ghost"}
-              onClick={() => deleteAllTomorrow(true)}
+              onClick={() => sendToToday()}
             >
-              <Trash className='h-4 w-4 text-destructive' />
+              Send To Today
             </Button>
-          </div>
-          <Separator />
-          <div className='flex flex-col gap-3 py-3'>
-            {completedTomorrows.map(tomorrow => (
-              <motion.div
-                layout
-                layoutId={tomorrow.id}
-                key={tomorrow.id}
-                className="flex gap-2 items-center py-0.5 px-3 w-full justify-between border rounded-lg bg-green-100"
-              >
-                <div className='flex items-center gap-2'>
-                  <Checkbox
-                    checked={tomorrow.completed}
-                    onCheckedChange={() => {
-                      updateStatus(tomorrow.id, tomorrow.title, false)
-                    }}
-                  />
-                  <span className='font-medium text-green-900'>
-                    {tomorrow.title}
-                  </span>
-                </div>
-                <Button
-                  variant={"ghost"}
-                  onClick={() => deleteTomorrow(tomorrow.id)}
-                >
-                  <Trash className='h-4 w-4 text-destructive' />
-                </Button>
-              </motion.div>
-            ))}
           </div>
         </div>
       </div>

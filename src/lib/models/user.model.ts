@@ -40,6 +40,12 @@ const userSchema = new mongoose.Schema({
             ref: 'Tomorrow'
         }
     ],
+    workspaceTasks: [
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'workspacetasks'
+        }
+    ],
     streak: {
         type: Number,
     },
