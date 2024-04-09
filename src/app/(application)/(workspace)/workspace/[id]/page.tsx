@@ -1,10 +1,12 @@
 "use client"
 
+import Dashboard from "./_components/dashboard/Dashboard"
+
 
 const page = () => {
   return (
     <div className="w-full">
-      personal dashboard
+      <Dashboard />
     </div>
   )
 }

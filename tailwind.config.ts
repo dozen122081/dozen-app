@@ -5,7 +5,7 @@ const colors = require("tailwindcss/colors");
 const {
   default: flattenColorPalette,
 } = require("tailwindcss/lib/util/flattenColorPalette");
-const config = {
+const config: Config = {
   darkMode: ["class"],
   content: [
     './pages/**/*.{ts,tsx}',
@@ -38,6 +38,7 @@ const config = {
         "2xl": "1400px",
       },
     },
+
     extend: {
       colors: {
         border: "hsl(var(--border))",
@@ -73,6 +74,8 @@ const config = {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
+
+
       },
       borderRadius: {
         lg: "var(--radius)",
@@ -93,11 +96,13 @@ const config = {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
       },
+    
     },
   },
   plugins: [
     require("tailwindcss-animate"),
-    require('@headlessui/tailwindcss'), 
+    require('@headlessui/tailwindcss'),
+    require('@tailwindcss/forms'),
     require('@tailwindcss/forms'),
     require("daisyui"),
     addVariablesForColors,

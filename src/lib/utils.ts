@@ -15,3 +15,8 @@ export function getIdFromUrl(url: string) {
   const match = url.match(regex);
   return match ? match[1] : null;
 }
+export function getIdFromWorkspaceUrl(url: string) {
+  const regex = /workspace\/([a-f0-9]+)/;
+  const match = url.match(regex);
+  return match ? match[1] : null;
+}
