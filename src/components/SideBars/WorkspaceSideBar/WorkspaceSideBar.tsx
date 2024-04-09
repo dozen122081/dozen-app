@@ -1,6 +1,7 @@
 "use client"
+import { Separator } from '@/components/ui/separator';
 import { cn } from '@/lib/utils';
-import { AlignStartVertical, Blocks, Boxes, ClipboardList, Coffee, StickyNote } from 'lucide-react';
+import { AlignStartVertical, Blocks, Box, Boxes, ClipboardList, Coffee, StickyNote } from 'lucide-react';
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import React, { useEffect, useState } from 'react'
@@ -39,7 +40,7 @@ const Personal_Workspace_Sidebar_Links = [
 const WorkspaceSideBar = () => {
   const pathname = usePathname();
   const [fullUrl, setFullUrl] = useState('');
-
+  
   useEffect(() => {
     // **Warning:** Using window.location can be a security risk. Consider alternative approaches.
     const url = window.location.href;
@@ -48,8 +49,10 @@ const WorkspaceSideBar = () => {
   if (!fullUrl) return null;
   const workspaceId = getIdFromUrl(fullUrl);
   if (!workspaceId) return null;
+  const pathSegments = pathname.split('/')
+  const isDashboardActive = pathSegments.length === 3
   return (
-    <aside className='w-full max-w-[10rem]'>
+    <aside className='w-full flex flex-col gap-2 max-w-[10rem]'>
       <div>
         <Link
           href="/personal-dashboard"
@@ -70,8 +73,19 @@ const WorkspaceSideBar = () => {
           <span className='text-sm'>My Spaces</span>
         </Link>
       </div>
+      <Separator className='bg-border'/>
       <div>
         <div className='flex flex-col gap-2 text-sm'>
+          <Link
+            href={`/workspace/${workspaceId}`}
+            className={cn(
+              "py-3 px-4 font-semibold rounded-md flex gap-1 items-center",
+              isDashboardActive && "bg-secondary text-md"
+            )}
+          >
+            <Box className='h-4 w-4'/>
+            <span className='text-sm'>Dashboard</span>
+          </Link>
           {
             Personal_Workspace_Sidebar_Links.map((linkItem) => {
               const isActive = (pathname.includes(`${linkItem.href}`)) || pathname === `/workspace/${workspaceId}/${linkItem.href}`
