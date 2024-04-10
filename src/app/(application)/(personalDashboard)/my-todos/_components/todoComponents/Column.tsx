@@ -4,7 +4,6 @@ import { Dispatch, DragEvent, SetStateAction, useState } from "react";
 import AddCard from "./AddCard";
 import Card from "./Card";
 import DropIndicator from "./DropIndicator";
-import { updatePersonalTodoCat } from "@/lib/backend-actions/personaltodo.actions";
 
 type ColumnProps = {
     title: string;
