@@ -9,7 +9,7 @@ const AppPaymentUi = () => {
       <div className='flex flex-col gap-4 items-center'>
         <div className='text-center'>
           <h2 className='text-2xl'>Please Complete Your Order to continue using DoZen</h2>
-          <p className='text-sm text-muted-foreground'>It's just NPR.2500 for users in Nepal and just $23.25 for users outside Nepal</p>
+          {/* <p className='text-sm text-muted-foreground'>It's just NPR.2500 for users in Nepal and just $23.25 for users outside Nepal</p> */}
         </div>
         <Link href="/apppayment">
           <Button>
