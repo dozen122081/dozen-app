@@ -7,6 +7,7 @@ import { PayPalButtons, PayPalScriptProvider } from '@paypal/react-paypal-js';
 import { redirect } from 'next/navigation';
 import PaypalPayment from './_component/PaypalPayment';
 import EsewaPayment from './_component/EsewaPayment';
+import Link from 'next/link';
 
 const Page = () => {
   const { user } = useUser();
