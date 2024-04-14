@@ -70,7 +70,9 @@ const Page = () => {
     <main className='grid grid-rows-2 lg:grid-cols-2 w-full h-full lg:max-h-screen'>
       <section className='bg-slate-800 flex flex-col p-7 lg:h-screen'>
         <div className=''>
+          <Link href="/">
             <h1 className='text-slate-100 font-semibold'>DoZen</h1>
+          </Link>
         </div>
         <div className='flex flex-col justify-center h-full gap-2 text-slate-100'>
           <div className=''>
