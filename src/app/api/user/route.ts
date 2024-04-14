@@ -17,7 +17,9 @@ export type UserData = {
     organizations: any[]; // You can replace 'any' with a specific type if needed
     todos: string[]; // Assuming todos is an array of strings (IDs)
     username: string;
-    streak: number,
+    streak: number;
+    hasPaid: boolean;
+    hasPaidWorkspace: boolean;
   }
 
 

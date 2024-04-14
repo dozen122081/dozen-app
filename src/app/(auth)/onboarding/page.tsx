@@ -18,8 +18,11 @@ const page = async () => {
     id: user.id,
     objectId: userDataFromDb?._id,
     username: userDataFromDb ? userDataFromDb.username : user.username,
+    email: user.emailAddresses[0].emailAddress,
     name: userDataFromDb ? userDataFromDb.name : user.firstName,
     image: userDataFromDb ? userDataFromDb.image : user.imageUrl,
+    hasPaid: userDataFromDb ? userDataFromDb.hasPaid : false,
+    hasPaidWorkspace: userDataFromDb ? userDataFromDb.hasPaidWorkspace : false,
   }
   return (
     <section className='w-full min-h-screen py-3 md:py-10'>

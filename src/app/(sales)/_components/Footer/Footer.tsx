@@ -1,101 +1,56 @@
 "use client";
 import React from "react";
 import Link from "next/link";
+import { FiFacebook } from "react-icons/fi";
+import { Copyright, Notebook } from "lucide-react";
+import { Separator } from "@/components/ui/separator";
+import { FaInstagram, FaTwitter } from "react-icons/fa";
 
 const Footer = () => {
   return (
-    <div className=" text-red bg-black">
-      <div className="flex justify-around p-[1.5rem] m-[4rem] text-white bg-black">
-        <div>
-          <h4 className="mb-[1rem]">DoZen</h4>
-          <ul className="">
-            <li>
-              <Link href="/home">Home</Link>
-            </li>
-            <li>
-              <Link href="/product">Product</Link>
-            </li>
-            <li>
-              <Link href="/whats-new">What's New</Link>
-            </li>
-            <li>
-              <Link href="/pricing">Pricing</Link>
-            </li>
-            <li>
-              <Link href="/starter">Starter</Link>
-            </li>
-            <li>
-              <Link href="/enterprise">Enterprise</Link>
-            </li>
-            <li>
-              <Link href="/customer-success">Customer Success</Link>
-            </li>
-            <li>
-              <Link href="/status">Status</Link>
-            </li>
-          </ul>
+    <footer className="text-white mt-20 p-3 bg-slate-900 flex flex-col gap-4 lg:py-14 lg:px-24">
+      <section className="flex flex-col lg:flex-row justify-between">
+        <div className="flex flex-col gap-2">
+          <div className="flex gap-2">
+            <Notebook />
+            <h2>Dozen</h2>
+          </div>
+          <p className="max-w-[14rem] text-xs font-extralight">Tired of life's chaos let's clean up together</p>
         </div>
         <div>
-          <h4 className="mb-[1rem]">About Us</h4>
-          <ul>
+          <h4 className="mb-[1rem] font-semibold text-md">Resources</h4>
+          <ul className="text-sm font-light flex flex-col gap-1.5">
             <li>
-              <Link href="/company">Company</Link>
+              <Link href="/features">Request Features</Link>
             </li>
             <li>
-              <Link href="/leadership">Leadership</Link>
-            </li>
-            <li>
-              <Link href="/customers">Customers</Link>
-            </li>
-            <li>
-              <Link href="/diversity">Diversity</Link>
-            </li>
-            <li>
-              <Link href="/careers">Careers</Link>
-            </li>
-            <li>
-              <Link href="/wavelength">Wavelength</Link>
-            </li>
-            <li>
-              <Link href="/sitemap">Sitemap</Link>
-            </li>
-            <li>
-              <Link href="/investor-relations">Investor Relations</Link>
-            </li>
-          </ul>
-        </div>
-
-        <div>
-          <h4 className="mb-[1rem]">Resources</h4>
-          <ul>
-            <li>
-              <Link href="/help-center">Help Center</Link>
-            </li>
-            <li>
-              <Link href="/forum">Forum</Link>
-            </li>
-            <li>
-              <Link href="/support">Support</Link>
-            </li>
-            <li>
-              <Link href="/partners">Partners</Link>
-            </li>
-            <li>
-              <Link href="/app-directory">App Directory</Link>
-            </li>
-            <li>
-              <Link href="/events">Events</Link>
-            </li>
-            <li>
-              <Link href="/accessibility">Accessibility</Link>
+              <Link href="/features">How to use</Link>
             </li>
             <li>
               <Link className="bg-gradient-to-r from-green-400 to-blue-500 hover:from-pink-500 hover:to-yellow-500 text-transparent bg-clip-text" href="/developers-api">Developers & API</Link>
             </li>
           </ul>
         </div>
-      </div>
-    </div>
+      </section>
+      <Separator />
+      <section className="flex flex-col lg:flex-row items-center lg:items-start gap-3 lg:gap-0 w-full justify-between">
+        <div className="flex items-center">
+          <Copyright className="h-4 w-4" />
+          <h2> 2024 dozen.digital. All rights reserved</h2>
+        </div>
+        <div className="flex items-center gap-3">
+          <Link href="">
+            <FiFacebook />
+          </Link>
+          <Link href="">
+            <FaTwitter />
+          </Link>
+          <Link href="">
+            <FaInstagram />
+          </Link>
+        </div>
+      </section>
+    </footer>
   );
 };
 

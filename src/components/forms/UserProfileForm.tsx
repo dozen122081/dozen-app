@@ -24,10 +24,13 @@ import { useUploadThing } from "@/lib/validations/uploadthing.validation";
 interface UserProfileFormProps {
     user: {
         id: string,
+        email: string,
         objectId: string,
         username: string,
         name: string,
         image: string,
+        hasPaid: boolean,
+        hasPaidWorkspace: boolean,
     },
     btnTitle: string;
 }
@@ -87,17 +90,24 @@ const UserProfileForm = ({
         }
         await createUpdateUserData({
             userId: user.id,
+            email: user.email,
             name: values.name,
             username: values.username,
             image: values.profile_photo,
             onboarded: true,
             path: pathname,
+            hasPaid: false,
+            hasPaidWorkspace: false,
         })
         setIsCreating(false);
         if (pathname === "/profile/edit") {
             router.back();
         } else {
-            router.push("/personal-dashboard");
+            if(!user.hasPaid){
+                router.push("/apppayment");
+            } else {
+                router.push("/personal-dashboard");
+            }
         }
     }
     return (

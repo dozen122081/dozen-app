@@ -118,8 +118,8 @@ const page = () => {
     return (
         <div className="flex px-2 md:px-5 flex-col gap-4">
             <WorkspacesSidebar />
-            <div className='flex gap-10'>
-                <div className='flex items-center justify-center md:justify-start'>
+            <div className='flex flex-wrap gap-7 items-center'>
+                {/* <div className='flex items-center justify-center md:justify-start'> */}
                     <Drawer>
                         <DrawerTrigger>
                             <div
@@ -222,8 +222,6 @@ const page = () => {
                             </Form>
                         </DrawerContent>
                     </Drawer>
-                </div>
-                <div className='flex-1 flex justify-start gap-7 flex-wrap'>
                     {userWorkspace.map(workspace => (
                         <div
                             key={workspace.id}
@@ -257,7 +255,9 @@ const page = () => {
                             </div>
                         </div>
                     ))}
-                </div>
+                {/* </div> */}
+                {/* <div className='flex-1 flex justify-start gap-7 flex-wrap'>
+                </div> */}
             </div>
         </div>
     )

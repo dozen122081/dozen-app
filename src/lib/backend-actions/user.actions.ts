@@ -52,19 +52,25 @@ export async function fetchUserData(userId: string){
 
 interface createUpdateUserDataProps{
     userId: string;
+    email: string;
     name: string;
     username: string;
     image: string;
     onboarded: boolean;
     path: string;
+    hasPaid: boolean;
+    hasPaidWorkspace: boolean;
 }
 export async function createUpdateUserData({
     userId,
+    email,
     name,
     username,
     image,
     onboarded,
-    path
+    path,
+    hasPaid,
+    hasPaidWorkspace,
 }: createUpdateUserDataProps){
     try{
         connectToDatabase()
@@ -72,11 +78,14 @@ export async function createUpdateUserData({
             { id: userId },
             {
                 id: userId,
+                email: email,
                 username: username.toLocaleLowerCase(),
                 name: name,
                 image: image,
                 onboarded: onboarded,
                 streak: 0,
+                hasPaid,
+                hasPaidWorkspace,
             },
             {
                 upsert: true,

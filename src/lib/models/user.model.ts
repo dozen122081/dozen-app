@@ -61,6 +61,16 @@ const userSchema = new mongoose.Schema({
             ref: 'Workspaces'
         }
     ],
+    hasPaid: {
+        type: Boolean,
+        default: false,
+        required: true,
+    },
+    hasPaidWorkspace: {
+        type: Boolean,
+        default: false,
+        required: true,
+    }
 })
 
 const User = mongoose.models.User || mongoose.model('User', userSchema);
