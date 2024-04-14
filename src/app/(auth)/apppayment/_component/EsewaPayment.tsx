@@ -7,7 +7,7 @@ const EsewaPayment = () => {
             <h2 className='text-xl font-bold'>NPR. 2, 500</h2>
             <div>
                 <Image
-                    src="/esewa/devilTest.jpeg"
+                    src="/esewa/fikshunEsewa.jpg"
                     alt="esewa qr image"
                     height={270}
                     width={197}
@@ -15,7 +15,7 @@ const EsewaPayment = () => {
                 />
             </div>
             <div className='max-w-[22rem] rounded-sm text-slate-800 bg-yellow-100 p-2'>
-                <p className='text-xs font-bold'>Please send your username and email in remarks while paying with esewa to validate your order. or call us at: 9817109084</p>
+                <p className='text-xs font-bold'>Please send your username and email in remarks while paying with esewa to validate your order. or call us at: 9741660035</p>
             </div>
         </aside>
     )
