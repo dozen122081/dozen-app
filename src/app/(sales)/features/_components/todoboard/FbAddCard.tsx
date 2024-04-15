@@ -3,7 +3,7 @@ import { CardType, ColumnType } from "@/lib/types/TodoTypes";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { motion } from "framer-motion";
 import { usePathname, useRouter } from "next/navigation";
-import { Dispatch, SetStateAction } from "react";
+import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { FiPlus } from "react-icons/fi";
 import * as z from "zod";
@@ -31,9 +31,11 @@ import {
 import { Textarea } from "@/components/ui/textarea";
 import { createPersonalTodo } from "@/lib/backend-actions/personaltodo.actions";
 import { PersonalTodoValidation } from "@/lib/validations/personaltodo.validation";
+import { UserData } from "@/app/api/user/route";
+import { TUserTodo } from "../FeatureBoard";
 type AddCardProps = {
     column: ColumnType;
-    setCards: Dispatch<SetStateAction<CardType[]>>;
+    setCards: Dispatch<SetStateAction<TUserTodo[]>>;
     userId: string;
     setAppend: Dispatch<SetStateAction<boolean>>;
 };
@@ -47,7 +49,29 @@ const FbAddCard = ({ column, userId, setAppend }: AddCardProps) => {
             description: "",
         },
     });
+    const [userData, setUserData] = useState<UserData>();
+    const [error, setError] = useState<string | null>(null);
+    const [isLoading, setIsLoading] = useState(false);
+    useEffect(() => {
+        setIsLoading(true)
+        const fetchData = async () => {
+            try {
+                const response = await fetch('/api/user');
+                if (!response.ok) {
+                    throw new Error(await response.text());
+                }
+                const data = await response.json();
+                setUserData(data);
+            } catch (err: any) {
+                setError(err.message);
+            } finally {
+                setIsLoading(false)
+            }
+        };
 
+        fetchData();
+    }, []);
+    if(!userData) return null;
     const onSubmit = async (values: z.infer<typeof PersonalTodoValidation>) => {
         setAppend(true)
         console.log("onSubmit fired");
@@ -57,6 +81,8 @@ const FbAddCard = ({ column, userId, setAppend }: AddCardProps) => {
                 body: JSON.stringify({
                     title: values.title,
                     author: userId,
+                    authorEmail: userData.email,
+                    authorImage: userData.image,
                     description: values.description,
                     category: column,
                     path: pathname,

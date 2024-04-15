@@ -47,6 +47,8 @@ type CardProps = CardType & {
     id: string;
     title: string;
     description: string;
+    userImage: string | undefined;
+    authorEmail: string;
 };
 
 const FbCard = ({
@@ -57,11 +59,15 @@ const FbCard = ({
     handleDragStart,
     setAppend,
     author,
+    userImage,
+    authorEmail,
+
 
 }: CardProps) => {
     const pathname = usePathname()
     const router = useRouter()
     const [hovering, setHovering] = useState(false);
+    const [showEmail, setShowEmail] = useState(false);
     const form = useForm<z.infer<typeof PersonalTodoValidation>>({
         resolver: zodResolver(PersonalTodoValidation),
         defaultValues: {
@@ -220,10 +226,27 @@ const FbCard = ({
                     layoutId={id}
                     draggable="true"
                     onDragStart={(e) => handleDragStart(e, { title, id, category })}
-                    className="cursor-grab relative rounded border border-neutral-700 bg-neutral-800 p-3 active:cursor-grabbing"
+                    className="cursor-grab group/card relative rounded border border-neutral-700 bg-neutral-800 p-3 active:cursor-grabbing"
                 >
                     <p className="text-sm text-neutral-100">{title}</p>
-
+                    <div
+                        typeof="button"
+                        onClick={() => setShowEmail(!showEmail)}
+                        className="hidden group-hover/card:flex absolute right-0 z-[999]"
+                    >
+                        <div className="avatar">
+                            <div className="w-10 mask mask-hexagon group/hexor">
+                                <img src={userImage} />
+                            </div>
+                        </div>
+                    </div>
+                    {
+                        showEmail && (
+                            <div className="absolute top-0 left-0 z-[99999] bg-neutral-300 py-1 px-2 rounded-md">
+                                <span className="text-sm font-medium">{authorEmail}</span>
+                            </div>
+                        )
+                    }
                 </motion.div>
             </div>
         </Sheet>

@@ -9,6 +9,8 @@ export async function GET() {
     const todoData = todos.map(todo => ({
       id: todo._id.toString(),
       author: todo.author.toString(),
+      authorEmail: todo.authorEmail,
+      authorImage: todo.authorImage,
       title: todo.title,
       description: todo.description,
       category: todo.category || "backlog" // Fallback to "backlog" if category is not provided
@@ -26,9 +28,10 @@ export async function POST(req: Request) {
             title: data.title,
             description: data.description,
             author: data.author,
+            authorEmail: data.authorEmail,
+            authorImage: data.authorImage,
             category: data.category
         });
-
         return new NextResponse(JSON.stringify(createdTodo))
     } catch (error: any) {
         throw new Error(`Failed to create thread: ${error.message}`);

@@ -10,6 +10,7 @@ export type UserData = {
     id: string;
     __v?: number;
     image: string;
+    email: string;
     isVerified: boolean;
     name: string;
     notes: string[]; // Assuming notes is an array of strings (IDs)
@@ -55,7 +56,7 @@ export async function PUT(req: Request){
             {
                 id: data.userId,
                 username: data.username.toLocaleLowerCase(),
-                name: data.ame,
+                name: data.name,
                 image: data.image,
                 onboarded: data.onboarded,
                 streak: 0,

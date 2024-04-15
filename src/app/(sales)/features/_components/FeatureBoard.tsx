@@ -6,13 +6,16 @@ import {
 
 import { ScrollArea } from "@/components/ui/scroll-area";
 import FbColumn from "./todoboard/FbColumn";
+import { UserData } from "@/app/api/user/route";
 
 export type TUserTodo = {
     id: string;
     title: string,
     description: string;
-    author: string,
-    category: "backlog" | "todo" | "doing" | "done" | string,
+    author: string;
+    authorEmail: string;
+    authorImage: string;
+    category: "backlog" | "todo" | "doing" | "done" | string;
 }
 
 interface TodoBoardProps {
@@ -36,6 +39,8 @@ const FeatureTodoBoard = ({
         setCards(data.map((todo: TUserTodo) => ({
             id: todo.id.toString(),
             author: todo.author.toString(),
+            authorEmail: todo.authorEmail,
+            authorImage: todo.authorImage,
             title: todo.title,
             description: todo.description,
             category: todo.category as "backlog" | "todo" | "doing" | "done" | string,
@@ -71,7 +76,7 @@ const FeatureTodoBoard = ({
                         setCards={setCards}
                         userId={userId}
                         setAppend={setAppend}
-                    />
+                        />
                     <FbColumn
                         title="Consider"
                         category="consider"
@@ -80,7 +85,7 @@ const FeatureTodoBoard = ({
                         setCards={setCards}
                         userId={userId}
                         setAppend={setAppend}
-                    />
+                        />
                     <FbColumn
                         title="Todo"
                         category="todo"
@@ -89,7 +94,7 @@ const FeatureTodoBoard = ({
                         setCards={setCards}
                         userId={userId}
                         setAppend={setAppend}
-                    />
+                        />
                     <FbColumn
                         title="In progress"
                         category="doing"
@@ -98,7 +103,7 @@ const FeatureTodoBoard = ({
                         setCards={setCards}
                         userId={userId}
                         setAppend={setAppend}
-                    />
+                        />
                     <FbColumn
                         title="Completed"
                         category="done"

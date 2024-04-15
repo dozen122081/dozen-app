@@ -11,6 +11,12 @@ const FbTodoSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
+    authorEmail: {
+        type: String,
+    },
+    authorImage: {
+        type: String,
+    },
     createdAt: {
         type: Date,
         default: Date.now,

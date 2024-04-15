@@ -1,6 +1,7 @@
 "use client"
 import { CardType, ColumnType } from "@/lib/types/TodoTypes";
 import { Dispatch, DragEvent, SetStateAction, useState } from "react";
+import { TUserTodo } from "../FeatureBoard";
 import FbAddCard from "./FbAddCard";
 import FbCard from "./FbCard";
 import FbDropIndicator from "./FbDropIndicator";
@@ -8,9 +9,9 @@ import FbDropIndicator from "./FbDropIndicator";
 type WsColumnProps = {
     title: string;
     headingColor: string;
-    cards: CardType[];
+    cards: TUserTodo[];
     category: ColumnType;
-    setCards: Dispatch<SetStateAction<CardType[]>>;
+    setCards: Dispatch<SetStateAction<TUserTodo[]>>;
     userId?: string;
     setAppend: Dispatch<SetStateAction<boolean>>;
 };
@@ -172,6 +173,8 @@ const FbColumn = ({
                             setAppend={setAppend}
                             author={userId}
                             category={c.category}
+                            authorEmail={c.authorEmail}
+                            userImage={c.authorImage}
                         />
                     )
                 })}
