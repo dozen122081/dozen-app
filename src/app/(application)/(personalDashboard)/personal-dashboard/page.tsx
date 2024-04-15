@@ -52,7 +52,7 @@ const page = () => {
         <div className='mx-6 md:mx-10 h-[80vh] flex flex-col justify-center items-center w-full'>
             <div>
                 <Image
-                    src="/assets/illustrations/27.png"
+                    src="/assets/illustrations/27.webp"
                     width={2500}
                     height={1778}
                     alt="under construction"
