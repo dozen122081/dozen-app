@@ -32,6 +32,8 @@ import * as z from "zod"
 
 import { Inter } from 'next/font/google'
 import Link from 'next/link'
+import { FaSpinner } from 'react-icons/fa'
+import { Skeleton } from '@/components/ui/skeleton'
 
 const inter = Inter({
   subsets: ['cyrillic', "cyrillic-ext", "greek", "greek-ext", "latin", "latin-ext", "vietnamese"],
@@ -53,7 +55,9 @@ const TasksToday = () => {
   const [incompleteTasks, setIncompleteTasks] = useState<TPersonalTomorrow[]>([]);
   const [added, setAdded] = useState(false);
   const [fullUrl, setFullUrl] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
   useEffect(() => {
+    setIsLoading(true)
     // **Warning:** Using window.location can be a security risk. Consider alternative approaches.
     const url = window.location.href;
     setFullUrl(url);
@@ -88,6 +92,7 @@ const TasksToday = () => {
           }
           const data = await response.json();
           setTasks(data);
+
         }
       } catch (error) {
         console.error("Error fetching personal tomorrow data:", error);
@@ -96,6 +101,7 @@ const TasksToday = () => {
 
     if (userId) {
       getTaskData();
+      setIsLoading(false)
     }
   }, [userId, added]);
 
@@ -159,39 +165,56 @@ const TasksToday = () => {
     }
     setAdded(false);
   };
-  return (
-    <aside className='flex flex-col gap-2 w-full'>
-      <div>
-        <h2 className='font-semibold'>Today's Tasks</h2>
+  if (isLoading) {
+    return (
+      <div className='flex flex-col gap-2 w-full'>
+        <div>
+          <h2 className='font-semibold'>Today's Tasks</h2>
+        </div>
+        <div className='flex flex-col gap-1.5'>
+            <Skeleton className="flex bg-neutral-200 gap-2 items-center h-10 py-0.5 px-3 w-full justify-between border rounded-lg"/>
+            <Skeleton className="flex bg-neutral-200 gap-2 items-center h-10 py-0.5 px-3 w-full justify-between border rounded-lg"/>
+            <Skeleton className="flex bg-neutral-200 gap-2 items-center h-10 py-0.5 px-3 w-full justify-between border rounded-lg"/>
+            <Skeleton className="flex bg-neutral-200 gap-2 items-center h-10 py-0.5 px-3 w-full justify-between border rounded-lg"/>
+            <Skeleton className="flex bg-neutral-200 gap-2 items-center h-10 py-0.5 px-3 w-full justify-between border rounded-lg"/>
+        </div>
       </div>
-      <div className='flex flex-col gap-1.5'>
-        {
-          incompleteTasks.slice(0, 5).map((task) => (
-            <motion.aside
-              layout
-              layoutId={task.id}
-              key={task.id}
-              className="flex gap-2 items-center h-10 py-0.5 px-3 w-full justify-between border rounded-lg"
-            >
-              <div className='flex items-center gap-2'>
-                <Checkbox
-                  checked={task.completed}
-                  onCheckedChange={() => {
-                    updateStatus(task.id, task.title, true)
-                  }}
-                  className="h-3 w-3 rounded-sm"
-                />
-                <p className='text-xs font-semibold'>{task.title}</p>
-              </div>
-              <Button className='' variant={"ghost"} onClick={() => deleteTask(task.id)}>
-                <Trash className='h-4 w-4 text-destructive' />
-              </Button>
-            </motion.aside>
-          ))
-        }
-      </div>
-    </aside>
-  )
+    )
+  } else {
+    return (
+      <aside className='flex flex-col gap-2 w-full'>
+        <div>
+          <h2 className='font-semibold'>Today's Tasks</h2>
+        </div>
+        <div className='flex flex-col gap-1.5'>
+          {
+            incompleteTasks.slice(0, 5).map((task) => (
+              <motion.aside
+                layout
+                layoutId={task.id}
+                key={task.id}
+                className="flex gap-2 items-center h-10 py-0.5 px-3 w-full justify-between border rounded-lg"
+              >
+                <div className='flex items-center gap-2'>
+                  <Checkbox
+                    checked={task.completed}
+                    onCheckedChange={() => {
+                      updateStatus(task.id, task.title, true)
+                    }}
+                    className="h-3 w-3 rounded-sm"
+                  />
+                  <p className='text-xs font-semibold'>{task.title}</p>
+                </div>
+                <Button className='' variant={"ghost"} onClick={() => deleteTask(task.id)}>
+                  <Trash className='h-4 w-4 text-destructive' />
+                </Button>
+              </motion.aside>
+            ))
+          }
+        </div>
+      </aside>
+    )
+  }
 }
 
 export default TasksToday

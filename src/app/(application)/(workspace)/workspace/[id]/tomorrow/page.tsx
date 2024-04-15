@@ -61,6 +61,7 @@ const Page = () => {
   const [workspaceId, setWorkspaceId] = useState<string | null>(null);
   const [isClient, setIsClient] = useState(false)
   const [active, setActive] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const form = useForm<z.infer<typeof DayTaskValidation>>({
     resolver: zodResolver(DayTaskValidation),
     defaultValues: {
@@ -69,6 +70,7 @@ const Page = () => {
   });
   useEffect(() => {
     setIsClient(true)
+    setIsLoading(true)
   }, [])
   useEffect(() => {
     const fetchData = async () => {
@@ -114,6 +116,7 @@ const Page = () => {
 
     if (userId) {
       getPersonalTomorrowData();
+      setIsLoading(false)
     }
   }, [userId, added, workspaceId]);
 
@@ -125,7 +128,17 @@ const Page = () => {
   }, [personalTomorrows, added]);
 
   if (!isClient) return null;
-
+  if (isLoading ) {
+    return (
+      <div className='h-screen w-full flex justify-center items-center'>
+        {/* <FaSpinner className='h-7 w-7 animate-spin' /> */}
+        <div className='flex flex-col gap-2 items-center'>
+          <span className="loading loading-dots loading-lg"></span>
+          <span>Loading...</span>
+        </div>
+      </div>
+    )
+  }
   const onSubmit = async (values: z.infer<typeof PersonalTomorrowValidation>) => {
     setAdded(true);
     console.log("onSubmit fired");

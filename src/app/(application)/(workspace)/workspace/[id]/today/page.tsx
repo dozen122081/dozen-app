@@ -32,6 +32,7 @@ import * as z from "zod"
 
 import { Inter } from 'next/font/google'
 import Link from 'next/link'
+import { FaSpinner } from 'react-icons/fa'
 
 const inter = Inter({
   subsets: ['cyrillic', "cyrillic-ext", "greek", "greek-ext", "latin", "latin-ext", "vietnamese"],
@@ -53,6 +54,7 @@ const Page = () => {
   const [completedTomorrows, setCompletedTomorrows] = useState<TPersonalTomorrow[]>([]);
   const [incompleteTomorrows, setIncompleteTomorrows] = useState<TPersonalTomorrow[]>([]);
   const [added, setAdded] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const [fullUrl, setFullUrl] = useState('');
   const form = useForm<z.infer<typeof DayTaskValidation>>({
     resolver: zodResolver(DayTaskValidation),
@@ -61,6 +63,7 @@ const Page = () => {
     },
   });
   useEffect(() => {
+    setIsLoading(true)
     // **Warning:** Using window.location can be a security risk. Consider alternative approaches.
     const url = window.location.href;
     setFullUrl(url);
@@ -112,14 +115,25 @@ const Page = () => {
       const incomplete = personalTomorrows.filter(tomorrow => !tomorrow.completed);
       setCompletedTomorrows(completed);
       setIncompleteTomorrows(incomplete);
+      setIsLoading(false)
     }
   }, [personalTomorrows, added]);
-
   if (!user || !userId) return null;
-  if(!fullUrl) return;
+  if (!fullUrl) return;
   const workspaceId = getIdFromUrl(fullUrl);
-  if(!workspaceId) return;
-
+  if (!workspaceId) return;
+  
+  if (isLoading ) {
+    return (
+      <div className='h-screen w-full flex justify-center items-center'>
+        {/* <FaSpinner className='h-7 w-7 animate-spin' /> */}
+        <div className='flex flex-col gap-2 items-center'>
+          <span className="loading loading-dots loading-lg"></span>
+          <span>Loading...</span>
+        </div>
+      </div>
+    )
+  }
   const onSubmit = async (values: z.infer<typeof PersonalTomorrowValidation>) => {
     setAdded(true);
     console.log("onSubmit fired");
@@ -221,19 +235,19 @@ const Page = () => {
     }
     setAdded(false);
   };
-
+  
   return (
     <main className={cn('flex flex-col px-5 py-5 gap-12', inter.className)}>
-       <div className='flex flex-col gap-2'>
-          <h2 className='text-3xl'>Plan your tasks for today</h2>
-          <div className='flex gap-1'>
-            <p>Plan your tasks for today or import from</p>
-            <Link href={`/workspace/${workspaceId}/tomorrow`} className='hover:underline'>
-              tomorrow.
-            </Link>
-          </div>
+      <div className='flex flex-col gap-2'>
+        <h2 className='text-3xl'>Plan your tasks for today</h2>
+        <div className='flex gap-1'>
+          <p>Plan your tasks for today or import from</p>
+          <Link href={`/workspace/${workspaceId}/tomorrow`} className='hover:underline'>
+            tomorrow.
+          </Link>
         </div>
-        <Separator />
+      </div>
+      <Separator />
       <div className='flex flex-col md:flex-row gap-10'>
         <div className='border p-10 rounded-xl w-full flex flex-col gap-4'>
           <div className='flex w-full justify-between itmes-center py-2 '>

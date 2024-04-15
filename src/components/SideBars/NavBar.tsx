@@ -13,12 +13,15 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip"
+import { Skeleton } from '../ui/skeleton';
 const NavBar = () => {
   const { user } = useUser()
   const [userData, setUserData] = useState<UserData>();
   const [error, setError] = useState<string | null>(null);
   const [showNav, setShowNav] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   useEffect(() => {
+    setIsLoading(true)
     const fetchData = async () => {
       try {
         const response = await fetch('/api/user');
@@ -29,13 +32,31 @@ const NavBar = () => {
         setUserData(data);
       } catch (err: any) {
         setError(err.message);
+      } finally {
+        setIsLoading(false)
       }
     };
 
     fetchData();
   }, []);
-  if (!user || !userData) return null;
-  console.log(userData?.image)
+  if (!user) return null;
+  if (isLoading) {
+    return (
+      <nav className='h-14 w-full px-4 py-2 border-b-2 flex justify-between items-center'>
+        <div>
+          <h2 className='text-2xl font-bold'>Dozen</h2>
+        </div>
+        <div className='flex items-center gap-4'>
+          <div className='flex items-center gap-3'>
+            <Skeleton className='h-8 w-8 rounded-full  bg-neutral-100' />
+            <Skeleton className='h-8 w-8 rounded-full  bg-neutral-100' />
+            <Skeleton className='h-8 w-8 rounded-full  bg-neutral-100' />
+          </div>
+          <Skeleton className='h-8 w-8 rounded-full  bg-neutral-100' />
+        </div>
+      </nav>
+    )
+  }
   return (
     <>
       <nav className='hidden border-b-2 md:flex items-center justify-between px-4 py-2'>

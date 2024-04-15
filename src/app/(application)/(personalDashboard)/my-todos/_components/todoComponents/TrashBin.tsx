@@ -39,13 +39,6 @@ export const BurnBarrel = ({
             },
             body: JSON.stringify({ id: cardId, path: pathname, author: author })
         });
-
-        // await deletePersonalTodo({
-        //     id: cardId,
-        //     path: pathname,
-        //     author,
-        // })
-
         setActive(false);
     };
 
@@ -54,7 +47,7 @@ export const BurnBarrel = ({
             onDrop={handleDragEnd}
             onDragOver={handleDragOver}
             onDragLeave={handleDragLeave}
-            className={`h-40 w-full flex items-center justify-center rounded border text-3xl ${active
+            className={`h-32 w-full flex items-center justify-center rounded border text-3xl ${active
                 ? "border-red-800 bg-red-800/20 text-red-500"
                 : "border-neutral-500 bg-neutral-500/20 text-neutral-500"
                 }`}

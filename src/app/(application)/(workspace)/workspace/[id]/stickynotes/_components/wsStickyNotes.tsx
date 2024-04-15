@@ -62,7 +62,9 @@ const WsStickyNotes = ({
 }: StickyNotesProps) => {
     const [notes, setNotes] = useState<TStickyNotes[]>([]);
     const [append, setAppend] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
     const getTodos = async () => {
+        setIsLoading(true)
         // const todos = await fetchPersonalStickyNotes(userId);
         const response = await fetch(`/api/workspace/stickynote?workspaceId=${workspaceId}`);
         if (!response.ok) {
@@ -85,8 +87,20 @@ const WsStickyNotes = ({
     useEffect(() => {
         getTodos()
         // Polling interval (fetch new data every 5 seconds)
+        setIsLoading(false)
     }, [append, setNotes])
 
+    if (isLoading ) {
+        return (
+          <div className='h-screen w-full flex justify-center items-center'>
+            {/* <FaSpinner className='h-7 w-7 animate-spin' /> */}
+            <div className='flex flex-col gap-2 items-center'>
+              <span className="loading loading-dots loading-lg"></span>
+              <span>Loading...</span>
+            </div>
+          </div>
+        )
+      }
     const router = useRouter()
     const pathname = usePathname();
     const form = useForm<z.infer<typeof PersonalStickyNotesValidation>>({
