@@ -38,6 +38,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { createPersonalTodo } from "@/lib/backend-actions/personaltodo.actions";
 import { PersonalTodoValidation } from "@/lib/validations/personaltodo.validation";
 import { CardType, ColumnType } from "../ProductTrial";
+import { ScrollArea } from "@/components/ui/scroll-area";
 
 interface TriProps {
     cards: CardType[];
@@ -49,7 +50,7 @@ export const TriTodo = ({
 }: TriProps) => {
     return (
         <div className="h-screen w-full text-neutral-50">
-            <Board cards={cards} setCards={setCards}/>
+            <Board cards={cards} setCards={setCards} />
         </div>
     );
 };
@@ -58,43 +59,51 @@ const Board = ({
     cards,
     setCards,
 }: TriProps) => {
-    
+
 
     return (
-        <div className="flex flex-col h-full w-full gap-3 overflow-scroll p-12">
-            <BurnBarrel setCards={setCards} />
-            <div className="flex flex-wrap gap-4">
-                <Column
-                    title="Idea"
-                    column="backlog"
-                    headingColor="text-neutral-500"
-                    cards={cards}
-                    setCards={setCards}
-                />
-                <Column
-                    title="TODO"
-                    column="todo"
-                    headingColor="text-yellow-400"
-                    cards={cards}
-                    setCards={setCards}
-                />
-                <Column
-                    title="In progress"
-                    column="doing"
-                    headingColor="text-blue-500"
-                    cards={cards}
-                    setCards={setCards}
-                />
-                <Column
-                    title="Complete"
-                    column="done"
-                    headingColor="text-emerald-500"
-                    cards={cards}
-                    setCards={setCards}
-                />
-
+        <div className="mockup-browser border bg-neutral-50">
+            <div className="mockup-browser-toolbar text-black">
+                <div className="input">https://dozen-app.vercel.app/workspace/6611400ea85a6280dda/todo</div>
             </div>
+            <ScrollArea className="h-[70vh]">
+                <div className="flex flex-col h-full w-full gap-3 p-12">
+                    <BurnBarrel setCards={setCards} />
+                    <div className="flex flex-wrap gap-4">
+                        <Column
+                            title="Idea"
+                            column="backlog"
+                            headingColor="text-neutral-500"
+                            cards={cards}
+                            setCards={setCards}
+                        />
+                        <Column
+                            title="TODO"
+                            column="todo"
+                            headingColor="text-yellow-400"
+                            cards={cards}
+                            setCards={setCards}
+                        />
+                        <Column
+                            title="In progress"
+                            column="doing"
+                            headingColor="text-blue-500"
+                            cards={cards}
+                            setCards={setCards}
+                        />
+                        <Column
+                            title="Complete"
+                            column="done"
+                            headingColor="text-emerald-500"
+                            cards={cards}
+                            setCards={setCards}
+                        />
+
+                    </div>
+                </div>
+            </ScrollArea>
         </div>
+
     );
 };
 
@@ -309,11 +318,11 @@ const BurnBarrel = ({
             onDragOver={handleDragOver}
             onDragLeave={handleDragLeave}
             className={`mt-10 grid h-24 w-full shrink-0 place-content-center rounded border text-3xl ${active
-                    ? "border-red-800 bg-red-800/20 text-red-500"
-                    : "border-neutral-500 bg-neutral-500/20 text-neutral-500"
+                ? "border-red-800 bg-red-800/20 text-red-500"
+                : "border-neutral-500 bg-neutral-500/20 text-neutral-500"
                 }`}
         >
-            {active ? <FaFire className="animate-bounce h-7 w-7" /> : <FiTrash className="h-7 w-7"/>}
+            {active ? <FaFire className="animate-bounce h-7 w-7" /> : <FiTrash className="h-7 w-7" />}
         </div>
     );
 };

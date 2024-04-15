@@ -128,29 +128,29 @@ const TriTomorrow = (
 
     // Remove filtered tasks from tomorrow section
     setIncompleteTasks(prevState =>
-        prevState.filter(task => task.taskFor !== "tomorrow")
+      prevState.filter(task => task.taskFor !== "tomorrow")
     );
 
     console.log("Filtered tomorrow tasks:", incompleteTasks);
 
     // Also, update the taskFor property of filtered tasks to "today"
     const updatedTasks = tasksToSend.map(task => ({
-        ...task,
-        taskFor: "today"
+      ...task,
+      taskFor: "today"
     }));
 
     console.log("Updated tasks:", updatedTasks);
 
     // Update personalTasks state to reflect the change
     setPersonalTasks(prevState =>
-        prevState.map(task =>
-            tasksToSend.some(sentTask => sentTask.id === task.id)
-                ? { ...task, taskFor: "today" }
-                : task
-        )
+      prevState.map(task =>
+        tasksToSend.some(sentTask => sentTask.id === task.id)
+          ? { ...task, taskFor: "today" }
+          : task
+      )
     );
 
-};
+  };
 
   const deleteTomorrow = async (id: string) => {
     setAdded(true);
@@ -280,143 +280,143 @@ const TriTomorrow = (
   };
 
   return (
-    <main className={cn('flex flex-col lg:px-5 py-5 gap-5', inter.className)}>
-      <div className='flex flex-col gap-10'>
-        <div className='flex flex-col gap-2'>
-          <h2 className='text-3xl'>Plan your tasks for tomorrow</h2>
-          <p>Plan your tasks for tomorrow and then send it to today when you feel like it.</p>
-        </div>
-        <Separator />
-        <div className='border p-2 lg:p-10 rounded-xl w-full flex flex-col gap-4'>
-          <div className='flex w-full justify-between itmes-center py-2 '>
-            <h2 className='font-bold text-lg text-indigo-500'>Plans</h2>
-            <Button
-              variant={"ghost"}
-              onClick={() => deleteAllTomorrow(false)}
-            >
-              <Trash className='h-4 w-4 text-destructive' />
-            </Button>
+    <div className="mockup-browser border bg-neutral-50">
+      <div className="mockup-browser-toolbar">
+        <div className="input">https://dozen-app.vercel.app/workspace/661140ac0fd0ea85da/tomorrow</div>
+      </div>
+      <main className={cn('flex flex-col lg:px-5 py-5 gap-5', inter.className)}>
+        <div className='flex flex-col gap-10'>
+          <div className='flex flex-col gap-2'>
+            <h2 className='text-3xl'>Plan your tasks for tomorrow</h2>
+            <p>Plan your tasks for tomorrow and then send it to today when you feel like it.</p>
           </div>
           <Separator />
-          <div
-            onDrop={handleDragEnd}
-            onDragOver={handleDragOver}
-            onDragLeave={handleDragLeave}
-            className='flex flex-col gap-0.5 py-3'
-          >
-
-            {incompleteTasks
-              .filter(task => task.taskFor === "tomorrow")
-              .map(tomorrow => (
-                <div className='flex flex-col gap-1'>
-                  <DropIndicator beforeId={tomorrow.id} category={"tomorrow"} />
-                  <motion.div
-                    id="yourElementId"
-                    layout
-                    layoutId={tomorrow.id}
-                    draggable="true"
-                    onDragStart={(e) => {
-                      if ("dataTransfer" in e) {
-                        handleDragStart(e as DragEvent, {
-                          title: tomorrow.title,
-                          id: tomorrow.id,
-                          taskFor: tomorrow.taskFor,
-                          completed: tomorrow.completed
-                        });
-                      }
-                    }}
-                    key={tomorrow.id}
-                    className="flex gap-2 items-center py-0.5 px-3 w-full justify-between border rounded-lg"
-                  >
-                    <div className='flex items-center gap-2'>
-                      <span className='font-medium text-sm lg:text-normal'>
-                        {tomorrow.title}
-                      </span>
-                    </div>
-                    <div>
-                      <Button variant={"ghost"} onClick={() => deleteTomorrow(tomorrow.id)}>
-                        <Trash className='h-4 w-4 text-destructive' />
-                      </Button>
-                      <TooltipProvider>
-                        <Tooltip>
-                          <TooltipTrigger>
-                            <Button variant={"ghost"}
-                              onClick={() => moveToToday(tomorrow.id)}
-                            >
-                              <LogOut className='h-4 w-4 text-primary' />
-                            </Button>
-                          </TooltipTrigger>
-                          <TooltipContent sideOffset={30}>
-                            <p>Send to Today</p>
-                          </TooltipContent>
-                        </Tooltip>
-                      </TooltipProvider>
-                    </div>
-                  </motion.div>
-                </div>
-              ))}
-          </div>
-          <div className='flex justify-between'>
-            <Dialog>
-              <DialogTrigger>
-                <Button>
-                  Add Todo
-                </Button>
-              </DialogTrigger>
-              <DialogContent>
-                <DialogHeader>
-                  <DialogTitle>Your Plan for tomorrow</DialogTitle>
-                </DialogHeader>
-                <Form {...form}>
-                  <form
-                    className='mt-4 flex flex-col justify-start gap-10'
-                    onSubmit={form.handleSubmit(onSubmit)}
-                  >
-
-                    <FormField
-                      control={form.control}
-                      name='title'
-                      render={({ field }) => (
-                        <FormItem className='flex w-full flex-col gap-1'>
-                          <FormLabel className='font-medium text-lg'>
-                            Title
-                          </FormLabel>
-                          <FormControl>
-                            <Textarea
-                              placeholder="Add new task..."
-                              {...field}
-                              autoFocus
-                              className={cn("w-full rounded border h-10 border-violet-400 bg-violet-400/20 p-3 text-2xl text-neutral-800 placeholder-violet-300 focus:outline-0")}
-                            />
-                          </FormControl>
-                          <FormMessage />
-                        </FormItem>
-                      )}
-                    />
-                    <div className="mt-1.5 flex items-center justify-end gap-1.5">
-                      <DialogClose>
-                        <Button
-                          type="submit"
-                          className="flex items-center gap-1.5 rounded bg-slate-800 px-3 py-1.5 text-lg font-bold text-neutral-50 transition-colors hover:bg-neutral-300 hover:text-slate-900"
-                        >
-                          <span>Add Task</span>
-                        </Button>
-                      </DialogClose>
-                    </div>
-                  </form>
-                </Form>
-              </DialogContent>
-            </Dialog>
-            {/* <Button
-              //   onClick={() => sendToToday()}
-              onClick={sendToToday}
+          <div className='border p-2 lg:p-10 rounded-xl w-full flex flex-col gap-4'>
+            <div className='flex w-full justify-between itmes-center py-2 '>
+              <h2 className='font-bold text-lg text-indigo-500'>Plans</h2>
+              <Button
+                variant={"ghost"}
+                onClick={() => deleteAllTomorrow(false)}
+              >
+                <Trash className='h-4 w-4 text-destructive' />
+              </Button>
+            </div>
+            <Separator />
+            <div
+              onDrop={handleDragEnd}
+              onDragOver={handleDragOver}
+              onDragLeave={handleDragLeave}
+              className='flex flex-col gap-0.5 py-3'
             >
-              Send To Today
-            </Button> */}
+
+              {incompleteTasks
+                .filter(task => task.taskFor === "tomorrow")
+                .map(tomorrow => (
+                  <div className='flex flex-col gap-1'>
+                    <DropIndicator beforeId={tomorrow.id} category={"tomorrow"} />
+                    <motion.div
+                      id="yourElementId"
+                      layout
+                      layoutId={tomorrow.id}
+                      draggable="true"
+                      onDragStart={(e) => {
+                        if ("dataTransfer" in e) {
+                          handleDragStart(e as DragEvent, {
+                            title: tomorrow.title,
+                            id: tomorrow.id,
+                            taskFor: tomorrow.taskFor,
+                            completed: tomorrow.completed
+                          });
+                        }
+                      }}
+                      key={tomorrow.id}
+                      className="flex gap-2 items-center py-0.5 px-3 w-full justify-between border rounded-lg"
+                    >
+                      <div className='flex items-center gap-2'>
+                        <span className='font-medium text-sm lg:text-normal'>
+                          {tomorrow.title}
+                        </span>
+                      </div>
+                      <div>
+                        <Button variant={"ghost"} onClick={() => deleteTomorrow(tomorrow.id)}>
+                          <Trash className='h-4 w-4 text-destructive' />
+                        </Button>
+                        <TooltipProvider>
+                          <Tooltip>
+                            <TooltipTrigger>
+                              <Button variant={"ghost"}
+                                onClick={() => moveToToday(tomorrow.id)}
+                              >
+                                <LogOut className='h-4 w-4 text-primary' />
+                              </Button>
+                            </TooltipTrigger>
+                            <TooltipContent sideOffset={30}>
+                              <p>Send to Today</p>
+                            </TooltipContent>
+                          </Tooltip>
+                        </TooltipProvider>
+                      </div>
+                    </motion.div>
+                  </div>
+                ))}
+            </div>
+            <div className='flex justify-between'>
+              <Dialog>
+                <DialogTrigger>
+                  <Button>
+                    Add Todo
+                  </Button>
+                </DialogTrigger>
+                <DialogContent>
+                  <DialogHeader>
+                    <DialogTitle>Your Plan for tomorrow</DialogTitle>
+                  </DialogHeader>
+                  <Form {...form}>
+                    <form
+                      className='mt-4 flex flex-col justify-start gap-10'
+                      onSubmit={form.handleSubmit(onSubmit)}
+                    >
+
+                      <FormField
+                        control={form.control}
+                        name='title'
+                        render={({ field }) => (
+                          <FormItem className='flex w-full flex-col gap-1'>
+                            <FormLabel className='font-medium text-lg'>
+                              Title
+                            </FormLabel>
+                            <FormControl>
+                              <Textarea
+                                placeholder="Add new task..."
+                                {...field}
+                                autoFocus
+                                className={cn("w-full rounded border h-10 border-violet-400 bg-violet-400/20 p-3 text-2xl text-neutral-800 placeholder-violet-300 focus:outline-0")}
+                              />
+                            </FormControl>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+                      <div className="mt-1.5 flex items-center justify-end gap-1.5">
+                        <DialogClose>
+                          <Button
+                            type="submit"
+                            className="flex items-center gap-1.5 rounded bg-slate-800 px-3 py-1.5 text-lg font-bold text-neutral-50 transition-colors hover:bg-neutral-300 hover:text-slate-900"
+                          >
+                            <span>Add Task</span>
+                          </Button>
+                        </DialogClose>
+                      </div>
+                    </form>
+                  </Form>
+                </DialogContent>
+              </Dialog>
+            </div>
           </div>
         </div>
-      </div>
-    </main>
+      </main>
+    </div>
+
   );
 };
 export default TriTomorrow;
