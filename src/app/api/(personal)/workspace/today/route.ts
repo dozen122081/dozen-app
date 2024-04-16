@@ -26,7 +26,7 @@ export async function GET(req: Request){
     }
     connectToDatabase(); // Connect to the database
     try {
-      const tomorrows = await WorkspaceDayTask.find({ author: user.id, taskFor: "today" })
+      const tomorrows = await WorkspaceDayTask.find({ author: user.id, taskFor: "today", workspaceId: workspaceId })
         .lean() // Convert Mongoose documents to plain JavaScript objects
         .exec();
   
