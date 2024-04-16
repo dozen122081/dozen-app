@@ -3,6 +3,7 @@ import { Metadata } from 'next';
 import React from 'react'
 import { Toaster } from 'sonner'
 import { ColorSchemeScript, MantineProvider } from '@mantine/core';
+import {ViewTransitions} from 'next-view-transitions'
 import '@mantine/core/styles.css';
 import '@mantine/charts/styles.css';
 export const metadata: Metadata = {
@@ -17,15 +18,17 @@ const RootLayout = ({
 }) => {
     return (
         <ClerkProvider>
-            <html lang='en' className='antialiased'>
-                <head>
-                    <ColorSchemeScript />
-                </head>
-                <body>
-                    <MantineProvider>{children}</MantineProvider>
-                    <Toaster />
-                </body>
-            </html>
+            <ViewTransitions>
+                <html lang='en' className='antialiased'>
+                    <head>
+                        <ColorSchemeScript />
+                    </head>
+                    <body>
+                        <MantineProvider>{children}</MantineProvider>
+                        <Toaster />
+                    </body>
+                </html>
+            </ViewTransitions>
         </ClerkProvider>
     )
 }

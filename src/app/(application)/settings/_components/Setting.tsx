@@ -1,6 +1,6 @@
 "use client"
 import { cn } from '@/lib/utils'
-import Link from 'next/link'
+import { Link } from 'next-view-transitions'
 import React, { useState } from 'react'
 import { BiDoorOpen } from 'react-icons/bi'
 import { Switch } from "@/components/ui/switch"

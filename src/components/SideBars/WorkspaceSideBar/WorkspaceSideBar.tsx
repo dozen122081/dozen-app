@@ -2,7 +2,7 @@
 import { Separator } from '@/components/ui/separator';
 import { cn } from '@/lib/utils';
 import { AlignStartVertical, Blocks, Box, Boxes, ClipboardList, Coffee, StickyNote } from 'lucide-react';
-import Link from 'next/link'
+import { Link } from 'next-view-transitions'
 import { usePathname } from 'next/navigation'
 import React, { useEffect, useState } from 'react'
 import { BiDoorOpen } from "react-icons/bi";

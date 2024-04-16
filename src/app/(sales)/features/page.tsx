@@ -1,6 +1,6 @@
 "use client"
 import { useUser } from '@clerk/nextjs'
-import Link from 'next/link'
+import { Link } from 'next-view-transitions'
 import React from 'react'
 import Navbar from '../_components/Navbar/Navbar'
 import FeatureTodoBoard from './_components/FeatureBoard'

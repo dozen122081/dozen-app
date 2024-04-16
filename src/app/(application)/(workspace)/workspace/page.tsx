@@ -24,7 +24,7 @@ import { useUser } from '@clerk/nextjs';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { motion } from "framer-motion";
 import { ArrowRight, Pen, Trash } from 'lucide-react';
-import Link from 'next/link';
+import { Link } from 'next-view-transitions';
 import { usePathname, useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';

@@ -2,7 +2,7 @@
 import { UserData } from '@/app/api/user/route';
 import { SignOutButton, UserButton, useUser } from '@clerk/nextjs'
 import { Blocks, Boxes, DraftingCompass, Group, Hammer, Shrink } from 'lucide-react';
-import Link from 'next/link'
+import { Link } from 'next-view-transitions'
 import { useEffect, useState } from 'react';
 import { IoSettings } from "react-icons/io5";
 import { Button } from '../ui/button';

@@ -4,7 +4,7 @@ import AppPaymentUi from '@/components/paymentUi/AppPaymentUi';
 import { useUser } from '@clerk/nextjs';
 import { ArrowRight } from 'lucide-react';
 import Image from 'next/image';
-import Link from 'next/link';
+import { Link } from 'next-view-transitions';
 import { redirect } from 'next/navigation';
 import { useEffect, useState } from 'react';
 

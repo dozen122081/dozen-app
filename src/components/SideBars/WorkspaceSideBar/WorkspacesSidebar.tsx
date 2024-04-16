@@ -1,6 +1,6 @@
 import { cn } from '@/lib/utils';
 import { UserButton } from '@clerk/nextjs';
-import Link from 'next/link'
+import { Link } from 'next-view-transitions'
 import React from 'react'
 import { BiDoorOpen } from 'react-icons/bi';
 const WorkspacesSidebar = () => {

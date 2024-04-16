@@ -1,39 +1,14 @@
 "use client"
 import { Button } from '@/components/ui/button'
 import { Checkbox } from '@/components/ui/checkbox'
-import {
-  Dialog,
-  DialogClose,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger
-} from "@/components/ui/dialog"
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage
-} from "@/components/ui/form"
-import { Separator } from '@/components/ui/separator'
-import { Textarea } from '@/components/ui/textarea'
-import { cn, getIdFromUrl, getIdFromWorkspaceUrl } from '@/lib/utils'
-import { PersonalTomorrowValidation } from '@/lib/validations/personal.tomorrow.validation'
-import { DayTaskValidation } from '@/lib/validations/workspace/daytask.validation'
+import { getIdFromWorkspaceUrl } from '@/lib/utils'
 import { useUser } from '@clerk/nextjs'
-import { zodResolver } from "@hookform/resolvers/zod"
 import { motion } from "framer-motion"
 import { Trash } from 'lucide-react'
 import { useEffect, useState } from 'react'
-import { useForm } from "react-hook-form"
-import * as z from "zod"
 
-import { Inter } from 'next/font/google'
-import Link from 'next/link'
-import { FaSpinner } from 'react-icons/fa'
 import { Skeleton } from '@/components/ui/skeleton'
+import { Inter } from 'next/font/google'
 
 const inter = Inter({
   subsets: ['cyrillic', "cyrillic-ext", "greek", "greek-ext", "latin", "latin-ext", "vietnamese"],

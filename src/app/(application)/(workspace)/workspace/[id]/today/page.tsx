@@ -31,7 +31,7 @@ import { useForm } from "react-hook-form"
 import * as z from "zod"
 
 import { Inter } from 'next/font/google'
-import Link from 'next/link'
+import { Link } from 'next-view-transitions'
 import { FaSpinner } from 'react-icons/fa'
 
 const inter = Inter({
@@ -101,6 +101,8 @@ const Page = () => {
         }
       } catch (error) {
         console.error("Error fetching personal tomorrow data:", error);
+      } finally {
+        setIsLoading(false)
       }
     };
 
@@ -115,7 +117,6 @@ const Page = () => {
       const incomplete = personalTomorrows.filter(tomorrow => !tomorrow.completed);
       setCompletedTomorrows(completed);
       setIncompleteTomorrows(incomplete);
-      setIsLoading(false)
     }
   }, [personalTomorrows, added]);
   if (!user || !userId) return null;
@@ -123,17 +124,7 @@ const Page = () => {
   const workspaceId = getIdFromUrl(fullUrl);
   if (!workspaceId) return;
   
-  if (isLoading ) {
-    return (
-      <div className='h-screen w-full flex justify-center items-center'>
-        {/* <FaSpinner className='h-7 w-7 animate-spin' /> */}
-        <div className='flex flex-col gap-2 items-center'>
-          <span className="loading loading-dots loading-lg"></span>
-          <span>Loading...</span>
-        </div>
-      </div>
-    )
-  }
+
   const onSubmit = async (values: z.infer<typeof PersonalTomorrowValidation>) => {
     setAdded(true);
     console.log("onSubmit fired");
@@ -235,7 +226,17 @@ const Page = () => {
     }
     setAdded(false);
   };
-  
+  if (isLoading ) {
+    return (
+      <div className='h-screen w-full flex justify-center items-center'>
+        {/* <FaSpinner className='h-7 w-7 animate-spin' /> */}
+        <div className='flex flex-col gap-2 items-center'>
+          <span className="loading loading-dots loading-lg"></span>
+          <span>Loading...</span>
+        </div>
+      </div>
+    )
+  }
   return (
     <main className={cn('flex flex-col px-5 py-5 gap-12', inter.className)}>
       <div className='flex flex-col gap-2'>

@@ -1,7 +1,7 @@
 "use client";
 import { Separator } from '@/components/ui/separator';
 import { cn, getIdFromWorkspaceUrl } from '@/lib/utils';
-import Link from 'next/link';
+import { Link } from 'next-view-transitions';
 import React, { useEffect, useState } from 'react';
 
 export type TStickyNotes = {

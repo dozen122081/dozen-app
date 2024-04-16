@@ -31,7 +31,7 @@ import { useForm } from "react-hook-form"
 import * as z from "zod"
 
 import { Inter } from 'next/font/google'
-import Link from 'next/link'
+import { Link } from 'next-view-transitions'
 
 const inter = Inter({
     subsets: ['cyrillic', "cyrillic-ext", "greek", "greek-ext", "latin", "latin-ext", "vietnamese"],

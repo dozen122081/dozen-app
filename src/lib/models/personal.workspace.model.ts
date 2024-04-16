@@ -1,4 +1,5 @@
 import mongoose  from 'mongoose';
+import { string } from 'zod';
 const PersonalWorkspaceSchema = new mongoose.Schema({
     title: {
         type: String,
@@ -14,6 +15,11 @@ const PersonalWorkspaceSchema = new mongoose.Schema({
     backgroundColor: {
         type: String,
     },
+    workspaceProgressData: [
+        {
+            type: string,  
+        }
+    ],
     createdAt: {
         type: Date,
         default: Date.now,
