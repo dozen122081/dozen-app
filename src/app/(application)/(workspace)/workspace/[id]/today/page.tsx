@@ -101,13 +101,12 @@ const Page = () => {
         }
       } catch (error) {
         console.error("Error fetching personal tomorrow data:", error);
-      } finally {
-        setIsLoading(false)
       }
     };
 
     if (userId) {
       getPersonalTomorrowData();
+      setIsLoading(false)
     }
   }, [userId, added]);
 

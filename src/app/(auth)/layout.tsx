@@ -1,6 +1,3 @@
-import MaxWidthWrapper from '@/lib/MaxWidthWrapper';
-import { ClerkProvider } from '@clerk/nextjs'
-
 import '../globals.css'
 const AuthenticationLayout = ({
   children,
