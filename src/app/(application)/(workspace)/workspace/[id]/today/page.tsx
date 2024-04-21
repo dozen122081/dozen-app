@@ -86,6 +86,7 @@ const Page = () => {
     if (!userId) {
       fetchData();
     }
+    setIsLoading(false)
   }, [user, userId, personalTomorrows]);
 
   useEffect(() => {
@@ -106,7 +107,6 @@ const Page = () => {
 
     if (userId) {
       getPersonalTomorrowData();
-      setIsLoading(false)
     }
   }, [userId, added]);
 
