@@ -67,6 +67,7 @@ const Page = () => {
     // **Warning:** Using window.location can be a security risk. Consider alternative approaches.
     const url = window.location.href;
     setFullUrl(url);
+    setIsLoading(false)
   }, [])
   useEffect(() => {
     const fetchData = async () => {
@@ -86,7 +87,6 @@ const Page = () => {
     if (!userId) {
       fetchData();
     }
-    setIsLoading(false)
   }, [user, userId, personalTomorrows]);
 
   useEffect(() => {
