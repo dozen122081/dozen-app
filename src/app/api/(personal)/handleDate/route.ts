@@ -11,13 +11,8 @@ export async function POST(req: Request){
     }
 
     connectToDatabase()
-
-    // const newDate = new DateData({
-    //     date: body.targetDate, 
-    //     authorId: user.id, 
-    //     createdAt: new Date()
-    // })
-
+    console.log("POst api fired, with userId: ")
+    console.log(user.id)
     try{
         const newDate = await DateData.create({
             date: body.targetDate,
@@ -32,10 +27,14 @@ export async function POST(req: Request){
 }
 
 export async function GET() {
+    const user = await currentUser();
+    if (!user) {
+        return new NextResponse("Unauthorized", { status: 401 });
+    }
     connectToDatabase()
     try {
-        const date = await DateData.find({});
-        console.log(date)
+        const date = await DateData.find({author: user.id});
+        // console.log(data)
         return new NextResponse(JSON.stringify(date))
     } catch (error) {
         console.error("Error fetching data:", error);   
