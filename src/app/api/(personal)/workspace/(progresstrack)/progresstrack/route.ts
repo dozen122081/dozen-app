@@ -29,7 +29,8 @@ export async function GET(req: Request){
       const trackedProgress = await WorkspaceDayTask.find({ author: user.id, taskFor: "today", workspaceId: workspaceId })
         .lean() // Convert Mongoose documents to plain JavaScript objects
         .exec();
-  
+        
+        console.log("tracked data",trackedProgress)
       const formattedData: WorkspaceProgressData[] = trackedProgress.map((progress: any) => ({
         id: progress._id.toString(),
         author: progress.author.toString(), // Assuming author is a string or ObjectId

@@ -17,7 +17,7 @@ const PersonalWorkspaceSchema = new mongoose.Schema({
     },
     workspaceProgressData: [
         {
-            type: string,  
+            type: String,  
         }
     ],
     createdAt: {
