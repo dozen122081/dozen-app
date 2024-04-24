@@ -1,78 +1,46 @@
 import React from "react";
+import { cn } from "@/lib/utils";
 import Image from "next/image";
+import { poppins } from "../../lib/constants/useFonts";
 
 const Features = () => {
   return (
-    <div className="flex flex-col gap-20 items-center justify-start">
-      <div>
-        <div className="text-center text-primary text-5xl">
-          <h1>FEATURES</h1>
+    <div className="flex m-10 flex-col md:flex-row lg:flex-row lg:gap-16">
+      <div className="flex flex-col gap-5 justify-center lg:pl-[2rem] ">
+          <h3
+            className={cn("text-[30px] lg:text-[36px] font-semibold ", poppins.className)}
+          >
+            Enjoy our features
+          </h3>
+        <div className="text-[1rem] lg:text-[1.2rem]">
+          <p className="">Organize your life using our app.</p>
+          <p className="">
+            Using dozen you can{" "}
+            <span className="text-[#3B7FBD]">achieve your potential.</span>
+          </p>
         </div>
-        <div  className="h-1.5 bg-primary rounded-md w-85"></div>
       </div>
-      <div className="flex gap-32 justify-around">
-        <div className="flex flex-col gap-4 max-w-[15rem]">
-          <div className="flex flex-col gap-4 items-center">
+      <div className="h-[25rem] w-screen -left-16 lg:right-8 lg:w-[50rem] relative flex flex-row justify-center items-center">
+        <div>
+          <div className="">
             <Image
-              src={"/icons.services/checklist.svg"}
-              alt="checklist"
-              height={80}
-              width={80}
-              className="object-contain"
+              src={"/public/mobile1.png"}
+              alt={"hero image"}
+              height={327}
+              width={313}
+              className="object-cover"
             />
-            <div className="px-12">
-              <h2 className="font-semibold text-lg">
-                Effortless Task Management
-              </h2>
-            </div>
-          </div>
-          <div className="text-center text-muted">
-            <p>
-              Organize your life with ease. Create, edit, and prioritize tasks
-              in seconds.
-            </p>
           </div>
         </div>
-        <div className="flex flex-col gap-4 max-w-[15rem]">
-          <div className="flex flex-col gap-4 items-center">
+        <div>
+          <div className="">
             <Image
-              src={"/icons.services/ringingBell.svg"}
-              alt="bell"
-              height={80}
-              width={80}
-              className="object-contain"
+              src={"/public/mobile2.png"}
+              alt={"hero image"}
+              height={313}
+              width={156}
+              className="object-cover"
             />
-            <div>
-              <h2 className="font-semibold text-lg">
-                Never Miss a <br /> Deadline Again
-              </h2>
-            </div>
-          </div>
-          <div className="text-center text-muted">
-            <p>
-              Set reminders and due dates for ultimate accountability. Stay on
-              top of your goals.
-            </p>
-          </div>
-        </div>
-        <div className="flex flex-col gap-4 max-w-[15rem]">
-          <div className="flex flex-col gap-4 items-center">
-            <Image
-              src={"/icons.services/cute-rocket-launching.svg"}
-              alt="rocket"
-              height={80}
-              width={80}
-              className="object-contain"
-            />
-            <div>
-              <h2 className="font-semibold text-lg">Boost Your Productivity</h2>
-            </div>
-          </div>
-          <div className="text-center">
-            <p className="text-center text-muted">
-              Free yourself from distractions. Achieve more with powerful
-              organization tools.
-            </p>
           </div>
         </div>
       </div>

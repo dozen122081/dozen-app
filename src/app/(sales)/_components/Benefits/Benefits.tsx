@@ -1,76 +1,103 @@
 import React from "react";
 import Image from "next/image";
-import { oswald } from "@/lib/constants/fonsts";
 import { cn } from "@/lib/utils";
+import { poppins } from "../../lib/constants/useFonts";
+
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+
 const Benefits = () => {
   return (
-    <main className="h-screen w-screen">
-      <div
-        className={cn(
-          oswald.className,
-          "text-5xl leading-4rem py-20 px-72"
-        )}
-      >
-        <h1>Ready to break free from the overwhelm?</h1>
-      </div>
-      <div className=" h-[70vh] gap-10">
-        <div className="h-[75vh] w-[20rem] overflow-hidden absolute right-0">
-          <div className="py-[10rem]">
-            <Image
-              src={"/benefits.png"}
-              alt={"photo"}
-              height={553}
-              width={800}
-              className="object-cover"
-            />
+    <div className="px-[2rem] lg:px-[4rem] pt-5 lg:mt-5">
+      <div className="flex flex-col md:flex-row lg:flex-row">
+        <div className="flex flex-col gap-y-5">
+          <div>
+            <h2 className={cn("text-[30px] lg:text-[36px] font-semibold ", poppins.className)}>
+              Use sticky notes for{" "}
+              <span className="text-[rgb(59,127,189)]">Easy Organization</span>
+            </h2>
+          </div>
+          <div className="text-[1rem] lg:text-[1.1rem]">
+            <div className="hidden lg:block">
+            <p>
+              With Dozen's Sticky Notes feature, you can effortlessly create and
+            </p>
+            <p>
+              organize notes to stay on top of your tasks and ideas. Whether
+              it's a{" "}
+            </p>
+            <p>reminder, a brainstorming session, or a simple to use.</p>
+            </div>
+            <p className=" lg:hidden">With Dozen's Sticky Notes feature, you can effortlessly create and organize notes to stay on top of your tasks and ideas. Whether reminder, a brainstorming session, or a simple to use.</p>
           </div>
         </div>
-        <div className="flex flex-col gap-12 w-full left-1">
-          <div className="flex items-center px-72 gap-3">
+        <div className="h-[18rem] lg:w-[30rem] relative flex flex-col lg:items-center">
+          <div className="flex gap-10">
             <div>
-              <Image
-                src={"/icons.benefits/smiley-fill.svg"}
-                alt="smiley-face"
-                height={40}
-                width={40}
-                className="object-contain"
-              />
+              <div className="w-[9rem] relative">
+                <Image
+                  src={"/public/Benefits_photos/sticky.png"}
+                  alt={"hero image"}
+                  height={327}
+                  width={313}
+                  className="object-cover"
+                />
+              </div>
             </div>
-            <div className="text-center text-3xl p">
-              <p>Reduce stress and anxiety with clear organization</p>
-            </div>
-          </div>
-          <div className="flex items-center px-72 gap-3">
             <div>
-              <Image
-                src={"/icons.benefits/light-bulb.svg"}
-                alt="light-bulb"
-                height={40}
-                width={40}
-                className="object-contain"
-              />
-            </div>
-            <div className="text-center text-3xl">
-              <p>Unlock your focus and achieve peak productivity</p>
-            </div>
-          </div>
-          <div className="flex items-center px-72 gap-3">
-            <div className="">
-              <Image
-                src={"/icons.benefits/trophy.svg"}
-                alt="trophy"
-                height={40}
-                width={40}
-                className="object-contain"
-              />
-            </div>
-            <div className="text-center text-3xl">
-              <p>Empower yourself to reach your full potential</p>
-            </div>
+              <div className="w-[7rem] relative transform rotate-12 top-[6.5rem] lg:top-[6rem] ">
+                <Image
+                  src={"/public/Benefits_photos/dozen.png"}
+                  alt={"hero image"}
+                  height={327}
+                  width={313}
+                  className="object-cover bg-[#FF9083]"
+                />
+              </div>
             </div>
           </div>
-      </div>  
-    </main>
+          <div className="w-[12rem] relative -top-[2rem] left-7 lg:left-0">
+            <div>
+                <Image
+                  src={"/public/Benefits_photos/line.png"}
+                  alt={"hero image"}
+                  height={327}
+                  width={313}
+                  className="object-cover"
+                />
+            </div>
+          </div>
+        </div>
+      </div>
+      <div className="flex gap-5 relative lg:-top-[5rem] flex-col md:flex-row lg:flex-row items-centeryarn">
+        <div className="drop-shadow-xl">
+          <Card className="h-[200px] w-[300px]">
+            <CardHeader className="text-center">
+              <CardTitle>Efficient</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <p>Stay organized with our Sticky Notes feature that allows you to create, edit and priotize your notes.</p>
+            </CardContent>
+          </Card>
+        </div>
+        <div className="gap-5 drop-shadow-xl">
+          <Card className="h-[200px] w-[300px]">
+            <CardHeader>
+              <CardTitle className="text-center">Versatile</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <p>Take advantage of our Sticky Notes feature to keep track of important information and ideas.</p>
+            </CardContent>
+          </Card>
+        </div>
+      </div>
+    </div>
   );
 };
 

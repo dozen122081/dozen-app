@@ -1,84 +1,58 @@
-"use client"
-import { useUser } from "@clerk/nextjs";
+import React from "react";
+import { cn } from "@/lib/utils";
+import { Button } from "@/components/ui/button";
+import { poppins } from "../../lib/constants/useFonts";
 import Image from "next/image";
-import Link from "next/link";
 
 const Hero = () => {
-  const { isSignedIn } = useUser()
   return (
-    <main className="flex h-screen gap-10 flex-col items-center lg:pt-10">
-      <div className="flex flex-col justify-start gap-2 items-center w-full relative ">
-        <div className="text-4xl font-light leading-[3rem] gap-7 flex flex-col lg:items-center lg:px-8">
-          <h3 className="hidden text-4xl lg:flex gap-1">
-            "Tired of Life's
-            <span className="text-destructive">Chaos</span>?
-            Let's Clean Up
-            <div className="relative">
-              <span className="text-green-800">
-                Together
-              </span>
-              <Image
-                src="/bluecircle.svg"
-                alt=""
-                height={80}
-                width={200}
-                className="absolute -top-1 -translate-x-1/2 left-1/2"
-              />
-            </div>
-            !"</h3>
-          <h3 className="lg:hidden text-3xl flex flex-col gap-3">
-            <div>
-              <span>"Tired of Life's</span>
-              <span className="text-destructive">Chaos</span>
-              <span>?</span>
-            </div>
-            <div className="relative">
-              <span className="text-green-800">
-              Let's Clean Up Together !"
-              </span>
-              <Image
-                src="/bluecircle.svg"
-                alt=""
-                height={30}
-                width={150}
-                className="absolute -top-1 right-4"
-              />
-            </div>
-          </h3>
-          <h3 className="text-2xl lg:text-3xl">Dozen Organize Yourself and Your Team</h3>
-        </div>
-        <div className="text-2xl lg:text-3xl font-light text-right lg:text-left lg:px-8">
-          <p>Your Personal Productivity Powerhouse</p>
+    <div className="flex flex-col items-center px-3 py-5 md:flex-row lg:flex-row">
+      <div className="flex flex-col w-full items-center  lg:items-start lg:pl-[4rem] pt-2 lg:w-set">
+        <h1
+          className={cn(
+            "lg:hidden text-[40px] leading-[50px] font-medium text-center",
+            poppins.className
+          )}
+        >
+          Tired of life <br /> chaos?
+          {/* <span className="text-[#bd1313] "> chaos</span>? */}
+        </h1>
+        <h1
+          className={cn(
+            "hidden lg:flex text-[60px] font-medium w-full z-[999]",
+            poppins.className
+          )}
+        >
+          Tired of life chaos?
+        </h1>
+        <h2 className="text-[30px] leading-[] text-center lg:text-[40px] pt-3">
+          Let's clean <span className="text-[#0ad136]">together</span>!
+        </h2>
+        <p className="text-[1rem] text-center w-set">
+          Dozen Organize Yourself and Your Team
+        </p>
+        <p className="text-[1rem] text-center">
+          Your Personal Productivity Powerhouse
+        </p>
+        <div className="flex gap-5 items-center pt-4">
+          <Button className="bg-[#3B7FBD] rounded-full">Get Started</Button>
+          <button className="border-2 border-[#3B7FBD] text-[14px] px-4 py-[7px] rounded-full hover:text-white hover:bg-black/80 hover:border-black/80">
+            Learn More
+          </button>
         </div>
       </div>
-      <div>
-        <Link href={'/personal-dashboard'} className="flex items-center">
-          <div className="flex items-center">
-            <button className="rounded-2xl border-2 border-solid border-black bg-white px-3 py-1 font-semibold uppercase text-black transition-all duration-300 hover:translate-x-[-4px] hover:translate-y-[-4px] hover:rounded-md hover:shadow-[4px_4px_0px_black] active:translate-x-[0px] active:translate-y-[0px] active:rounded-2xl active:shadow-none">
-              {
-                isSignedIn ? (
-                  <span>Enter App</span>
-                ) : (
-                  <span>Get Started</span>
-                )
-              }
-            </button>
-          </div>
-        </Link>
-      </div>
-      <div>
-        <div className="h-[20rem] relative">
+      <div className=" pt-3 lg:h-[35rem] lg:w-[45rem] flex items-center justify-center">
+        <div className=" w-full rounded-lg lg:w-[45rem] overflow-hidden relative lg:right-11 ">
           <Image
-            src="/documents.png"
-            alt="mess"
-            height={768 / 2}
-            width={1024 / 2}
-            className="object-contain"
+            src={"/heroImage.png"}
+            alt={"hero image"}
+            height={768}
+            width={1024}
+            className="object-cover"
           />
-          <div className="absolute h-[40rem] w-[40rem] rounded-full opacity-20 -z-[99999] top-1/2 -translate-y-1/2 bg-gradient-to-tr from-slate-800 to-green-500 blur-[100px]  left-1/2 -translate-x-1/2" />
         </div>
       </div>
-    </main>
+    </div>
   );
 };
 

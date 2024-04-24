@@ -80,7 +80,7 @@ const Page = () => {
             <h2 className='text-5xl lg:text-7xl font-medium'>Get life time</h2>
             <h2 className='text-5xl lg:text-7xl font-medium'>access at just</h2>
           </div>
-          {
+          {/* {
             isFromNepal ? (
               <>
                 <h2 className='text-5xl lg:text-7xl font-semibold '>NPR. 2, 500</h2>
@@ -88,11 +88,12 @@ const Page = () => {
             ) : (
               <h2 className='text-5xl lg:text-7xl font-semibold '>At just $23.25</h2>
             )
-          }
+          } */}
+          <h2 className='text-5xl lg:text-7xl font-semibold '>NPR. 150</h2>
         </div>
       </section>
       <div className='flex items-center justify-center lg:h-screen'>
-        {
+        {/* {
           isFromNepal ? (
             <>
               <EsewaPayment />
@@ -102,7 +103,8 @@ const Page = () => {
               <PaypalPayment />
             </>
           )
-        }
+        } */}
+        <EsewaPayment />
       </div>
     </main>
   );

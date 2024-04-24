@@ -4,7 +4,7 @@ import Image from 'next/image'
 const EsewaPayment = () => {
     return (
         <aside className='flex flex-col w-[24rem] gap-4 justify-center items-center rounded-lg p-10 h-[32rem] border'>
-            <h2 className='text-xl font-bold'>NPR. 2, 500</h2>
+            <h2 className='text-xl font-bold'>NPR. 150</h2>
             <div>
                 <Image
                     src="/esewa/fikshunEsewa.jpg"
