@@ -970,10 +970,10 @@
     "@babel/helper-validator-identifier" "^7.22.20"
     to-fast-properties "^2.0.0"
 
-"@blocknote/core@^0.12.3":
-  version "0.12.3"
-  resolved "https://registry.npmjs.org/@blocknote/core/-/core-0.12.3.tgz"
-  integrity sha512-ohluHfdyPgdoy2+TnRcuRAqagIcGb25sVqcR7UI7qFH+Zg66emAbLEdGvJEliuAj41XxcNnmeGUm+g9uEUg8FQ==
+"@blocknote/core@^0.12.4":
+  version "0.12.4"
+  resolved "https://registry.yarnpkg.com/@blocknote/core/-/core-0.12.4.tgz#339e01a7a7b34caab322e02abe78c2940bf9e619"
+  integrity sha512-njnrEZUZ7sPm0CIwxSfFfnP1IgB+H+Kvk5+2Etr3tozuQgwdQ0X6wn6E+MTCP97Nxl/aPA7S1F/XUoy1L8ICXQ==
   dependencies:
     "@tiptap/core" "^2.0.3"
     "@tiptap/extension-bold" "^2.0.3"
@@ -1014,6 +1014,24 @@
     y-prosemirror "1.2.1"
     y-protocols "^1.0.5"
     yjs "^13.6.1"
+
+"@blocknote/react@^0.12.4":
+  version "0.12.4"
+  resolved "https://registry.yarnpkg.com/@blocknote/react/-/react-0.12.4.tgz#572f8d6ddf500fde17743cbe2b04af8ba457c7da"
+  integrity sha512-cgtQmPUhRmWwHifskhfuwq7SflXTagilblzkfKmkvHYsldeH2WcOHGbgskX5bdx7ulvryrLnTSbXszLuTGd5Hw==
+  dependencies:
+    "@blocknote/core" "^0.12.4"
+    "@floating-ui/react" "^0.26.4"
+    "@mantine/core" "^7.7.1"
+    "@mantine/hooks" "^7.7.1"
+    "@mantine/utils" "^6.0.21"
+    "@tiptap/core" "^2.0.3"
+    "@tiptap/react" "^2.0.3"
+    lodash.merge "^4.6.2"
+    react "^18"
+    react-dom "^18.2.0"
+    react-icons "^4.3.1"
+    use-prefers-color-scheme "^1.1.3"
 
 "@clerk/backend@0.38.3":
   version "0.38.3"
@@ -1114,6 +1132,15 @@
   version "0.26.11"
   resolved "https://registry.npmjs.org/@floating-ui/react/-/react-0.26.11.tgz"
   integrity sha512-fo01Cu+jzLDVG/AYAV2OtV6flhXvxP5rDaR1Fk8WWhtsFqwk478Dr2HGtB8s0HqQCsFWVbdHYpPjMiQiR/A9VA==
+  dependencies:
+    "@floating-ui/react-dom" "^2.0.0"
+    "@floating-ui/utils" "^0.2.0"
+    tabbable "^6.0.0"
+
+"@floating-ui/react@^0.26.4":
+  version "0.26.12"
+  resolved "https://registry.yarnpkg.com/@floating-ui/react/-/react-0.26.12.tgz#6908f774d8e3167d89b37fd83be975c7e5d8be99"
+  integrity sha512-D09o62HrWdIkstF2kGekIKAC0/N/Dl6wo3CQsnLcOmO3LkW6Ik8uIb3kw8JYkwxNCcg+uJ2bpWUiIijTBep05w==
   dependencies:
     "@floating-ui/react-dom" "^2.0.0"
     "@floating-ui/utils" "^0.2.0"
@@ -1233,6 +1260,11 @@
   version "7.7.1"
   resolved "https://registry.npmjs.org/@mantine/hooks/-/hooks-7.7.1.tgz"
   integrity sha512-3YH2FzKMlg840tb04PBDcDXyBCi9puFOxEBVgc6Y/pN6KFqfOoAnQE/YvgOtwSNXZlbTWyDlQoYj+3je7pA7og==
+
+"@mantine/utils@^6.0.21":
+  version "6.0.21"
+  resolved "https://registry.yarnpkg.com/@mantine/utils/-/utils-6.0.21.tgz#6185506e91cba3e308aaa8ea9ababc8e767995d6"
+  integrity sha512-33RVDRop5jiWFao3HKd3Yp7A9mEq4HAJxJPTuYm1NkdqX6aTKOQK7wT8v8itVodBp+sb4cJK6ZVdD1UurK/txQ==
 
 "@mongodb-js/saslprep@^1.1.0":
   version "1.1.5"
@@ -1377,6 +1409,11 @@
   version "0.11.0"
   resolved "https://registry.npmjs.org/@pkgjs/parseargs/-/parseargs-0.11.0.tgz"
   integrity sha512-+1VkjdD0QBLPodGrJUeqarH8VAIvQODIbwh9XpP5Syisf7YoQgsJKPNFoqqLQlu+VQ/tVSshMR6loPMn8U+dPg==
+
+"@popperjs/core@^2.9.0":
+  version "2.11.8"
+  resolved "https://registry.yarnpkg.com/@popperjs/core/-/core-2.11.8.tgz#6b79032e760a0899cd4204710beede972a3a185f"
+  integrity sha512-P1st0aksCrn9sGZhp8GMYwBnQsbvAWsZAX44oXNNvLHGqAOcoVxmjZiohstwQ7SqKnbR47akdNi+uleWD8+g6A==
 
 "@radix-ui/number@1.0.1":
   version "1.0.1"
@@ -1903,6 +1940,13 @@
   resolved "https://registry.npmjs.org/@tiptap/extension-bold/-/extension-bold-2.2.4.tgz"
   integrity sha512-v3tTLc8YESFZPOGj5ByFr8VbmQ/PTo49T1vsK50VubxIN/5r9cXlKH8kb3dZlZxCxJa3FrXNO/M8rdGBSWQvSg==
 
+"@tiptap/extension-bubble-menu@^2.3.0":
+  version "2.3.0"
+  resolved "https://registry.yarnpkg.com/@tiptap/extension-bubble-menu/-/extension-bubble-menu-2.3.0.tgz#3447dcc68aaaa76c8327cb636976164986b270c7"
+  integrity sha512-dqyfQ8idTlhapvt0fxCGvkyjw92pBEwPqmkJ01h3EE8wTh53j0ytOHyMSf1KBuzardxpd8Yya3zlrAcR0Z3DlQ==
+  dependencies:
+    tippy.js "^6.3.7"
+
 "@tiptap/extension-code@^2.0.3":
   version "2.2.4"
   resolved "https://registry.npmjs.org/@tiptap/extension-code/-/extension-code-2.2.4.tgz"
@@ -1922,6 +1966,13 @@
   version "2.2.4"
   resolved "https://registry.npmjs.org/@tiptap/extension-dropcursor/-/extension-dropcursor-2.2.4.tgz"
   integrity sha512-IHwkEKmqpqXyJi16h7871NrcIqeyN7I6XRE2qdqi+MhGigVWI8nWHoYbjRKa7K/1uhs5zeRYyDlq5EuZyL6mgA==
+
+"@tiptap/extension-floating-menu@^2.3.0":
+  version "2.3.0"
+  resolved "https://registry.yarnpkg.com/@tiptap/extension-floating-menu/-/extension-floating-menu-2.3.0.tgz#ac61ffeac479cdf019a270d23464fd08af6ab931"
+  integrity sha512-bNY43/yU/+wGfmk2eDV7EPDAN/akbC+YnSKTA5VPJADzscvlrL2HlQrxbd/STIdlwKqdPU5MokcvCChhfZ4f6w==
+  dependencies:
+    tippy.js "^6.3.7"
 
 "@tiptap/extension-gapcursor@^2.0.3":
   version "2.2.4"
@@ -2013,6 +2064,14 @@
     prosemirror-trailing-node "^2.0.7"
     prosemirror-transform "^1.8.0"
     prosemirror-view "^1.32.7"
+
+"@tiptap/react@^2.0.3":
+  version "2.3.0"
+  resolved "https://registry.yarnpkg.com/@tiptap/react/-/react-2.3.0.tgz#b9a7c29a8bae38a28a3d6ab910da11290addcc58"
+  integrity sha512-ThgFJQTWYKRClTV2Zg0wBRqfy0EGz3U4NOey7jwncUjSjx5+o9nXbfQAYWDKQFfWyE+wnrBTYfddEP9pHNX5cQ==
+  dependencies:
+    "@tiptap/extension-bubble-menu" "^2.3.0"
+    "@tiptap/extension-floating-menu" "^2.3.0"
 
 "@types/body-parser@*":
   version "1.19.5"
@@ -4561,6 +4620,11 @@ lodash.debounce@^4.0.8:
   resolved "https://registry.npmjs.org/lodash.debounce/-/lodash.debounce-4.0.8.tgz"
   integrity sha512-FT1yDzDYEoYWhnSGnpE/4Kj1fLZkDFyqRb7fNt6FdYOSxlUWAtp42Eh6Wb0rGIv/m9Bgo7x4GhQbm5Ys4SG5ow==
 
+lodash.merge@^4.6.2:
+  version "4.6.2"
+  resolved "https://registry.yarnpkg.com/lodash.merge/-/lodash.merge-4.6.2.tgz#558aa53b43b661e1925a0afdfa36a9a1085fe57a"
+  integrity sha512-0KpjqXRVvrYyCsX1swR/XTK0va6VQkQM6MNo7PqW77ByjAhoARA8EfrP1N4+KlKj8YS0ZUCtRT/YUuhyYDujIQ==
+
 lodash.sortby@^4.7.0:
   version "4.7.0"
   resolved "https://registry.npmjs.org/lodash.sortby/-/lodash.sortby-4.7.0.tgz"
@@ -5854,6 +5918,11 @@ react-hook-form@^7.51.1:
   resolved "https://registry.npmjs.org/react-hook-form/-/react-hook-form-7.51.1.tgz"
   integrity sha512-ifnBjl+kW0ksINHd+8C/Gp6a4eZOdWyvRv0UBaByShwU8JbVx5hTcTWEcd5VdybvmPTATkVVXk9npXArHmo56w==
 
+react-icons@^4.3.1:
+  version "4.12.0"
+  resolved "https://registry.yarnpkg.com/react-icons/-/react-icons-4.12.0.tgz#54806159a966961bfd5cdb26e492f4dafd6a8d78"
+  integrity sha512-IBaDuHiShdZqmfc/TwHu6+d6k2ltNCf3AszxNmjJc1KUfXdEeRJOKyNvLmAHaarhzGmTSVygNdyu8/opXv2gaw==
+
 react-icons@^5.0.1:
   version "5.0.1"
   resolved "https://registry.npmjs.org/react-icons/-/react-icons-5.0.1.tgz"
@@ -5962,7 +6031,7 @@ react-transition-group@^4.4.5:
     loose-envify "^1.4.0"
     prop-types "^15.6.2"
 
-react@^18.2.0:
+react@^18, react@^18.2.0:
   version "18.2.0"
   resolved "https://registry.npmjs.org/react/-/react-18.2.0.tgz"
   integrity sha512-/3IjMdb2L9QbBdWiW5e3P2/npwMBaU9mHCSCUzNln0ZCYbcfTsGbTJrU/kGemdH2IWmB2ioZ+zkxtmq6g09fGQ==
@@ -6788,6 +6857,13 @@ tinycolor2@^1.4.1:
   resolved "https://registry.npmjs.org/tinycolor2/-/tinycolor2-1.6.0.tgz"
   integrity sha512-XPaBkWQJdsf3pLKJV9p4qN/S+fm2Oj8AIPo1BTUhg5oxkvm9+SVEGFdhyOz7tTdUTfvxMiAs4sp6/eZO2Ew+pw==
 
+tippy.js@^6.3.7:
+  version "6.3.7"
+  resolved "https://registry.yarnpkg.com/tippy.js/-/tippy.js-6.3.7.tgz#8ccfb651d642010ed9a32ff29b0e9e19c5b8c61c"
+  integrity sha512-E1d3oP2emgJ9dRQZdf3Kkn0qJgI6ZLpyS5z6ZkY1DF3kaQaBsGZsndEpHwx+eC+tYM41HaSNvNtLx8tU57FzTQ==
+  dependencies:
+    "@popperjs/core" "^2.9.0"
+
 to-fast-properties@^2.0.0:
   version "2.0.0"
   resolved "https://registry.npmjs.org/to-fast-properties/-/to-fast-properties-2.0.0.tgz"
@@ -7132,6 +7208,11 @@ use-memo-one@^1.1.3:
   version "1.1.3"
   resolved "https://registry.npmjs.org/use-memo-one/-/use-memo-one-1.1.3.tgz"
   integrity sha512-g66/K7ZQGYrI6dy8GLpVcMsBp4s17xNkYJVSMvTEevGy3nDxHOfE6z8BVE22+5G5x7t3+bhzrlTDB7ObrEE0cQ==
+
+use-prefers-color-scheme@^1.1.3:
+  version "1.1.3"
+  resolved "https://registry.yarnpkg.com/use-prefers-color-scheme/-/use-prefers-color-scheme-1.1.3.tgz#18945cecbe33566f961fac1b90c079d1ce2d10b5"
+  integrity sha512-ZRgDfb5BFLum/Sud4SpZ+d1YcV+lRbsupw0qQ/rGy5kGrpE3KMUQgEQOKiQQSa4Wslex46n5fKFO+9FGMTosUQ==
 
 use-sidecar@^1.1.2:
   version "1.1.2"
