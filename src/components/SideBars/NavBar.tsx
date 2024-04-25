@@ -102,7 +102,7 @@ const NavBar = () => {
               </Tooltip>
             </TooltipProvider>
           </div>
-          <UserButton afterSignOutUrl='/' />
+          <UserButton afterSignOutUrl='/onboarding'/>
         </div>
       </nav>
       <nav className='md:hidden border-b-2 flex items-center justify-between p-4'>
@@ -137,7 +137,7 @@ const NavBar = () => {
               </div>
               <div className='flex flex-col items-start gap-7 font-medium text-sm'>
                 <div className='flex items-center gap-2'>
-                  <UserButton afterSignOutUrl='/' />
+                  <UserButton afterSignOutUrl='/onboarding' />
                   <span className='text-lg font-bold'>Profile</span>
                 </div>
                 <Separator />

@@ -18,7 +18,7 @@ const WorkspacesSidebar = () => {
                 </Link>
             </div>
             <div>
-                <UserButton />
+                <UserButton afterSignOutUrl='/'/>
             </div>
         </nav>
     )
