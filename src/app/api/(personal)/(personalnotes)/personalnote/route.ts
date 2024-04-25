@@ -6,7 +6,7 @@ import { NextResponse } from "next/server";
 
 export async function GET(req: Request){
     const queryParams = new URLSearchParams(req.url.split('?')[1]); // Extract query parameters
-    const noteId = queryParams.get('noteId'); // Get the value of the 'id' parameter
+    const noteId = queryParams.get('noteId');
 
     const user = await currentUser();
     if (!user) {
