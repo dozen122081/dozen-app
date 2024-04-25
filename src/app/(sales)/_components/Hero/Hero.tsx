@@ -3,6 +3,7 @@ import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { poppins } from "../../lib/constants/useFonts";
 import Image from "next/image";
+import Link from "next/link";
 
 const Hero = () => {
   return (
@@ -35,7 +36,9 @@ const Hero = () => {
           Your Personal Productivity Powerhouse
         </p>
         <div className="flex gap-5 items-center pt-4">
-          <Button className="bg-[#3B7FBD] rounded-full">Get Started</Button>
+          <Link href={"/personal-dashboard"}>
+            <Button className="bg-[#3B7FBD] rounded-full">Get Started</Button>
+          </Link>
           <button className="border-2 border-[#3B7FBD] text-[14px] px-4 py-[7px] rounded-full hover:text-white hover:bg-black/80 hover:border-black/80">
             Learn More
           </button>
