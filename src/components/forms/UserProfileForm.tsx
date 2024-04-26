@@ -21,18 +21,9 @@ import { createUpdateUserData } from "@/lib/backend-actions/user.actions";
 import { usePathname, useRouter } from "next/navigation";
 import { isBase64Image } from "@/lib/utils";
 import { useUploadThing } from "@/lib/validations/uploadthing.validation";
+import { TUserData } from "@/app/(auth)/onboarding/page";
 interface UserProfileFormProps {
-    user: {
-        id: string,
-        email: string,
-        objectId: string,
-        username: string,
-        name: string,
-        onboarded: boolean,
-        image: string,
-        hasPaid: boolean,
-        hasPaidWorkspace: boolean,
-    },
+    user: TUserData,
     btnTitle: string;
 }
 const UserProfileForm = ({

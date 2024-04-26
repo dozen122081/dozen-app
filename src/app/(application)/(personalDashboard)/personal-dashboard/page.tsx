@@ -18,10 +18,11 @@ const page = () => {
         const fetchData = async () => {
             try {
                 const response = await fetch('/api/user');
-                if (!response.ok) {
-                    throw new Error(await response.text());
-                }
+                            
                 const data = await response.json();
+                if(data?.message){
+                    return redirect('/onboarding')
+                }
                 setUserData(data);
             } catch (err: any) {
                 setError(err.message);
@@ -44,7 +45,8 @@ const page = () => {
             </div>
         )
     }
-    if (!userData.onboarded) redirect("/onboarding")
+    console.log(userData)
+    if (!userData?.onboarded) redirect("/onboarding")
     if (!userData.hasPaid) {
         return <AppPaymentUi />
     }

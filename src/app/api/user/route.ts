@@ -2,6 +2,7 @@ import User from "@/lib/models/user.model";
 import { connectToDatabase } from "@/lib/mongoose";
 import { currentUser } from "@clerk/nextjs";
 import { revalidatePath } from "next/cache";
+import { redirect } from "next/navigation";
 import { NextResponse } from "next/server";
 
 export type UserData = {
@@ -36,7 +37,7 @@ export type UserData = {
       const userData = await User.findOne({ id: user.id });
   
       if (!userData) {
-        return new NextResponse("User not found", { status: 404 });
+        return new NextResponse(JSON.stringify({message: "User not found"}));
       }
   
       return new NextResponse(JSON.stringify(userData), { headers: { 'Content-Type': 'application/json' } });
