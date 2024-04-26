@@ -28,6 +28,7 @@ interface UserProfileFormProps {
         objectId: string,
         username: string,
         name: string,
+        onboarded: boolean,
         image: string,
         hasPaid: boolean,
         hasPaidWorkspace: boolean,

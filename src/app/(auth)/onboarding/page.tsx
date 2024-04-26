@@ -12,18 +12,19 @@ const page = async () => {
   // get user data from db 
   const userDataFromDb = await fetchUserData(user.id)
   console.log(userDataFromDb)
-  if(userDataFromDb?.onboarded) return redirect("/personal-dashboard");
-
+  
   const userData = {
     id: user.id,
     objectId: userDataFromDb?._id,
     username: userDataFromDb ? userDataFromDb.username : user.username,
     email: user.emailAddresses[0].emailAddress,
     name: userDataFromDb ? userDataFromDb.name : user.firstName,
+    onboarded: userDataFromDb ? userDataFromDb.onboarded : false,
     image: userDataFromDb ? userDataFromDb.image : user.imageUrl,
     hasPaid: userDataFromDb ? userDataFromDb.hasPaid : false,
     hasPaidWorkspace: userDataFromDb ? userDataFromDb.hasPaidWorkspace : false,
   }
+  if(userDataFromDb?.onboarded) return redirect("/personal-dashboard");
   return (
     <section className='w-full min-h-screen py-3 md:py-10'>
       <MaxWidthWrapper className='flex flex-col gap-10 md:gap-20 items-start p-6 w-full'>

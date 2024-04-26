@@ -1,6 +1,6 @@
 "use client"
 import React, { useEffect, useState } from 'react';
-import { fetchUserData } from '@/lib/backend-actions/user.actions';
+import { UserData, fetchUserData } from '@/lib/backend-actions/user.actions';
 import MaxWidthWrapper from '@/lib/MaxWidthWrapper';
 import { currentUser, useUser } from '@clerk/nextjs';
 import { PayPalButtons, PayPalScriptProvider } from '@paypal/react-paypal-js';
@@ -11,7 +11,7 @@ import { Link } from 'next-view-transitions';
 
 const Page = () => {
   const { user } = useUser();
-  const [userData, setUserData] = useState(null);
+  const [userData, setUserData] = useState<UserData>();
   const [isFromNepal, setIsFromNepal] = useState(null);
   const [onClient, setOnClient] = useState(false);
   const [clientIp, setClientIp] = useState("")
@@ -64,7 +64,7 @@ const Page = () => {
   }, [clientIp]); // Run only when clientIp changes
 
   if (!onClient || isFromNepal === null) return null;
-
+  if(!userData?.onboarded) return redirect("/onboarding");
   console.log("is from nepal: ", isFromNepal);
 
   return (
