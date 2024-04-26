@@ -6,6 +6,11 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { UserValidation } from "@/lib/validations/user.validation";
 import { Button } from "@/components/ui/button"
 import {
+    Avatar,
+    AvatarFallback,
+    AvatarImage,
+} from "@/components/ui/avatar"
+import {
     Form,
     FormControl,
     FormDescription,
@@ -95,7 +100,7 @@ const UserProfileForm = ({
         if (pathname === "/profile/edit") {
             router.back();
         } else {
-            if(!user.hasPaid){
+            if (!user.hasPaid) {
                 router.push("/apppayment");
             } else {
                 router.push("/personal-dashboard");
@@ -115,22 +120,18 @@ const UserProfileForm = ({
                         <FormItem className='flex items-center gap-4 mb-7'>
                             <FormLabel className=''>
                                 {field.value ? (
-                                    <Image
-                                        src={field.value}
-                                        alt='profile_icon'
-                                        width={96}
-                                        height={96}
-                                        priority
-                                        className='rounded-full object-contain'
-                                    />
+                                    <Avatar>
+                                        <AvatarImage 
+                                            src={field.value}
+                                            alt="profile_icon" 
+                                        />
+                                        <AvatarFallback>DZ</AvatarFallback>
+                                    </Avatar>
                                 ) : (
-                                    <Image
-                                        src='/assets/profile.svg'
-                                        alt='profile_icon'
-                                        width={24}
-                                        height={24}
-                                        className='object-contain'
-                                    />
+                                    <Avatar>
+                                        <AvatarImage src='/assets/profile.svg' alt="profile_icon" />
+                                        <AvatarFallback>DZ</AvatarFallback>
+                                    </Avatar>
                                 )}
                             </FormLabel>
                             <FormControl className='flex-1 text-base-semibold text-gray-200'>
