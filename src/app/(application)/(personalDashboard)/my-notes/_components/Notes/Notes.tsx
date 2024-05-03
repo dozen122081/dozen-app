@@ -116,7 +116,7 @@ const Notes = ({
                                 className="col-span-3 p-1 bg-neutral-50 rounded-lg border-2 border-slate-400"
                             />
                             <SheetDescription>
-                                Create notes that help you organize and recal
+                                Create notes that help you organize and recall
                             </SheetDescription>
                         </SheetHeader>
                         <SheetFooter>

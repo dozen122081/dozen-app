@@ -98,7 +98,7 @@ const BlockNote = ({
                         {noteTitle}
                     </Label>
                 </div>
-                <Button onClick={() => handleSubmit(userId)}>
+                <Button onClick={() => handleSubmit(userId)} className="relative right-10">
                     {
                         saving ? (
                             <span>Saving...</span>

@@ -37,7 +37,6 @@ const page = () => {
     if (isLoading || !userData) {
         return (
             <div className='h-screen w-full flex justify-center items-center'>
-                {/* <FaSpinner className='h-7 w-7 animate-spin' /> */}
                 <div className='flex flex-col gap-2 items-center'>
                     <span className="loading loading-dots loading-lg"></span>
                     <span>Loading...</span>
