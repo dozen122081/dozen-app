@@ -19,7 +19,7 @@ const colorTheme = {
     light: lightDefaultTheme,
     dark: lightDefaultTheme,
 };
-const BlockNote = ({
+const   BlockNote = ({
     userId,
     noteId
 }: BlockNoteProps) => {

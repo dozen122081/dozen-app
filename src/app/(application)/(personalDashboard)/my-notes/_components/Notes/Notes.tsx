@@ -111,7 +111,7 @@ const Notes = ({
                             <SheetTitle>Note Title</SheetTitle>
                             <Input
                                 id="name"
-                                defaultValue="Untitled"
+                                defaultValue="set new title"
                                 onChange={(e) => setTitle(e.target.value)}
                                 className="col-span-3 p-1 bg-neutral-50 rounded-lg border-2 border-slate-400"
                             />

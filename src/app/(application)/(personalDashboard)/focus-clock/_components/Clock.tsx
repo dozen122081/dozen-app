@@ -17,7 +17,7 @@ interface DateData {
 }
 
 const Clock: React.FC = () => {
-  const [targetDate, setTargetDate] = useState<string>("2024-12-31T23:59:59");
+  const [targetDate, setTargetDate] = useState<string>("2025-01-01T00:00:00");
   const [dbDate, setDbDate] = useState<DateData[]>([]);
   const [selectedDate, setSelectedDate] = useState<string | null>(null);
   const [countdownValues, setCountdownValues] = useState<CountdownValues>({
@@ -50,6 +50,7 @@ const Clock: React.FC = () => {
       const response = await fetch("/api/handleDate");
 
       if (response.ok) {
+        
         const data: DateData[] = await response.json();
         setDbDate(data);
         if (data.length > 0) {
@@ -64,6 +65,11 @@ const Clock: React.FC = () => {
   };
 
   const handleSubmit = async () => {
+    if (dbDate.some((date) => date.date === targetDate)) {
+      alert("Same date already exists!");
+      return;
+    }
+
     try {
       const response = await fetch("api/handleDate", {
         method: "POST",
@@ -94,6 +100,7 @@ const Clock: React.FC = () => {
         console.log("Data deleted successfully");
         // Remove the deleted item from the state
         setDbDate(dbDate.filter((item) => item._id !== id));
+        setSelectedDate(null);
       } else {
         console.error("Failed to delete data:", response.statusText);
       }
@@ -106,15 +113,37 @@ const Clock: React.FC = () => {
     fetchData();
   }, []);
 
+  // useEffect(() => {
+  //   if (selectedDate) {
+  //     const interval = setInterval(() => {
+  //       setCountdownValues(calculateCountdown(selectedDate));
+  //     }, 1000);
+
+  //     return () => clearInterval(interval);
+  //   }
+  // }, [selectedDate]);
+
   useEffect(() => {
-    if (selectedDate) {
+    if (selectedDate !== null) {
       const interval = setInterval(() => {
         setCountdownValues(calculateCountdown(selectedDate));
+        if (countdownValues.textDay < 0) {
+          alert("The selected date is in the past!");
+        }
       }, 1000);
 
       return () => clearInterval(interval);
+    } else {
+      // Reset countdown values when selectedDate is null
+      setCountdownValues({
+        textDay: 0,
+        textHour: 0,
+        textMinute: 0,
+        textSecond: 0,
+      });
     }
   }, [selectedDate]);
+
 
   return (
     <>
@@ -123,7 +152,13 @@ const Clock: React.FC = () => {
           <div>
             <label className="text-5xl font-bold">CountDown</label>
           </div>
-          {selectedDate && (
+          {countdownValues.textDay < 0 ? (
+            <>
+              <h2 className="text-2xl">Congratulations!</h2>
+              <p>Enter new date</p>
+            </>
+          ) : (
+
             <div className={`flex gap-20 text-2xl `}>
               <span>
                 Day <br /> {countdownValues.textDay}
