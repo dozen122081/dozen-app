@@ -41,7 +41,7 @@ const Hero = () => {
           <Link href={"/personal-dashboard"}>
             <Button className="bg-[#3B7FBD] rounded-full">Get Started</Button>
           </Link>
-          <Link href={'/Dashboard'}>
+          <Link href={'/demo-dashboard'}>
           <button className="border-2 border-[#3B7FBD] text-[14px] px-4 py-[7px] rounded-full hover:text-white hover:bg-black/80 hover:border-black/80">
             Free Trial
           </button>
