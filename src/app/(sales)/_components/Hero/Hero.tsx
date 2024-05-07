@@ -1,9 +1,11 @@
+"use client"
 import React from "react";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { poppins } from "../../lib/constants/useFonts";
 import Image from "next/image";
 import Link from "next/link";
+
 
 const Hero = () => {
   return (
@@ -39,9 +41,11 @@ const Hero = () => {
           <Link href={"/personal-dashboard"}>
             <Button className="bg-[#3B7FBD] rounded-full">Get Started</Button>
           </Link>
+          <Link href={'/Dashboard'}>
           <button className="border-2 border-[#3B7FBD] text-[14px] px-4 py-[7px] rounded-full hover:text-white hover:bg-black/80 hover:border-black/80">
-            Learn More
+            Free Trial
           </button>
+          </Link>
         </div>
       </div>
       <div className=" pt-3 lg:h-[35rem] lg:w-[45rem] flex items-center justify-center">
@@ -59,4 +63,4 @@ const Hero = () => {
   );
 };
 
-export default Hero;
+export default Hero

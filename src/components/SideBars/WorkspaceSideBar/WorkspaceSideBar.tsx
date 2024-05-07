@@ -36,6 +36,19 @@ const Personal_Workspace_Sidebar_Links = [
     href: "stickynotes",
     icon: <StickyNote className='h-4 w-4' />,
   },
+  {
+    id: 4,
+    title: "Focus Clock",
+    href: "focus-clock",
+    icon: <StickyNote className='h-4 w-4' />,
+  },
+  {
+    id: 5,
+    title: "Notes",
+    href: "notes",
+    icon: <StickyNote className='h-4 w-4' />,
+  },
+  
 ]
 const WorkspaceSideBar = () => {
   const pathname = usePathname();
