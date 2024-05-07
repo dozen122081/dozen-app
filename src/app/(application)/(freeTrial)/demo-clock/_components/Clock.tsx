@@ -64,6 +64,7 @@ const Clock: React.FC = () => {
     }
   };
 
+    
   const handleSubmit = async () => {
     if (dbDate.some((date) => date.date === targetDate)) {
       alert("Same date already exists!");
