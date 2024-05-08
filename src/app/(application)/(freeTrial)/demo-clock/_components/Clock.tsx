@@ -1,5 +1,4 @@
-"use client";
-
+'use client'
 import { Button } from "@/components/ui/button";
 import React, { useEffect, useState } from "react";
 import { MdAutoDelete } from "react-icons/md";
@@ -11,14 +10,26 @@ interface CountdownValues {
   textSecond: number;
 }
 
-interface DateData {
-  _id: string;
+interface EventData {
+  id: string;
   date: string;
 }
 
+const AlertModal: React.FC<{ message: string; onClose: () => void }> = ({ message, onClose }) => {
+  return (
+    <div className="fixed top-0 left-0 w-full h-full flex justify-center items-center bg-gray-500 bg-opacity-50 z-50">
+      <div className="bg-gray-800 p-6 rounded-lg shadow-md">
+        <p className="text-xl text-white">{message}</p>
+        <button className="mt-4 px-4 py-2 bg-blue-500 text-white rounded-md" onClick={onClose}>
+          Close
+        </button>
+      </div>
+    </div>
+  );
+};
+
 const Clock: React.FC = () => {
-  const [targetDate, setTargetDate] = useState<string>("2025-01-01T00:00:00");
-  const [dbDate, setDbDate] = useState<DateData[]>([]);
+  const [targetDate, setTargetDate] = useState<string>("2024-12-31T23:59:59");
   const [selectedDate, setSelectedDate] = useState<string | null>(null);
   const [countdownValues, setCountdownValues] = useState<CountdownValues>({
     textDay: 0,
@@ -26,6 +37,9 @@ const Clock: React.FC = () => {
     textMinute: 0,
     textSecond: 0,
   });
+  const [events, setEvents] = useState<EventData[]>([]);
+  const [showAlert, setShowAlert] = useState<boolean>(false); // State to control alert modal
+  const [alertMessage, setAlertMessage] = useState<string>("");
 
   const calculateCountdown = (date: string): CountdownValues => {
     const targetTime = new Date(date).getTime();
@@ -45,112 +59,41 @@ const Clock: React.FC = () => {
     return { textDay, textHour, textMinute, textSecond };
   };
 
-  const fetchData = async () => {
-    try {
-      const response = await fetch("/api/handleDate");
-
-      if (response.ok) {
-        
-        const data: DateData[] = await response.json();
-        setDbDate(data);
-        if (data.length > 0) {
-          setSelectedDate(data[data.length - 1].date); // Set selectedDate to the first item in dbData
-        }
-      } else {
-        console.error("Failed to fetch data:", response.statusText);
-      }
-    } catch (error) {
-      console.error("Error fetching data:", error);
+  const handleSubmit = () => {
+    const existingDate = events.find((event) => event.date === targetDate);
+    if (existingDate) {
+      setAlertMessage("Same date already exists!");
+      setShowAlert(true);
+    } else {
+      setCountdownValues(calculateCountdown(targetDate));
+      setSelectedDate(targetDate);
+      setEvents([...events, { id: new Date().getTime().toString(), date: targetDate }]);
     }
   };
 
-    
-  const handleSubmit = async () => {
-    if (dbDate.some((date) => date.date === targetDate)) {
-      alert("Same date already exists!");
-      return;
-    }
-
-    try {
-      const response = await fetch("api/handleDate", {
-        method: "POST",
-        body: JSON.stringify({ targetDate }),
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
-
-      if (!response.ok) {
-        throw new Error("error submitting date");
-      }
-      fetchData();
-    } catch (error) {
-      console.error("error: ", error);
-    }
-  };
-
-  const handleDelete = async (id: string) => {
-    try {
-      const response = await fetch(`/api/handleDate`, {
-        method: "DELETE",
-        body: JSON.stringify({ id: id }), // Send _id in the request body
-        headers: { "Content-Type": "application/json" },
-      });
-
-      if (response.ok) {
-        console.log("Data deleted successfully");
-        // Remove the deleted item from the state
-        setDbDate(dbDate.filter((item) => item._id !== id));
-        setSelectedDate(null);
-      } else {
-        console.error("Failed to delete data:", response.statusText);
-      }
-    } catch (error) {
-      console.error("Error deleting data:", error);
-    }
+  const handleDelete = (id: string) => {
+    setEvents(events.filter((event) => event.id !== id));
   };
 
   useEffect(() => {
-    fetchData();
-  }, []);
-
-  useEffect(() => {
-    if (selectedDate !== null) {
+    if (selectedDate) {
       const interval = setInterval(() => {
         setCountdownValues(calculateCountdown(selectedDate));
-        if (countdownValues.textDay < 0) {
-          alert("The selected date is in the past!");
-        }
       }, 1000);
 
       return () => clearInterval(interval);
-    } else {
-      // Reset countdown values when selectedDate is null
-      setCountdownValues({
-        textDay: 0,
-        textHour: 0,
-        textMinute: 0,
-        textSecond: 0,
-      });
     }
   }, [selectedDate]);
 
-
   return (
     <>
-      <div className="flex justify-center items-center h-[100vh">
-        <div className="flex flex-col gap-10 h-[100vh] w-full py-16 justify-start items-center ">
+      <div className="flex justify-center items-center h-[100vh]">
+        <div className="flex flex-col gap-10 h-[100vh] w-full py-16 justify-start items-center">
           <div>
             <label className="text-5xl font-bold">CountDown</label>
           </div>
-          {countdownValues.textDay < 0 ? (
-            <>
-              <h2 className="text-2xl">Congratulations!</h2>
-              <p>Enter new date</p>
-            </>
-          ) : (
-
-            <div className={`flex gap-20 text-2xl `}>
+          {selectedDate && (
+            <div className={`flex gap-20 text-2xl`}>
               <span>
                 Day <br /> {countdownValues.textDay}
               </span>
@@ -168,30 +111,28 @@ const Clock: React.FC = () => {
           <div className="flex flex-col gap-5 w-[40%] p-10 border-2 text-xl">
             <label>Enter Target Date:</label>
             <input
-                className="w-[100%] rounded-lg pt-3 text-center bg-blue-400 text-black-800"
-                type="datetime-local"
-                value={targetDate}
-                onChange={(e) => setTargetDate(e.target.value)}
-                placeholder="Enter custom date (e.g., YYYY-MM-DD HH:MM:SS)"
+              className="w-[100%] rounded-lg pt-3 text-center bg-blue-400 text-black-800"
+              type="datetime-local"
+              value={targetDate}
+              onChange={(e) => setTargetDate(e.target.value)}
+              placeholder="Enter custom date (e.g., YYYY-MM-DD HH:MM:SS)"
             />
             <div className="flex justify-center items-center">
-              <Button onClick={handleSubmit}>
-                Add Date
-              </Button>
+              <Button onClick={handleSubmit}>Add Date</Button>
             </div>
 
             <label htmlFor="">Some Events</label>
             <div className="flex flex-col h-[20vh] max-h-[50vh] overflow-auto">
-              {dbDate.map((date) => (
-                <div key={date._id} className="flex gap-5">
+              {events.map((event) => (
+                <div key={event.id} className="flex gap-5">
                   <input
                     type="checkbox"
-                    onChange={() => setSelectedDate(date.date)}
-                    checked={date.date === selectedDate}
+                    onChange={() => setSelectedDate(event.date)}
+                    checked={event.date === selectedDate}
                   />
-                  <label>{date.date}</label>
-                  <button onClick={() => handleDelete(date._id)}>
-                    <MdAutoDelete className=" text-cyan-900" />
+                  <label>{event.date}</label>
+                  <button onClick={() => handleDelete(event.id)}>
+                    <MdAutoDelete className="text-cyan-900" />
                   </button>
                 </div>
               ))}
@@ -199,6 +140,7 @@ const Clock: React.FC = () => {
           </div>
         </div>
       </div>
+      {showAlert && <AlertModal message={alertMessage} onClose={() => setShowAlert(false)} />}
     </>
   );
 };
