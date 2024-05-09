@@ -17,16 +17,16 @@ const NavBar = () => {
   return (
     <>
       <nav className='hidden md:flex items-center justify-between p-4'>
-        <div>
+        <Link href={'/'}>
           <h2 className='text-2xl font-bold'>Dozen</h2>
-        </div>
+        </Link>
         <div className='flex gap-4 items-center'>
           <TooltipProvider>
             <Tooltip>
               <TooltipTrigger asChild>
-                <Link href="/features" className='hover:underline transition-all duration-300'>
+                <div className='hover:underline transition-all duration-300'>
                   <DraftingCompass className='h-5 w-5' />
-                </Link>
+                </div>
               </TooltipTrigger>
               <TooltipContent sideOffset={25}>
                 <p>Feature Board</p>
@@ -36,9 +36,9 @@ const NavBar = () => {
           <TooltipProvider>
             <Tooltip>
               <TooltipTrigger asChild>
-                <Link href="/workspace" className='hover:underline transition-all duration-300'>
+                <div className='hover:underline transition-all duration-300'>
                   <Blocks className='h-5 w-5' />
-                </Link>
+                </div>
               </TooltipTrigger>
               <TooltipContent sideOffset={25}>
                 <p>Workspace</p>
@@ -48,9 +48,9 @@ const NavBar = () => {
           <TooltipProvider>
             <Tooltip>
               <TooltipTrigger asChild>
-                <Link href="/settings" className='hover:underline transition-all duration-300'>
+                <div className='hover:underline transition-all duration-300'>
                   <IoSettings className='h-5 w-5' />
-                </Link>
+                </div>
               </TooltipTrigger>
               <TooltipContent sideOffset={25}>
                 <p>Settings</p>
@@ -62,9 +62,9 @@ const NavBar = () => {
 
 
       <nav className='md:hidden border-b-2 flex items-center justify-between p-4'>
-        <div>
+        <Link href={'/'}>
           <h2 className='text-2xl font-bold'>Dozen</h2>
-        </div>
+        </Link>
         <div
           typeof='button'
           onClick={() => setShowNav(!showNav)}
@@ -92,26 +92,25 @@ const NavBar = () => {
               </div>
               <Separator />
               <div className='flex flex-1 flex-col gap-4'>
-                <Link href="/features" className='hover:underline transition-all duration-300'>
+                <div className='hover:underline transition-all duration-300'>
                   <div className='flex items-center gap-1'>
                     <Hammer className='h-4 w-4' />
                     <span>Feature Board</span>
                   </div>
-                </Link>
-                <Link href="/workspace" className='hover:underline transition-all duration-300'>
+                </div>
+                <div className='hover:underline transition-all duration-300'>
                   <div className='flex items-center gap-1'>
                     <span>My Workspaces</span>
                   </div>
-                </Link>
-                <Link
-                  href="/settings"
+                </div>
+                <div
                   className='hover:underline transition-all duration-300 '
                 >
                   <div className='flex items-center gap-1'>
-                    <IoSettings className='h-4 w-4' />
+                    <IoSettings className='h-4 w-4 ' />
                     <span>Settings</span>
                   </div>
-                </Link>
+                </div>
               </div>
               <Button className='w-full font-bold'>
                 Log Out
