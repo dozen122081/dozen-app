@@ -1,6 +1,5 @@
 "use client"
 import { UserData } from '@/app/api/user/route';
-import { SignOutButton, UserButton, useUser } from '@clerk/nextjs'
 import { Blocks, Boxes, DraftingCompass, Group, Hammer, Shrink } from 'lucide-react';
 import { Link } from 'next-view-transitions'
 import { useEffect, useState } from 'react';
@@ -11,35 +10,33 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip"
-import { Button } from '@/components/ui/button';
-import { Separator } from '@/components/ui/separator';
-import { Skeleton } from '@/components/ui/skeleton';
+import { Button, Skeleton } from '@mantine/core';
+import { Separator } from '@radix-ui/react-separator';
+import { UserButton } from '@clerk/nextjs';
 const NavBar = () => {
-  const { user } = useUser()
   const [userData, setUserData] = useState<UserData>();
   const [error, setError] = useState<string | null>(null);
   const [showNav, setShowNav] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  useEffect(() => {
-    setIsLoading(true)
-    const fetchData = async () => {
-      try {
-        const response = await fetch('/api/user');
-        if (!response.ok) {
-          throw new Error(await response.text());
-        }
-        const data = await response.json();
-        setUserData(data);
-      } catch (err: any) {
-        setError(err.message);
-      } finally {
-        setIsLoading(false)
-      }
-    };
+  // useEffect(() => {
+  //   setIsLoading(true)
+  //   const fetchData = async () => {
+  //     try {
+  //       const response = await fetch('/api/user');
+  //       if (!response.ok) {
+  //         throw new Error(await response.text());
+  //       }
+  //       const data = await response.json();
+  //       setUserData(data);
+  //     } catch (err: any) {
+  //       setError(err.message);
+  //     } finally {
+  //       setIsLoading(false)
+  //     }
+  //   };
 
-    fetchData();
-  }, []);
-  if (!user) return null;
+  //   fetchData();
+  // }, []);
   if (isLoading) {
     return (
       <nav className='h-14 w-full px-4 py-2 border-b-2 flex justify-between items-center'>
@@ -165,11 +162,9 @@ const NavBar = () => {
                     </div>
                   </Link>
                 </div>
-                <SignOutButton>
                   <Button className='w-full font-bold'>
                     Log Out
                   </Button>
-                </SignOutButton>
               </div>
             </aside>
           )
