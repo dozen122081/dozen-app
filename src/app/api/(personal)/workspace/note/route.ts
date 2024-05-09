@@ -1,7 +1,7 @@
-import User from "@/models/user.models";
-import { WorkspaceNotes } from "@/models/workspace.notes.model";
-import { connectToDatabase } from "@/mongoose";
 // import { currentUser } from "@clerk/nextjs";
+import { WorkspaceNotes } from "@/lib/models/personalWorkspace/workspace.notes.model";
+import User from "@/lib/models/user.model";
+import { connectToDatabase } from "@/lib/mongoose";
 import { NextResponse } from "next/server";
 
 export async function GET(req: Request) {
