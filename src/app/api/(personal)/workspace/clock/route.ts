@@ -18,7 +18,7 @@ export async function GET(req: Request) {
         const clockDate = await WorkspaceDate.find({ author: user.id, workspaceId: workspaceId })
         .sort({ createdAt: "desc" })
         .exec();
-        const clockDateData = clockDate.map((date: { _id: { toString: () => any; }; date: any; workspaceId: any; author: { toString: () => any; }; }) => ({
+        const clockDateData = clockDate.map((date) => ({
             id: date._id.toString(),
             date: date.date,
             workspaceId: date.workspaceId,

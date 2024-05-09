@@ -57,7 +57,7 @@ const NavBar = () => {
   return (
     <>
       <nav className='hidden border-b-2 md:flex items-center justify-between px-4 py-2'>
-        <div>
+        {/* <div>
           <h2 className='text-2xl font-bold'>Dozen</h2>
         </div>
         <div className='flex items-center gap-7 font-medium text-sm'>
@@ -121,7 +121,7 @@ const NavBar = () => {
           </div>
         </div>
         {
-          showNav && (
+          showNav && ( */}
             <aside className='h-screen bg-background w-screen absolute top-0 left-0 z-[9999] p-2'>
               <div className='w-full flex justify-end'>
                 <Button
@@ -167,8 +167,8 @@ const NavBar = () => {
                   </Button>
               </div>
             </aside>
-          )
-        }
+          {/* )
+        } */}
       </nav>
     </>
   )
