@@ -2,14 +2,14 @@
 import { useEffect, useMemo, useState } from "react";
 
 import { Button } from "@/components/ui/button";
-import { BlockNoteEditor, PartialBlock } from "@blocknote/core";
-import { BlockNoteView, lightDefaultTheme } from "@blocknote/mantine";
+import { BlockNoteView, lightDefaultTheme } from "@blocknote/react";
 import "@blocknote/core/fonts/inter.css";
 import "@blocknote/react/style.css";
 import "@blocknote/core/fonts/inter.css";
 import { Label } from "@/components/ui/label";
 import { ArrowLeft, ChevronLeft } from "lucide-react";
 import Link from "next/link";
+import { BlockNoteEditor, PartialBlock } from "@blocknote/core";
 
 interface BlockNoteProps {
     userId: string;
